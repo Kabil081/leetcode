@@ -1,0 +1,21 @@
+#include<string.h>
+int finalValueAfterOperations(char** operations, int operationsSize) 
+{
+    int result=0;
+    for(int i=0;i<operationsSize;i++)
+    {
+        result=result+check(operations[i]);
+    }
+    return result;
+}
+int check(char *s)
+{
+    char a[]="--X",b[]="X--";
+    if ((strcmp(a, s) == 0) || (strcmp(b, s) == 0))
+    {
+        return -1;
+    }
+    else{
+        return 1;
+    }
+}
