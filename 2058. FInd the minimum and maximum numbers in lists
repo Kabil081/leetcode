@@ -1,0 +1,60 @@
+#include <limits.h>
+#include <stdlib.h>
+
+int* nodesBetweenCriticalPoints(struct ListNode* head, int* returnSize) {
+    if (head == NULL || head->next == NULL || head->next->next == NULL) {
+        int *r = (int*)malloc(2 * sizeof(int));
+        r[0] = -1;
+        r[1] = -1;
+        *returnSize = 2;
+        return r;
+    }
+    
+    struct ListNode *temp = head->next;
+    struct ListNode *prev = head;
+    
+    int min = INT_MAX; 
+    int max = INT_MIN;  
+    int first = 0;
+    int cp = -1;
+    int a = 0, b = 0;
+    int i = 1;
+    while (temp->next != NULL) 
+    {
+        if ((temp->val < temp->next->val && temp->val < prev->val) ||
+            (temp->val > temp->next->val && temp->val > prev->val)) 
+        {
+            if (cp == -1) 
+            {
+                first = i;
+                a = i;
+                cp++;
+            } 
+            else 
+            {
+                b = temp->val;
+                if (a != 0 && b != 0) 
+                {
+                    if (b - a < min) 
+                    {
+                        min = b - a;
+                    }
+                    if (b-first > max) 
+                    {
+                        max = b-first;
+                    }
+                }
+                a = b;
+            }
+        }
+        i++;
+        prev = temp;
+        temp = temp->next;
+    }
+    printf("%d %d %d %d",a,b,first,i);
+    int *r = (int*)malloc(2 * sizeof(int));
+    r[0] = min;
+    r[1] = max;
+    *returnSize = 2;
+    return r;
+}
