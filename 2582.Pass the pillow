@@ -1,0 +1,27 @@
+int passThePillow(int n, int time) 
+{
+    int i=1,cp=0;
+    while(time!=0)
+    {
+        if(cp==0 && i==n)
+        {
+            cp++;
+            i--;
+        }
+        else if(cp==0)
+        {
+            i++;
+        }
+        else if(i==1 && cp>0)
+        {
+            i++;
+            cp--;
+        }
+        else if(cp>0)
+        {
+            i--;
+        }
+        time--;
+    }
+    return i;
+}
