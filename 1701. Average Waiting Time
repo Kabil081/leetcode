@@ -1,0 +1,17 @@
+double averageWaitingTime(int** customers, int customersSize, int* customersColSize) 
+{
+    double result=0;
+    int service=0,current=customers[0][0];
+    for(int i=0;i<customersSize;i++)
+    {
+        if(current<customers[i][0]){
+            current=customers[i][0];
+        }
+        service=current+customers[i][1];  
+        current=service;
+        service=service-customers[i][0];
+        result+=service;
+        service=0;
+    }
+    return result/customersSize;
+}
