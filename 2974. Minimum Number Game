@@ -1,0 +1,22 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* numberGame(int* nums, int numsSize, int* returnSize)
+{
+    *returnSize=numsSize;
+    int *arr=(int*)malloc(*returnSize*(sizeof(int)));    
+    for(int i=0;i<numsSize;i++){
+        for(int j=1;j<numsSize;j++){
+            if(nums[j]<nums[j-1]){
+                int temp=nums[j];
+                nums[j]=nums[j-1];
+                nums[j-1]=temp;
+            }
+        }
+    }
+    for(int i=0;i<numsSize;i+=2){
+        arr[i]=nums[i+1];
+        arr[i+1]=nums[i];
+    }
+    return arr;
+}
