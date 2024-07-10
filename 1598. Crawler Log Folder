@@ -1,0 +1,19 @@
+#include<string.h>
+int minOperations(char** logs, int logsSize)
+{
+    int c=0;
+    for(int i=0;i<logsSize;i++){
+        if(strcmp(logs[i],"../")==0){
+            if(c>0){
+                c--;
+            }
+        }
+        else if(strcmp(logs[i],"./")==0){
+            continue;
+        }
+        else{
+            c++;
+        }
+    }    
+    return c;
+}
