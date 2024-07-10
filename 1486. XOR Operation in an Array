@@ -1,0 +1,11 @@
+int xorOperation(int n, int start)
+{    
+    int r=0,a,i=0;
+    while(n!=0){
+        a=start+(2*i);
+        r=r^a;
+        n--;
+        i++;
+    }
+    return r;
+}
