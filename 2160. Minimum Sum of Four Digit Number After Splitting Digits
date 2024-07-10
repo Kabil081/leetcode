@@ -1,0 +1,19 @@
+int minimumSum(int num) 
+{    
+    int n=num,result=0;
+    int *arr=(int*)malloc(4*sizeof(int));
+    for(int i=0;i<4;i++){
+        arr[i]=n%10;
+        n/=10;
+    }
+    for(int i=0;i<4;i++){
+        for(int j=1;j<4;j++){
+            if(arr[j-1]>arr[j]){
+                int t=arr[j-1];
+                arr[j-1]=arr[j];
+                arr[j]=t;
+            }
+        }
+    }
+    return result+((arr[0]*10)+arr[2])+((arr[1]*10)+arr[3]);
+}
