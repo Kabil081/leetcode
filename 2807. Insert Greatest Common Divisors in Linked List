@@ -6,7 +6,7 @@
  * };
  */
 struct ListNode*insert(struct ListNode*head,int data){
-    struct ListNode*newnode=(struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode*newnode=(struct ListNode*)malloc(sizeof(struct ListNode)); 
     newnode->val=data;
     newnode->next=head->next;
     head->next=newnode;
