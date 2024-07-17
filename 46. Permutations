@@ -4,7 +4,7 @@ int fact(int n){
     }
     return n*fact(n-1);
 }
-void swap(int*a,int*b){
+void swap(int*a,int*b){ 
     int temp=*a;
     *a=*b;
     *b=temp;
