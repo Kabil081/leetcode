@@ -1,0 +1,45 @@
+int fact(int n){
+    if(n==0 || n==1){
+        return 1;
+    }
+    return n*fact(n-1);
+}
+void swap(int*a,int*b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+int in=0;
+void per(int **ret,int start,int end,int nums[]){
+    if(start==end)
+    {
+        for(int i=0;i<=end;i++)
+        {
+            ret[in][i]=nums[i];
+        }
+        in++;
+    }
+    else{
+        for(int i=start;i<=end;i++){
+            swap(&nums[i],&nums[start]);
+            per(ret,start+1,end,nums);
+            swap(&nums[start],&nums[i]);
+        }
+    }
+}
+int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) 
+{
+    *returnSize=fact(numsSize);
+    int**ret=(int**)malloc(*returnSize*sizeof(int*));
+    for(int i=0;i<*returnSize;i++)
+    {
+        ret[i]=(int*)malloc(numsSize*sizeof(int));
+    }
+    per(ret,0,numsSize-1,nums);
+    in=0;
+    *returnColumnSizes=(int*)malloc(*returnSize*sizeof(int));
+    for(int i=0;i<*returnSize;i++){
+        (*returnColumnSizes)[i]=numsSize;
+    }
+    return ret;
+}
