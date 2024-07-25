@@ -1,0 +1,42 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+void merge(int *nums,int left,int m,int right){
+    int r1=m-left+1,r2=right-m;
+    int l[r1],r[r2];
+    for(int i=0;i<r1;i++){
+        l[i]=nums[left+i];
+    }
+    for(int j=0;j<r2;j++){
+        r[j]=nums[m+1+j];
+    }
+    int k=left,i=0,j=0;
+    while(i<r1 && j<r2){
+        if(l[i]<r[j]){
+            nums[k++]=l[i++];
+        }else{
+            nums[k++]=r[j++];
+        }
+    }
+    while(i<r1){
+        nums[k++]=l[i++];
+    }
+    while(j<r2){
+        nums[k++]=r[j++];
+    }
+}
+void mergesort(int *nums,int l,int r)
+{
+    if(l<r){
+        int m=l+(r-l)/2;
+        mergesort(nums,l,m);
+        mergesort(nums,m+1,r);
+        merge(nums,l,m,r);
+    }
+}
+int* sortArray(int* nums, int numsSize, int* returnSize) 
+{
+    mergesort(nums,0,numsSize-1);
+    *returnSize=numsSize;
+    return nums;
+}
