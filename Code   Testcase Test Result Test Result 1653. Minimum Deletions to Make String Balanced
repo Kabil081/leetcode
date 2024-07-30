@@ -1,0 +1,14 @@
+int minimumDeletions(char* s) 
+{
+    int j=0,l=strlen(s),del=0,count=0;
+    for(int i=0;i<l;i++){
+        if(s[i]=='b'){
+            count++;
+        }
+        else if(count>0){
+            del++;
+            count--;
+        }
+    }
+    return del;    
+}
