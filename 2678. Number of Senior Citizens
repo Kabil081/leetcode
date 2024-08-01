@@ -1,0 +1,12 @@
+class Solution {
+    public int countSeniors(String[] details){
+        int c=0;
+        for(String s:details){
+            int d1=Character.getNumericValue(s.charAt(11)),d2=Character.getNumericValue(s.charAt(12));
+            if(((d1*10)+d2)>60){
+                c++;
+            }
+        }
+        return c;
+    }
+}
