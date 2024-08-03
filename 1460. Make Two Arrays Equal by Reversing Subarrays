@@ -1,0 +1,16 @@
+bool canBeEqual(int* target, int targetSize, int* arr, int arrSize) {
+    if(arrSize!=targetSize){
+        return false;
+    }
+    int c[1001]={0};
+    for(int i=0;i<arrSize;i++){
+        c[target[i]]++;
+        c[arr[i]]--;
+    }
+    for(int i=0;i<1001;i++){
+        if(c[i]){
+            return false;
+        }
+    }
+    return true;
+}
