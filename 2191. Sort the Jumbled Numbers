@@ -1,0 +1,41 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+struct node{
+    int original;
+    int mapped;
+};
+int compare(const void*a,const void *b)
+{
+    return ((struct node*)a)->mapped - ((struct node*)b)->mapped;
+}
+int* sortJumbled(int* mapping, int mappingSize, int* nums, int numsSize, int* returnSize)
+{
+    *returnSize=numsSize;
+    struct node*arr=(struct node*)malloc(numsSize*sizeof(struct node));
+    int a=0,b=0,j=1;
+    for(int i=0;i<numsSize;i++){
+        int m=nums[i];
+        if(m>=10){
+            while(m!=0){
+                a=m%10;
+                b=b+(mapping[a]*j);
+                j=j*10;
+                m=m/10;
+            }
+        }
+        else{
+            b=mapping[nums[i]];
+        }
+        arr[i].original=nums[i];
+        arr[i].mapped=b;
+        b=0;
+        j=1;
+    }
+    qsort(arr,numsSize,sizeof(struct node),compare);
+    for(int i=0;i<numsSize;i++){
+        nums[i]=arr[i].original;
+    }
+    free(arr);
+    return nums;
+}
