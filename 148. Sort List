@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode*merge(struct ListNode*a,struct ListNode*b){
+    struct ListNode dummy;
+    struct ListNode*res=&dummy;
+    dummy.next=NULL;
+    while(a!=NULL && b!=NULL){
+        if(a->val<b->val){
+            res->next=a;
+            a=a->next;
+        }
+        else{
+            res->next=b;
+            b=b->next;
+        }
+        res=res->next;
+    }
+    if (a != NULL) {
+        res->next = a;
+    } else {
+        res->next = b;
+    }
+    return dummy.next;
+}
+void middle(struct ListNode* head, struct ListNode** front, struct ListNode** back) {
+    if (head == NULL || head->next == NULL) {
+        *front = head;
+        *back = NULL;
+        return;
+    }
+    struct ListNode* slow = head;
+    struct ListNode* fast = head->next;
+    while (fast != NULL) {
+        fast = fast->next;
+        if (fast != NULL) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+    }
+    *front = head;
+    *back = slow->next;
+    slow->next = NULL;
+}
+void mergesort(struct ListNode**head){
+    if(*head==NULL || (*head)->next==NULL){
+        return;
+    }
+    struct ListNode*a,*b;
+    middle(*head,&a,&b);
+    mergesort(&a);
+    mergesort(&b);
+    *head=merge(a,b);
+}
+struct ListNode* sortList(struct ListNode* head) {
+    mergesort(&head);
+    return head;
+}
