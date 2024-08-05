@@ -1,0 +1,27 @@
+int next(int a){
+    int s=0;
+    while(a>0){
+        int r=a%10;
+        s=s+pow(r,2);
+        a/=10;
+    }
+    return s;
+}
+bool isHappy(int temp){
+    if(temp==1 || temp==7 || temp==10 || temp==70){
+        return true;
+    }
+    int fast=temp;
+    while(temp>=10){
+        temp=next(temp);
+        fast=next(fast);
+        fast=next(fast);
+        if(temp==1 || temp==7 || temp==10 || fast==1 || fast==7 || fast==10){
+            return true;
+        }
+        if(fast==temp){
+            return false;
+        }
+    }
+    return false;
+}
