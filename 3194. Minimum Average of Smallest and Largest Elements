@@ -1,0 +1,13 @@
+int compare(const void*a,const void*b){
+    return(*(int*)a - *(int*)b);
+}
+double minimumAverage(int* nums, int numsSize){
+    double min=51.00000;
+    int l=0,r=numsSize-1;
+    qsort(nums,numsSize,sizeof(int),compare);
+    while(l<r){
+        double c=(double)(nums[l++]+nums[r--])/2;
+        min=(c<min)?c:min;
+    }
+    return min;
+}
