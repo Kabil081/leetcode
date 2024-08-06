@@ -1,0 +1,17 @@
+static int compare(const void*a,const void*b){
+    return (*(int*)b - *(int*)a);
+}
+int minimumPushes(char* word){
+    int c=0,j=1,arr[26]={0},l=strlen(word);
+    for(int i=0;i<l;i++){
+        arr[word[i]-'a']++;
+    }
+    qsort(arr,26,sizeof(int),compare);
+    for(int i=0;i<26 && arr[i]>0;i++){
+        c+=j*arr[i];
+        if((i+1)%8==0){
+            j++;
+        }
+    } 
+    return c;
+}
