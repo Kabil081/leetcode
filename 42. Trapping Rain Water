@@ -1,0 +1,27 @@
+int trap(int* height, int heightSize) {
+    if(heightSize<3){
+        return 0;
+    }
+    int s=0,l=0,r=heightSize-1,left=0,right=0;
+    while(l<r){
+        if(height[l]<=height[r]){
+            if(height[l]>=left){
+                left=height[l];
+            }
+            else{
+                s+=left-height[l];
+            }
+            l++;
+        }
+        else{
+            if(height[r]>=right){
+                right=height[r];
+            }
+            else{
+                s+=right-height[r];
+            }
+            r--;
+        }
+    }
+    return s;
+}
