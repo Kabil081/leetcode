@@ -1,0 +1,17 @@
+int*compare(const void*a,const void*b){
+    return(*(int*)a -*(int*)b);
+}
+long long dividePlayers(int* skill, int skillSize) {
+    qsort(skill,skillSize,sizeof(int),compare);
+    int i=0,j=skillSize-1;
+    long long max=skill[i++]*skill[j--];
+    while(i<j){
+        int m=skill[i++]*skill[j--];
+        printf("%d ",max,m);
+        if((skill[i-2]+skill[j+2])!=(skill[i-1]+skill[j+1])){
+            return -1;
+        }
+        max+=m;
+    }
+    return max;
+}
