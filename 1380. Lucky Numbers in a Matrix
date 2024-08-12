@@ -1,0 +1,27 @@
+int* luckyNumbers (int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {
+    int *arr1=(int*)malloc(matrixSize*sizeof(int));
+    int*arr2=(int*)malloc(*matrixColSize*sizeof(int));
+    for(int i=0;i<matrixSize;i++){
+        arr1[i]=100001;
+    }
+    for(int i=0;i<matrixSize;i++){
+        for(int j=0;j<*matrixColSize;j++){
+            if(matrix[i][j]<arr1[i]){
+                arr1[i]=matrix[i][j];
+            }
+            if(matrix[i][j]>arr2[j]){
+                arr2[j]=matrix[i][j];
+            }
+        }
+    }
+    int *res=(int*)malloc(matrixSize*sizeof(int)),resSize=0;
+    for(int i=0;i<matrixSize;i++){
+        for(int j=0;j<*matrixColSize;j++){
+            if(matrix[i][j]==arr1[i] && matrix[i][j]==arr2[j]){
+                res[resSize++]=matrix[i][j];
+            }
+        }
+    }
+    *returnSize=resSize;
+    return res;
+}
