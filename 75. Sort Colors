@@ -1,0 +1,16 @@
+void sortColors(int* nums, int numsSize){
+    int*arr=(int*)malloc(3*sizeof(int));
+    memset(arr,0,3*sizeof(int));
+    for(int i=0;i<numsSize;i++){
+        arr[nums[i]]++;
+    }
+    int j=0,i=0;
+    while(j<3){
+        while(arr[j]!=0){
+            nums[i++]=j;
+            arr[j]--;
+        }
+        j++;
+    }
+    free(arr);
+}
