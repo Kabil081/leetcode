@@ -1,0 +1,31 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+ int*compare(const void*a,const void*b){
+    int a1=*(const int*)a;
+    int b1=*(const int*)b;
+    return(a1>b1)-(a1<b1);
+}
+int* singleNumber(int* nums, int numsSize, int* returnSize) {
+    *returnSize=2;
+    int *arr=(int*)malloc(2*sizeof(int)),i=0;
+    qsort(nums,numsSize,sizeof(int),compare);
+    if(nums[0]!=nums[1]){
+        arr[i++]=nums[0];
+    }
+    if(nums[numsSize-1]!=nums[numsSize-2]){
+        arr[i++]=nums[numsSize-1];
+    }
+    if(i==2){
+        return arr;
+    }
+    for(int j=1;j<numsSize-1;j++){
+        if(nums[j]!=nums[j-1] &&  nums[j]!=nums[j+1]){
+            arr[i++]=nums[j];
+            if(i==2){
+                return arr;
+            }
+        }
+    }
+    return arr;
+}
