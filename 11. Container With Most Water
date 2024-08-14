@@ -1,0 +1,18 @@
+int maxArea(int* arr, int heightSize) {
+    int l=0,r=heightSize-1,max=0;
+    while(l<r){
+        int min=0,area=0;
+        if(arr[l]<arr[r]){
+            min=arr[l];
+            area=min*(r-l);
+            l++;
+        }
+        else{
+            min=arr[r];
+            area=min*(r-l);
+            r--;
+        }
+        max=(max>area)?max:area;
+    }
+    return max;
+}
