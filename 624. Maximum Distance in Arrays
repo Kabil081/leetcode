@@ -1,0 +1,14 @@
+class Solution(object):
+    def maxDistance(self, arrays):
+        max1=float('-inf')
+        min1=float('inf')
+        ans=0
+        for i in arrays:
+            l=len(i)
+            ans=max(ans,max1-i[0],i[l-1]-min1)
+            min1=min(min1,i[0])
+            max1=max(max1,i[l-1])
+        return ans
+
+
+        
