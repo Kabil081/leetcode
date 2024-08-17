@@ -1,0 +1,21 @@
+struct ListNode* deleteDuplicates(struct ListNode* head) {
+    if (head == NULL) {
+        return head;
+    }
+    struct ListNode dummy;
+    dummy.next = head;
+    struct ListNode *prev = &dummy;
+    struct ListNode *current = head;
+    while (current != NULL) {
+        if (current->next != NULL && current->val==current->next->val) {
+            while (current->next != NULL && current->val == current->next->val) {
+                current = current->next;
+            }
+            prev->next = current->next;
+        }else {
+            prev = prev->next;
+        }
+        current = current->next;
+    }
+    return dummy.next;
+}
