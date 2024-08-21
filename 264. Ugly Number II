@@ -1,0 +1,37 @@
+int min(int a,int b,int c){
+    if(a<b && a<c){
+        return a;
+    }
+    else if(b<c){
+        return b;
+    }
+    else{
+        return c;
+    }
+}
+int nthUglyNumber(int n){
+    int*arr=(int*)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++){
+        arr[i]=1;
+    }
+    int t2=0,t3=0,t5=0,next2=2,next3=3,next5=5;
+    for(int i=1;i<n;i++){
+        int nextUgly=min(next2,next3,next5);
+        arr[i]=nextUgly;
+        if(nextUgly==next2){
+            t2++;
+            next2=arr[t2]*2;
+        }
+        if(nextUgly==next3){
+            t3++;
+            next3=arr[t3]*3;
+        }
+        if(nextUgly==next5){
+            t5++;
+            next5=arr[t5]*5;
+        }
+    }
+    int a=arr[n-1];
+    free(arr);
+    return a;
+}
