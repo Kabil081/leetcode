@@ -1,0 +1,18 @@
+
+
+int compare(const void*a,const void*b){
+    return(*(int*)a-*(int*)b);
+}
+int maximumGap(int* nums, int numsSize) {
+    qsort(nums,numsSize,sizeof(int),compare);    
+    if(numsSize<2){
+        return 0;
+    }
+    int max=INT_MIN;
+    for(int j=numsSize-1;j>0;j--){
+        if((nums[j]-nums[j-1])>max){
+            max=nums[j]-nums[j-1];
+        }
+    }
+    return max;
+}
