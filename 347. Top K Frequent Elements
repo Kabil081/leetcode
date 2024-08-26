@@ -1,0 +1,36 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+struct node{
+    int num;
+    int frequency;
+};
+int compare(const void*a,const void*b){
+    struct node*a1=(struct node*)a;
+    struct node*b1=(struct node*)b;
+    return b1->frequency - a1->frequency;
+}
+int* topKFrequent(int* nums, int numsSize, int k, int* returnSize){
+    int *freq=(int*)calloc(20001,sizeof(int));
+    struct node*arr=(struct node*)malloc(20001*sizeof(struct node));
+    for(int i=0;i<numsSize;i++){
+        freq[nums[i]+10000]++;
+    }
+    int count=0;
+    for(int i=0;i<20001;i++){
+        if(freq[i]>0){
+            arr[count].num=i-10000;
+            arr[count].frequency=freq[i];
+            count++;
+        }
+    }
+    int*res=(int*)malloc(k*sizeof(int));
+    qsort(arr,count,sizeof(struct node),compare);
+    for(int i=0;i<k;i++){
+        res[i]=arr[i].num;
+    }
+    free(freq);
+    free(arr);
+    *returnSize=k;
+    return res;
+}
