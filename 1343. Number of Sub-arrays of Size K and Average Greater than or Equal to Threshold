@@ -1,0 +1,21 @@
+int numOfSubarrays(int* arr, int arrSize, int k, int threshold) {
+    int count=0,max=0,j=0;
+    if(arrSize==1){
+        return arr[0];
+    }
+    while(j<k){
+        max+=arr[j];
+        j++;
+    }
+    if((max/k)>=threshold){
+        count++;
+    }
+    for(int i=1;i<=arrSize-k;i++){
+        max-=arr[i-1];
+        max+=arr[i+k-1];
+        if((max/k)>=threshold){
+            count++;
+        }
+    }
+    return count;
+}
