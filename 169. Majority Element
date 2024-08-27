@@ -1,0 +1,16 @@
+int majorityElement(int* nums, int numsSize) {
+    int count=1,canditate=nums[0];
+    for(int i=1;i<numsSize;i++){
+        if(nums[i]==canditate){
+            count++;
+        }
+        else{
+            count--;
+            if(count==0){
+                canditate=nums[i];
+                count=1;
+            }
+        }
+    }
+    return canditate;
+}
