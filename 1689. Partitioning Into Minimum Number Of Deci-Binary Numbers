@@ -1,0 +1,13 @@
+int minPartitions(char* n) {
+    int max=INT_MIN,l=strlen(n);
+    for(int i=0;i<l;i++){
+        int a=n[i]-'0';
+        if(a>max){
+            max=a;
+            if(max==9){
+                return max;
+            }
+        }
+    }
+    return max;
+}
