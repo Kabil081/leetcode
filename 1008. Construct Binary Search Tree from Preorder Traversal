@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+struct TreeNode*insert(struct TreeNode*root,int val){
+    if(root==NULL){
+        root=(struct TreeNode*)malloc(sizeof(struct TreeNode));
+        root->val=val;
+        root->left=NULL;
+        root->right=NULL;
+    }
+    else if(root->val>val){
+        root->left=insert(root->left,val);
+    }
+    else{
+        root->right=insert(root->right,val);
+    }
+    return root;
+}
+struct TreeNode* bstFromPreorder(int* preorder, int preorderSize) {
+    if(preorderSize==0){
+        return NULL;
+    }
+    struct TreeNode*root=NULL;
+    for(int i=0;i<preorderSize;i++){
+        root=insert(root,preorder[i]);
+    }
+    return root;
+}
