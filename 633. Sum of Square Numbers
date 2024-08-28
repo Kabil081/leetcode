@@ -1,0 +1,20 @@
+bool judgeSquareSum(long long int c) {
+    long long int low=1,high=sqrt(c);
+    if(high*high==c || low*low==c){
+        return true;
+    }
+    long long int end=high;
+    while(low<=high){
+        long long int a=(low*low)+(high*high);
+        if(a==c){
+            return true;
+        }
+        else if(a<=c){
+            low++;
+        }
+        else{
+            high--;
+        }
+    }
+    return false;
+}
