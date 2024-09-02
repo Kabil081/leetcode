@@ -1,0 +1,14 @@
+int*compare(const void*a,const void*b){
+    return(*(int*)b-*(int*)a);
+}
+int maxScore(int* nums, int numsSize) {
+    qsort(nums,numsSize,sizeof(int),compare);
+    long long sum=0,i=0,c=0;
+    while(i<numsSize){
+        sum+=nums[i++];
+        if(sum>0){
+            c++;
+        }
+    }
+    return c;
+}
