@@ -1,0 +1,21 @@
+int findmin(int* nums,int numsSize){
+    int min=INT_MAX;
+    for(int i=0;i<numsSize;i++){
+        if(nums[i]<min){
+            min=nums[i];
+        }
+    }
+    return min;
+}
+int abs(int a){
+    if(a<0) return -a;
+    return a;
+}
+int minMoves(int* nums, int numsSize) {
+    int sum=0;
+    int min=findmin(nums,numsSize);
+    for(int i=0;i<numsSize;i++){
+        sum+=abs(nums[i]-min);
+    }
+    return sum;
+}
