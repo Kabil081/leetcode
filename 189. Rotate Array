@@ -1,0 +1,16 @@
+void reverse(int*arr,int i,int j){
+    while(i<j){
+        int t=arr[i];
+        arr[i++]=arr[j];
+        arr[j--]=t;
+    }
+}
+void rotate(int* arr, int numsSize, int k) {
+    if(numsSize==1 || k%numsSize==0){
+        return;
+    }
+    k=k%numsSize;
+    reverse(arr,0,numsSize-1);
+    reverse(arr,0,k-1);
+    reverse(arr,k,numsSize-1);
+}
