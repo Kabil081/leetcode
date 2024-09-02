@@ -1,0 +1,13 @@
+int chalkReplacer(int* arr, int chalkSize, int k) {
+    int i=0;
+    long long int t=0;
+    for(int i=0;i<chalkSize;i++){
+        t+=arr[i];
+    }
+    k%=t;
+    while(k>=arr[i%chalkSize]){
+        k=k-arr[i%chalkSize];
+        i++;
+    }
+    return i%chalkSize;
+}
