@@ -1,0 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* modifiedList(int* nums, int numsSize, struct ListNode* head){
+    bool*arr=(bool*)malloc(100001*sizeof(bool));
+    memset(arr,false,100001*sizeof(bool));
+    for(int i=0;i<numsSize;i++){
+        arr[nums[i]]=true;
+    }
+    struct ListNode dummy;
+    dummy.next=head;
+    struct ListNode*temp=&dummy;
+    struct ListNode*current=head;
+    while(current!=NULL){
+        if(arr[current->val]){
+            struct ListNode*prev=current;
+            current=current->next;
+            temp->next=current;
+            free(prev);
+        }
+        else{
+            temp=current;
+            current=current->next;
+        }
+    }
+    free(arr);
+    return dummy.next;
+}
