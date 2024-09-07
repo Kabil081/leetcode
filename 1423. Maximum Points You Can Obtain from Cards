@@ -1,0 +1,14 @@
+int maxScore(int* cardPoints, int cardPointsSize, int k) {
+    int l=k-1,r=cardPointsSize-1,max=0,left=0,right=0;
+    for(int i=0;i<k;i++){
+        left+=cardPoints[i];
+    }
+    max=left;
+    for(int i=0;i<k;i++){
+        left-=cardPoints[l--];
+        right+=cardPoints[r--];
+        int m=left+right;
+        max=max>m?max:m;
+    }
+    return max;
+}
