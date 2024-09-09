@@ -1,0 +1,35 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode*reverse(struct ListNode*head){
+    struct ListNode*prev=NULL,*cur=head,*n=NULL;
+    while(cur!=NULL){
+        n=cur->next;
+        cur->next=prev;
+        prev=cur;
+        cur=n;
+    }
+    return prev;
+}
+void reorderList(struct ListNode* head) {
+    struct ListNode*slow=head,*fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    struct ListNode*second_half=reverse(slow->next);
+    slow->next=NULL;
+    fast=head;
+    while(second_half!=NULL){
+        struct ListNode*t1=fast->next;
+        struct ListNode*t2=second_half->next;
+        second_half->next=t1;
+        fast->next=second_half;
+        second_half=t2;
+        fast=t1;
+    }
+}
