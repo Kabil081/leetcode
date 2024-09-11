@@ -1,0 +1,17 @@
+int longestOnes(int* nums, int numsSize, int k) {
+    int max=0,l=0,r=0,zeros=0;
+    while(r<numsSize){
+        if(nums[r]==0){
+            zeros++;
+        }
+        while(zeros>k && (r-l+1)>=max){
+            if(nums[l]==0){
+                zeros--;
+            }
+            l++;
+        }
+        max=max>(r-l+1)?max:(r-l+1);
+        r++;
+    }
+    return max;
+}
