@@ -1,0 +1,47 @@
+struct node{
+    int data;
+    int size;
+};
+int totalFruit(int*nums, int size){
+    if(size<=2){
+        return size;
+    }
+    int l=0,r=2,max=2;
+    struct node one,two;
+    if(nums[0]==nums[1]){
+        one.data=nums[0];
+        one.size=2;
+        two.size=0;
+    }
+    else{
+        one.data=nums[0];
+        one.size=1;
+        two.data=nums[1];
+        two.size=1;
+    }
+    while(r<size){
+        if(nums[r]==one.data){
+            one.size++;
+        }
+        else if(nums[r]==two.data || two.size==0){
+            two.size++;
+            two.data=nums[r];
+        }
+        else{
+            while(one.size>0 && two.size>0){
+                if(nums[l]==one.data){
+                    one.size--;
+                }
+                else{
+                    two.size--;
+                }
+                l++;
+            }
+            if(one.size==0){one.data=nums[r];one.size=1;}
+            else{two.data=nums[r];two.size=1;}
+        }
+        max=max>r-l+1?max:r-l+1;
+        r++;
+    }
+    return max;
+}
