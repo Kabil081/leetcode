@@ -1,0 +1,18 @@
+class Solution {
+    public static void print(int index,int[] arr,List<Integer> cur,List<List<Integer>> res){
+        if(index==arr.length){
+            res.add(new ArrayList<>(cur));
+            return;
+        }
+        cur.add(arr[index]);
+        print(index+1,arr,cur,res);
+        cur.remove(cur.size()-1);
+        print(index+1,arr,cur,res);
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> cur=new ArrayList<>();
+        print(0,nums,cur,res);
+        return res;
+    }
+}
