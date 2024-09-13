@@ -1,0 +1,23 @@
+int count(int *nums,int numsSize,int k){
+    int *present=(int*)malloc(20001*sizeof(int)),l=0,r=0,count=0,distinct=0;
+    memset(present,0,20001*sizeof(int));
+    while(r<numsSize){
+        if(present[nums[r]]==0){
+            distinct++;
+        }
+        present[nums[r]]++;
+        while(distinct>k){
+            present[nums[l]]--;
+            if(present[nums[l]]==0){
+                distinct--;
+            }
+            l++;
+        }
+        count+=r-l+1;
+        r++;
+    }
+    return count;
+}
+int subarraysWithKDistinct(int* nums, int numsSize, int k){
+    return count(nums,numsSize,k)-count(nums,numsSize,k-1);
+}
