@@ -1,0 +1,52 @@
+class Solution {
+    public void merge(int arr[],int low,int mid,int high){
+        int i=low;int j=mid+1;
+        int temp[]=new int[high-low+1];int k=0;
+        while(i<=mid && j<=high){
+            long n=10;long m=10;
+            while(arr[i]>=n){
+                n*=10;
+            }
+            while(arr[j]>=m){
+                m*=10;
+            }
+            long l=arr[i]*m+arr[j];long r=arr[j]*n+arr[i];
+            if(l>=r){
+                temp[k++]=arr[i++];
+            }
+            else{
+                temp[k++]=arr[j++];
+            }
+        }
+        while(i<=mid){
+            temp[k++]=arr[i++];
+        }
+        while(j<=high){
+            temp[k++]=arr[j++];
+        }
+        k=0;i=low;
+        while(i<=high){
+            arr[i++]=temp[k++];
+        }
+    }
+    public void mergesort(int nums[],int low,int high){
+        if(low==high){
+            return;
+        }
+        int mid=low+(high-low)/2;
+        mergesort(nums,low,mid);
+        mergesort(nums,mid+1,high);
+        merge(nums,low,mid,high);
+    }
+    public String largestNumber(int[] nums) {
+        mergesort(nums,0,nums.length-1);
+        if(nums[0]==0){
+            return "0";
+        }
+        String res="";
+        for(int i:nums){
+            res+=String.valueOf(i);
+        }
+        return res;
+    }
+}
