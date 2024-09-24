@@ -1,0 +1,14 @@
+class Solution {
+    public int minimumCardPickup(int[] cards) {
+        int count=1000000,l=cards.length;
+        int arr[]=new int[1000001];
+        Arrays.fill(arr,-1);
+        for(int i=0;i<l;i++){
+            if(arr[cards[i]]!=-1){
+                count=Math.min(i-arr[cards[i]]+1,count);
+            }
+            arr[cards[i]]=i;
+        }
+        return count==1000000?-1:count;
+    }
+}
