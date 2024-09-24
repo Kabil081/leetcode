@@ -1,0 +1,15 @@
+int minimum(int a,int b){
+    return a<b?a:b;
+}
+int minSubArrayLen(int target, int* nums, int numsSize) {
+    int min=INT_MAX,l=0,r=0,ans=0;
+    while(r<numsSize){
+        ans+=nums[r];
+        while(ans>=target){
+            min=minimum(min,r-l+1);
+            ans-=nums[l++];
+        }
+        r++;
+    }
+    return min!=INT_MAX?min:0;
+}
