@@ -1,0 +1,19 @@
+class Solution {
+    public int minSwaps(String s) {
+        int open=0;
+        for(char str:s.toCharArray()){
+            if(str=='['){
+                open++;
+            }
+            else{
+                if(open>0){
+                    open--;
+                }
+                else{
+                    continue;
+                }
+            }
+        }
+        return (open+1)/2;
+    }
+}
