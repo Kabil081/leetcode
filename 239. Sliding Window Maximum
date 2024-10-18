@@ -9,7 +9,7 @@ class Solution {
             }
             while(!deque.isEmpty() && nums[deque.getLast()]<nums[i]){
                 deque.removeLast();
-            }
+            } 
             deque.addLast(i);
             if(i>=k-1){
                 result[i-k+1]=nums[deque.getFirst()];
