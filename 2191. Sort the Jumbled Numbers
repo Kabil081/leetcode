@@ -3,7 +3,7 @@
  */
 struct node{
     int original;
-    int mapped;
+    int mapped; 
 };
 int compare(const void*a,const void *b)
 {
