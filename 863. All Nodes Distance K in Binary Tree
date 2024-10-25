@@ -1,0 +1,51 @@
+class Solution {
+    private Map<TreeNode,TreeNode> ParentMap=new HashMap<>();
+    private List<Integer> result=new ArrayList<>();
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        if(root==null){
+            return result;
+        }
+        PopulateParentPointers(root);
+        Bfs(target,k);
+        return result;
+    }
+    public void Bfs(TreeNode target,int k){
+        Queue<Pair<TreeNode,Integer>> queue=new LinkedList<>();
+        Set<TreeNode> set=new HashSet<>();
+        queue.offer(new Pair(target,0));
+        while(!queue.isEmpty()){
+            Pair<TreeNode,Integer> pair=queue.remove();
+            TreeNode node=pair.getKey();
+            if(set.contains(node)){
+                continue;
+            }
+            set.add(node);
+            int dist=pair.getValue();
+            if(dist==k){
+                result.add(node.val);
+            }
+            if(node.left!=null){
+                queue.offer(new Pair(node.left,dist+1));
+            }
+            if(node.right!=null){
+                queue.offer(new Pair(node.right,dist+1));
+            }
+            if(ParentMap.get(node)!=null){
+                queue.offer(new Pair(ParentMap.get(node),dist+1));
+            }
+        }
+    }
+    public void PopulateParentPointers(TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(root.left!=null){
+            ParentMap.put(root.left,root);
+            PopulateParentPointers(root.left);
+        }
+        if(root.right!=null){
+            ParentMap.put(root.right,root);
+            PopulateParentPointers(root.right);
+        }
+    }
+}
