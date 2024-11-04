@@ -1,11 +1,15 @@
-int max(int a,int b){
-    return a>b?a:b;
-}
-int maxSubArray(int* nums, int numsSize) {
-    int maxi= nums[0],product=nums[0];
-    for(int i=1;i<numsSize;i++){
-        product=(nums[i]>product+nums[i])?nums[i]:product+nums[i];
-        maxi=max(product,maxi);
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxSum=Integer.MIN_VALUE,currentSum=0;
+        for(int num:nums){
+            currentSum+=num;
+            if(currentSum>maxSum){
+                maxSum=currentSum;
+            }
+            if(currentSum<0){
+                currentSum=0;
+            }
+        }
+        return maxSum;
     }
-    return maxi;
 }
