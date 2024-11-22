@@ -1,0 +1,46 @@
+class Solution {
+    public int myAtoi(String s){
+        if(s.length()==0){
+            return 0;
+        }
+        int digitStart=0,digitEnd=s.length(),n=s.length();
+        Boolean isnegative=false;
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)!=' '){
+                digitStart=i;
+                break;
+            }
+        }
+        int min=Integer.MIN_VALUE;
+        int max=Integer.MAX_VALUE;
+        if(s.charAt(digitStart)=='-'){
+            isnegative=true;
+            digitStart++;
+        }else if(s.charAt(digitStart)=='+'){
+            digitStart++;
+        }
+        for(int i=digitStart;i<digitEnd;i++){
+            if(s.charAt(i) <'0' || s.charAt(i)>'9'){
+                digitEnd=i;
+                break;
+            }
+        }
+        long num=0;
+        for(int i=digitStart;i<digitEnd;i++){
+            num*=10;
+            num+=s.charAt(i)-48;
+            if(num>max){
+                if(isnegative){
+                    return min;
+                }
+                else{
+                    return max;
+                }
+            }
+        }
+        if(isnegative){
+            num*=-1;
+        }
+        return (int)num;
+    }
+}
