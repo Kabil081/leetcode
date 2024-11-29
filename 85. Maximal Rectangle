@@ -1,0 +1,37 @@
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int dp[][]=new int[matrix.length][matrix[0].length];
+        int n=matrix.length;
+        int m=matrix[0].length;
+        for(int i=0;i<m;i++){
+            dp[0][i]=matrix[0][i]=='1'?1:0;
+        }
+        for(int i=0;i<m;i++){
+            for(int j=1;j<n;j++){
+                if(matrix[j][i]=='1'){
+                    dp[j][i]=dp[j-1][i]+1;
+                }
+            }
+        }
+        int max=0;
+        Deque<Integer> stack=new ArrayDeque<>();
+        for(int i=0;i<n;i++){
+            int prev[]=new int[m];
+            int next[]=new int[m];
+            Arrays.fill(next,m);
+            for(int j=0;j<m;j++){
+                while(!stack.isEmpty() && dp[i][stack.peek()]>=dp[i][j]){
+                    next[stack.pop()]=j;
+                }
+                prev[j]=stack.isEmpty()?-1:stack.peek();
+                stack.push(j);
+            }
+            stack.clear();
+            for(int k=0;k<m;k++){
+                max=Math.max(max,dp[i][k]*(next[k]-prev[k]-1));
+            }
+            System.out.println();
+        }
+        return max;
+    }
+}
