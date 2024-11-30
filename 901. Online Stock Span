@@ -1,0 +1,24 @@
+class Pair{
+    int key;
+    int value;
+    Pair(int key,int value){
+        this.key=key;
+        this.value=value;
+    }
+}
+class StockSpanner {
+    int index;
+    Deque<Pair> stack=new ArrayDeque<>();
+    public StockSpanner() {
+        index=0;
+    }
+    public int next(int price){
+        while(!stack.isEmpty() && stack.peek().value<=price){
+            stack.pop();
+        }
+        int num=stack.isEmpty()?(index+1):(index-stack.peek().key);
+        stack.push(new Pair(index,price));
+        index++;
+        return num;
+    }
+}
