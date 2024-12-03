@@ -1,0 +1,18 @@
+class Solution {
+    public String addSpaces(String s, int[] spaces) {
+        StringBuilder res=new StringBuilder();
+        int j=0;
+        for(int sp:spaces){
+            while(j<sp){
+                res.append(s.charAt(j));
+                j++;
+            }
+            res.append(" ");
+        }
+        while(j<s.length()){
+            res.append(s.charAt(j));
+            j++;
+        }
+        return res.toString();
+    }
+}
