@@ -1,0 +1,56 @@
+class Solution {
+    public Boolean isSafe(int row,int col,char[][]arr){
+        for(int i=row-1;i>=0;i--){
+            if(arr[i][col]=='Q'){
+                return false;
+            }
+        }
+        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
+            if(arr[i][j]=='Q'){
+                return false;
+            }
+        }
+        for(int i=row-1,j=col+1;i>=0 && j<arr.length;i--,j++){
+            if(arr[i][j]=='Q'){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void setQ(char[][]arr,List<List<String>> list){
+        int n=arr.length;
+        List<String> str=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            StringBuilder sb=new StringBuilder();
+            for(int j=0;j<n;j++){
+                sb.append(arr[i][j]);
+            }
+            str.add(sb.toString());
+        }
+        list.add(str);
+    }
+    public void solve(char [][]arr,int row,List<List<String>> list){
+        if(row==arr.length){
+            setQ(arr,list);
+            return;
+        }
+        for(int i=0;i<arr.length;i++){
+            if(isSafe(row,i,arr)){
+                arr[row][i]='Q';
+                solve(arr,row+1,list);
+                arr[row][i]='.';
+            }
+        }   
+    }
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> list=new ArrayList<>();
+        char[][]arr=new char[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j]='.';
+            }
+        }
+        solve(arr,0,list);
+        return list;
+    }
+}
