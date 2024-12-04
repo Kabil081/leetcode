@@ -1,0 +1,20 @@
+class Solution {
+    public String getPermutation(int n, int k) {
+        int fact=1;
+        List<Integer> numbers=new ArrayList<>();
+        for(int i=1;i<n;i++){
+            fact=fact*i;
+            numbers.add(i);
+        }
+        numbers.add(n);
+        String res="";
+        k--;
+        while(true){
+            res=res+numbers.get(k/fact);
+            numbers.remove(k/fact);
+            if(numbers.size()==0) return res;
+            k=k%fact;
+            fact=fact/numbers.size();
+        }
+    }
+}
