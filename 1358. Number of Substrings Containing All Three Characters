@@ -1,0 +1,16 @@
+class Solution {
+    public int numberOfSubstrings(String s){
+        int hash[]=new int[3];
+        Arrays.fill(hash,-1);
+        int count=0,cnt=0;
+        for(int i=0;i<s.length();i++){
+            if(hash[s.charAt(i)-'a']<0) cnt++;
+            hash[s.charAt(i)-'a']=i;
+            if(cnt==3){
+                int c=Math.min(hash[0],Math.min(hash[1],hash[2]));
+                count+=c+1;
+            }
+        }
+        return count;
+    }
+}
