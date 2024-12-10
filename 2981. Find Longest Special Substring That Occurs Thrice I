@@ -1,0 +1,21 @@
+class Solution {
+    public int maximumLength(String s) {
+        Map<String,Integer> map=new HashMap<>();
+        int n=s.length();
+        int len=0,maxLen=0;
+        for(int i=0;i<n;i++){
+            int index=i,c=0;
+            while(index<n && s.charAt(index)==s.charAt(i)){
+                String str=s.substring(i,index+1);
+                map.put(str,map.getOrDefault(str,0)+1);
+                c=map.get(str);
+                if(str.length()>maxLen && c>=3){
+                    len=Math.max(len,c);
+                    maxLen=str.length();
+                }
+                index++;
+            }
+        }
+        return maxLen==0?-1:maxLen;
+    }
+}
