@@ -1,0 +1,20 @@
+class Solution {
+    public int halveArray(int[] nums) {
+        double sum=0;
+        PriorityQueue<Double> pq=new PriorityQueue<>(Collections.reverseOrder());
+        for(int num:nums){
+            pq.add((double)num);
+            sum+=num;
+        }
+        double newSum=sum;
+        int cnt=0;
+        while(newSum>(sum/2)){
+            double val=pq.poll();
+            val/=2;
+            newSum-=val;
+            pq.add(val);
+            cnt++;
+        }
+        return cnt;
+    }
+}
