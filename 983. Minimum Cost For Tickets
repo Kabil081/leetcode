@@ -1,0 +1,20 @@
+class Solution {
+    public int mincostTickets(int[] days, int[] costs){
+        int n=days[days.length-1];
+        int dp[]=new int[n+1];
+        int j=0;
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+            if(i==days[j]){
+                int op1=dp[i-1]+costs[0];
+                int op2=i-7>=0 ? dp[i-7]+costs[1] : costs[1];
+                int op3=i-30>=0 ? dp[i-30]+costs[2] : costs[2];
+                dp[i]=Math.min(op1,Math.min(op2,op3));
+                j++;
+            }else{
+                dp[i]=dp[i-1];
+            }
+        }
+        return dp[n];
+    }
+}
