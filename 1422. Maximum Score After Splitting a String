@@ -1,0 +1,20 @@
+class Solution {
+    public int maxScore(String s) {
+        int totalones=0,ones=0,zeros=0,bestscore=-10,cones=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='1'){
+                totalones++;
+            }
+        }
+        for(int i=0;i<s.length()-1;i++){
+            if(s.charAt(i)=='1'){
+                ones++;
+            }else{
+                zeros++;
+            }
+            int cur=zeros+(totalones-ones);
+            bestscore=Math.max(bestscore,cur);
+        }
+        return bestscore;
+    }
+}
