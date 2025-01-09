@@ -1,0 +1,11 @@
+class Solution {
+    public int prefixCount(String[] words, String pref) {
+        int count=0,n=pref.length();
+        for(String str:words){
+            if(str.length()>=n && str.substring(0,n).equals(pref)){
+                count++;
+            }
+        }
+        return count;
+    }
+}
