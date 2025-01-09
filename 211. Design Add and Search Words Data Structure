@@ -1,0 +1,48 @@
+class WordDictionary {
+    WordDictionary arr[];
+    Boolean flag;
+    public WordDictionary() {
+        arr=new WordDictionary[26];
+        flag=false;
+    }
+    public void addWord(String word){
+        WordDictionary node=this;
+        for(char ch:word.toCharArray()){
+            int index=ch-'a';
+            if(node.arr[index]==null){
+                node.arr[index]=new WordDictionary();
+            }
+            node=node.arr[index];
+        }
+        node.flag=true;   
+    }
+    public boolean search(String word){
+        return helper(word,0,this);
+    }
+    public boolean helper(String word,int index,WordDictionary node){
+        if(index==word.length()){
+            return node.flag;
+        }
+        char ch=word.charAt(index);
+        if(ch=='.'){
+            for(WordDictionary child:node.arr){
+                if(child!=null && helper(word,index+1,child)){
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            int ind=ch-'a';
+            if(node.arr[ind]==null){
+                return false;
+            }
+            return helper(word,index+1,node.arr[ind]);
+        }
+    } 
+}
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
