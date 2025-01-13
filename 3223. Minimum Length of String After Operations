@@ -1,0 +1,16 @@
+class Solution {
+    public int minimumLength(String s) {
+        int freq[]=new int[26];
+        int count=0;
+        for(char ch:s.toCharArray()){
+            freq[ch-'a']++;
+        }
+        for(int i:freq){
+            if(i>0){
+                if(i%2==0) count+=2;
+                if(i%2==1) count++;
+            }
+        }
+        return count;
+    }
+}
