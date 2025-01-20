@@ -1,0 +1,22 @@
+class Solution {
+    public int[][] onesMinusZeros(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        int onesrow[]=new int[m];
+        int onescol[]=new int[n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                onesrow[i]+=grid[i][j];
+                onescol[j]+=grid[i][j];
+            }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                int num1=m-onesrow[i];
+                int num2=n-onescol[j];
+                grid[i][j]=onesrow[i]+onescol[j]-num1-num2;
+            }
+        }
+        return grid;
+    }
+}
