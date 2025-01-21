@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isPossible(int[] nums) {
+        int freq[]=new int[2003];
+        int ends[]=new int[2003];
+        for(int num:nums){
+            freq[num+1000]++;
+        }
+        for(int num:nums){
+            if(freq[num+1000]==0){
+                continue;
+            }
+            if(num+1000-1>=0 && ends[num+1000-1]>0){
+                ends[num+1000-1]-=1;
+                ends[num+1000]++;
+            }
+            else if(freq[num+1000+1]>0 && freq[num+1000+2]>0){
+                freq[num+1000+1]-=1;
+                freq[num+1000+2]-=1;
+                ends[num+1000+2]++;
+            }else{
+                return false;
+            }
+            freq[num+1000]--;
+        }
+        return true;
+    }
+}
