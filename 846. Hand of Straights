@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isNStraightHand(int[] nums, int k) {
+        int n=nums.length;
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int num:nums){
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        Arrays.sort(nums);
+        for(int num:nums){
+            if(map.get(num)==0) continue;
+            for(int i=0;i<k;i++){
+                int next=num+i;
+                if(map.getOrDefault(next,0)==0){
+                    return false;
+                }
+                map.put(next,map.get(next)-1);
+            }
+        }
+        return true;
+    }
+}
