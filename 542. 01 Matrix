@@ -1,0 +1,33 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat){
+        int m=mat.length;
+        int n=mat[0].length;
+        int height[][]=new int[m][n];
+        Deque<int[]>queue=new ArrayDeque<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==0){
+                    queue.addLast(new int[]{i,j});
+                    height[i][j]=0;
+                }else{
+                    height[i][j]=-1;
+                }
+            }
+        }
+        int directions[][]={{-1,0},{0,-1},{1,0},{0,1}};
+        while(!queue.isEmpty()){
+            int cur[]=queue.removeFirst();
+            int x=cur[0];
+            int y=cur[1];
+            for(int []dir:directions){
+                int nx=dir[0]+x;
+                int ny=dir[1]+y;
+                if(nx>=0 && nx<m && ny>=0 && ny<n && height[nx][ny]==-1){
+                    height[nx][ny]=height[x][y]+1;
+                    queue.addLast(new int[]{nx,ny});
+                }
+            }
+        }
+        return height;
+    }
+}
