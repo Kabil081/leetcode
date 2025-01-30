@@ -1,0 +1,13 @@
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int freq[]=new int[1001];
+        int cap=0;
+        for(int trip[]:trips){
+            for(int i=trip[1];i<trip[2];i++){
+                freq[i]+=trip[0];
+                if(freq[i]>capacity) return false;
+            }
+        }
+        return true;
+    }
+}
