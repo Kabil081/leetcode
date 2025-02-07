@@ -1,0 +1,27 @@
+class Solution {
+    public int[] queryResults(int limit, int[][] queries) {
+        Map<Integer,Integer> map=new HashMap<>();
+        Map<Integer,Integer> colorFreq=new HashMap<>();
+        int distinctColors=0;
+        int res[]=new int[queries.length];
+        for(int i=0;i<queries.length;i++){
+            int ball=queries[i][0];
+            int color=queries[i][1];
+            if(map.containsKey(ball)){
+                int oldColor=map.get(ball);
+                colorFreq.put(oldColor,colorFreq.get(oldColor)-1);
+                if(colorFreq.get(oldColor)==0){
+                    distinctColors--;
+                    colorFreq.remove(oldColor);
+                }
+            }
+            map.put(ball,color);
+            if(!colorFreq.containsKey(color)){
+                distinctColors++;
+            }
+            colorFreq.put(color,colorFreq.getOrDefault(color,0)+1);
+            res[i]=distinctColors;
+        }
+        return res;
+    }
+}
