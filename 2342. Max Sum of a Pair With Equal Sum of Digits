@@ -1,0 +1,30 @@
+class Solution {
+    public int sum(int n){
+        int res=0;
+        while(n>0){
+            res+=n%10;
+            n/=10;
+        }
+        return res;
+    }
+    public int maximumSum(int[] nums) {
+        int max=0;
+        Map<Integer,Integer> map=new HashMap<>();
+        for(int i:nums){
+            int num=sum(i);
+            int sum=0;
+            if(map.containsKey(num)){
+                int cur=map.get(num);
+                sum=i+cur;
+                max=Math.max(sum,max);
+                if(i>cur){
+                    map.remove(num);
+                    map.put(num,i);
+                }
+            }else{
+                map.put(num,i);
+            }
+        }
+        return max>0?max:-1;
+    }
+}
