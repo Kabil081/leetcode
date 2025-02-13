@@ -1,0 +1,31 @@
+class Solution {
+    int []color;
+    public boolean isBipartite(int[][] graph){
+        int n=graph.length;
+        color=new int[n];
+        for(int i=0;i<n;i++){
+            if(!bfs(graph,i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean bfs(int [][]graph,int node){
+        if(color[node]!=0) return true;
+        Queue<Integer> queue=new LinkedList<>();
+        color[node]=1;
+        queue.add(node);
+        while(!queue.isEmpty()){
+            int edge=queue.poll();
+            for(int neighbor:graph[edge]){
+                if(color[neighbor]==0){
+                    color[neighbor]=-color[edge];
+                    queue.add(neighbor);
+                }else if(color[neighbor]==color[edge]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
