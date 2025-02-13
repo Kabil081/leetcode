@@ -1,0 +1,33 @@
+class Solution {
+    public int reachableNodes(int n, int[][] edges, int[] restricted) {
+        int count=0;
+        Map<Integer,List<Integer>> graph=new HashMap<>();
+        Deque<Integer> queue=new ArrayDeque<>();
+        int res[]=new int[n];
+        int visited[]=new int[n];
+        for(int i:restricted){
+            res[i]=1;
+        }
+        for(int i=0;i<n;i++){
+            graph.put(i,new ArrayList<>());
+        }
+        for(int edge[]:edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        queue.addLast(0);
+        visited[0]=1;
+        while(!queue.isEmpty()){
+            int size=queue.pollFirst();
+            count++;
+            for(int neighbor:graph.get(size)){
+                if(visited[neighbor]==0 && res[neighbor]==0){
+                    visited[neighbor]=1;
+                    res[neighbor]=1;
+                    queue.addLast(neighbor);
+                }
+            }
+        }
+        return count;
+    }
+}
