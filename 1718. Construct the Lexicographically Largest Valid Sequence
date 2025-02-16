@@ -1,0 +1,30 @@
+class Solution {
+    public int[] constructDistancedSequence(int n){
+        int len=2*n-1;
+        int arr[]=new int[len];
+        boolean used[]=new boolean[n+1];
+        backtrack(arr,n,0,used);
+        return arr;
+    }
+    public boolean backtrack(int arr[],int n,int pos,boolean used[]){
+        if(pos==arr.length) return true;
+        if(arr[pos]!=0) return backtrack(arr,n,pos+1,used);
+        for(int i=n;i>=1;i--){
+            if(used[i]) continue;
+            if(i==1){
+                arr[pos]=1;
+                used[1]=true;
+                if(backtrack(arr,n,pos+1,used)) return true;
+                used[1]=false;
+                arr[pos]=0;
+            }else if(pos+i<arr.length && arr[pos+i]==0 && arr[pos]==0){
+                arr[pos]=arr[pos+i]=i;
+                used[i]=true;
+                if(backtrack(arr,n,pos+1,used)) return true;
+                used[i]=false;
+                arr[pos]=arr[pos+i]=0;
+            }
+        }
+        return false;
+    }
+}
