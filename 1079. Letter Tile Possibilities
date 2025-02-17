@@ -1,0 +1,22 @@
+class Solution {
+    public int numTilePossibilities(String tiles) {
+        Set<String> result=new HashSet<>();
+        char []arr=tiles.toCharArray();
+        boolean used[]=new boolean[tiles.length()];
+        dfs(arr,new StringBuilder(),used,result);
+        return result.size();
+    }
+    public void dfs(char arr[],StringBuilder cur,boolean used[],Set<String> result){
+        if(cur.length()>0){
+            result.add(cur.toString());
+        }
+        for(int i=0;i<arr.length;i++){
+            if(used[i]) continue;
+            cur.append(arr[i]);
+            used[i]=true;
+            dfs(arr,cur,used,result);
+            cur.deleteCharAt(cur.length()-1);
+            used[i]=false;
+        }
+    }
+}
