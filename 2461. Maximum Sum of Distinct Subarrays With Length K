@@ -1,0 +1,26 @@
+class Solution {
+    public long maximumSubarraySum(int[] nums, int k) {
+        long sum=0,res=0;
+        int freq[]=new int[100001];
+        int size=0;
+        for(int i=0;i<k;i++){
+            if(freq[nums[i]]==0) size++;
+            freq[nums[i]]++;
+            sum+=nums[i];
+        }
+        if(size==k) res=sum;  
+        int low=0,r=k,high=nums.length;
+        while(r<high){
+            freq[nums[low]]--;
+            if(freq[nums[low]]==0) size--;
+            sum-=nums[low];
+            sum+=nums[r];
+            if(freq[nums[r]]==0) size++;
+            freq[nums[r]]++;
+            if(size==k) res=Math.max(sum,res);
+            r++;
+            low++;
+        }
+        return res;
+    }
+}
