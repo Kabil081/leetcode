@@ -1,0 +1,14 @@
+class Solution {
+    public int[] diStringMatch(String s) {
+        int low=0,high=s.length();
+        int arr[]=new int[high+1];
+        int ind=0;
+        for(char ch:s.toCharArray()){
+            if(ch=='I') arr[ind++]=low++;
+            else arr[ind++]=high--;
+        }
+        if(s.charAt(s.length()-1)=='D') arr[ind]=low;
+        else arr[ind]=high;
+        return arr;
+    }
+}
