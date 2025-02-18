@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isValid(String str) {
+        Deque<Character> stack=new ArrayDeque<>();
+        for(char c:str.toCharArray()){
+            if(c=='c'){
+                if(stack.size()<2) return false;
+                if(stack.peek()!='b') return false;
+                stack.pop();
+                if(stack.peek()!='a') return false;
+                stack.pop();
+            }else{
+                stack.push(c);
+            }
+        }
+        return stack.size()==0;
+    }
+}
