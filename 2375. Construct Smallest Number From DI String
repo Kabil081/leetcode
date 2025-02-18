@@ -1,0 +1,24 @@
+class Solution {
+    public String smallestNumber(String pattern) {
+        List<Character> cur=new ArrayList<>();
+        StringBuilder res=new StringBuilder();
+        int i=1;
+        for(char ch:pattern.toCharArray()){
+            cur.add((char)('0'+i));
+            i++;
+            if(ch=='I'){
+                Collections.reverse(cur);
+                for(char c:cur){
+                    res.append(c);
+                }
+                cur.clear();
+            }
+        }
+        cur.add((char)('0'+i));
+        Collections.reverse(cur);
+        for(char c:cur){
+            res.append(c);
+        }
+        return res.toString();
+    }
+}
