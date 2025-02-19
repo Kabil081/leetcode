@@ -1,0 +1,26 @@
+class Solution {
+    int count=0;
+    String res="";
+    public String getHappyString(int n, int k) {
+        backtrack(0,n,k,new StringBuilder());
+        return res;
+    }
+    public boolean backtrack(int ind,int n,int k,StringBuilder str){
+        if(ind==n){
+            count++;
+            if(count==k) {
+                res=str.toString();
+                return true;
+            }
+            return false;
+        }
+        for(char ch='a';ch<='c';ch++){
+            if(ind==0 || str.charAt(ind-1)!=ch){
+                str.append(ch);
+                if(backtrack(ind+1,n,k,str)) return true;
+                str.deleteCharAt(str.length()-1);
+            }
+        }
+        return false;
+    }
+}
