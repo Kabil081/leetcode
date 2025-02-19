@@ -1,0 +1,24 @@
+class Solution {
+    public int minSwaps(int[] arr) {
+        int n=arr.length;
+        int left=0,high=n,right=0;
+        int total=0,cur=0,ans=0;
+        for(int i:arr){
+            total+=i;
+        }
+        high+=high;
+        for(int i=0;i<total;i++){
+            cur+=arr[i];
+        }
+        ans=cur;
+        right=total;
+        while(right < high){
+            cur-=arr[left%n];
+            cur+=arr[right % n];
+            ans=Math.max(ans,cur);
+            right++;
+            left++;
+        }
+        return total-ans;
+    }
+}
