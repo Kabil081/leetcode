@@ -1,10 +1,10 @@
 class Solution {
     public int minimumSumSubarray(List<Integer> list, int l, int r) {
-        int n=list.size(),ind=0;
+        int n=list.size();
         int prefixSum[]=new int[n];
-        for(int i:list){
-            prefixSum[ind]=(ind==0?0:prefixSum[ind-1])+list.get(ind);
-            ind++;
+        prefixSum[0]=list.get(0);
+        for(int i=1;i<n;i++){
+            prefixSum[i]=prefixSum[i-1]+list.get(i);
         }
         int res=100001;
         for(int i=l;i<=r;i++){
