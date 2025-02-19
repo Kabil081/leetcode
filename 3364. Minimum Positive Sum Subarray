@@ -1,0 +1,27 @@
+class Solution {
+    public int minimumSumSubarray(List<Integer> list, int l, int r) {
+        int n=list.size(),ind=0;
+        int prefixSum[]=new int[n];
+        for(int i:list){
+            prefixSum[ind]=(ind==0?0:prefixSum[ind-1])+list.get(ind);
+            ind++;
+        }
+        int res=100001;
+        for(int i=l;i<=r;i++){
+            int num=compute(prefixSum,0,i,n);
+            if(num>0) res=Math.min(res,num);
+        }
+        return res==100001?-1:res;
+    }
+    public int compute(int sum[],int left,int right,int n){
+        int min=100001,cur=0;
+        if(sum[right-1]>0) min=cur=sum[right-1];
+        while(right<n){
+            cur=sum[right]-sum[left];
+            right++;
+            left++;
+            if(cur>0) min=Math.min(min,cur);
+        }
+        return min==100001?-1:min;
+    }
+}
