@@ -1,0 +1,21 @@
+class Solution {
+    int dir[][]={{0,-1},{-1,0},{0,1},{1,0}};
+    int m,n;
+    public int[][] floodFill(int[][] image, int sr, int sc, int color){
+        m=image.length;
+        n=image[0].length;
+        if(image[sr][sc]==color) return image;
+        dfs(image,sr,sc,color,image[sr][sc]);
+        return image;
+    }
+    public void dfs(int [][]image,int sr,int sc,int color,int old){
+        image[sr][sc]=color;
+        for(int d[]:dir){
+            int nr=sr+d[0];
+            int nc=sc+d[1];
+            if(nr>=0 && nr<m && nc>=0 && nc<n && image[nr][nc]==old && image[nr][nc]!=color){
+                dfs(image,nr,nc,color,old);
+            }
+        }
+    }
+}
