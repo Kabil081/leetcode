@@ -1,0 +1,41 @@
+class Solution {
+    boolean visited[][];
+    int m,n;
+    public int numEnclaves(int[][] grid) {
+        m=grid.length;
+        n=grid[0].length;
+        int count=0;
+        visited=new boolean[m][n];
+        for(int i=0;i<m;i++){
+            if(grid[i][0]==1 && !visited[i][0]){
+                dfs(grid,i,0);
+            }
+            if(grid[i][n-1]==1 && !visited[i][n-1]){
+                dfs(grid,i,n-1);
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(grid[0][i]==1 && !visited[0][i]){
+                dfs(grid,0,i);
+            }
+            if(grid[m-1][i]==1 && !visited[m-1][i]){
+                dfs(grid,m-1,i);
+            }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1 && !visited[i][j]){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public void dfs(int[][]grid,int r,int c){
+        visited[r][c]=true;
+        if(r-1>=0 && grid[r-1][c]==1 && !visited[r-1][c]) dfs(grid,r-1,c);
+        if(r+1<m && grid[r+1][c]==1 && !visited[r+1][c]) dfs(grid,r+1,c);
+        if(c-1>=0 && grid[r][c-1]==1 && !visited[r][c-1]) dfs(grid,r,c-1);
+        if(c+1<n && grid[r][c+1]==1 && !visited[r][c+1]) dfs(grid,r,c+1);
+    }
+}
