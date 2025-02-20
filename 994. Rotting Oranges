@@ -1,0 +1,38 @@
+class Solution {
+    int dir[][]={{0,-1},{-1,0},{0,1},{1,0}};
+    public int orangesRotting(int[][] grid) {
+        int count=0;
+        Deque<int[]>queue=new ArrayDeque<>();
+        int m=grid.length;
+        int n=grid[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==2){
+                    queue.addLast(new int[]{i,j});
+                }else if(grid[i][j]==1){
+                    count++;
+                }
+            }
+        }
+        if(count==0) return 0;
+        int time=0;
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            for(int i=0;i<size;i++){
+                int arr[]=queue.removeFirst();
+                int x=arr[0],y=arr[1];
+                for(int d[]:dir){
+                    int nx=x+d[0];
+                    int ny=y+d[1];
+                    if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]==1){
+                        grid[nx][ny]=2;
+                        queue.addLast(new int[]{nx,ny});
+                        count--;
+                    }
+                }
+            }
+            if(!queue.isEmpty()) time++;
+        }
+        return count==0?time:-1;
+    }
+}
