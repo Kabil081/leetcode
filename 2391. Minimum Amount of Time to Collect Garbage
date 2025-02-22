@@ -1,0 +1,22 @@
+class Solution {
+    int num=0;
+    public int garbageCollection(String[] garbage, int[] travel){
+        int prefix[]=new int[travel.length];
+        prefix[0]=travel[0];
+        for(int i=1;i<travel.length;i++){
+            prefix[i]=prefix[i-1]+travel[i];
+        }
+        int g=-1,p=-1,m=-1,ind=0;
+        for(String str:garbage){
+            num+=str.length();
+            if(str.contains("G")) g=ind;
+            if(str.contains("P")) p=ind;
+            if(str.contains("M")) m=ind;
+            ind++;
+        }
+        if(g>0) num+=prefix[g-1];
+        if(p>0) num+=prefix[p-1];
+        if(m>0) num+=prefix[m-1];
+        return num;
+    }
+}
