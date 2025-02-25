@@ -1,0 +1,36 @@
+class Trienode{
+    Trienode arr[];
+    int sum;
+    public Trienode(){
+        arr=new Trienode[26];
+        sum=0;
+    }
+}
+class Solution {
+    Trienode head=new Trienode();
+    public int[] sumPrefixScores(String[] words){
+        Trienode root=head;
+        for(String str:words){
+            root=head;
+            for(char ch:str.toCharArray()){
+                int index=ch-'a';
+                if(root.arr[index]==null) root.arr[index]=new Trienode();
+                root=root.arr[index]; 
+                root.sum++;
+            }
+        }
+        int res[]=new int[words.length],i=0;
+        int ans=0;
+        for(String str:words){
+            root=head;
+            ans=0;
+            for(char ch:str.toCharArray()){
+                int index=ch-'a';
+                root=root.arr[index];
+                ans+=root.sum;
+            }
+            res[i++]=ans;
+        }
+        return res;
+    }
+}
