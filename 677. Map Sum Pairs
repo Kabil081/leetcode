@@ -1,0 +1,49 @@
+class Trienode{
+    Trienode arr[];
+    int val;
+    int sum;
+    public Trienode(){
+        arr=new Trienode[26];
+        val=0;
+        sum=0;
+    }
+}
+class MapSum {
+    Trienode root;
+    public MapSum() {
+        root=new Trienode();
+    }
+    public void insert(String key, int val) {
+        Trienode temp=root;
+        for(char ch:key.toCharArray()){
+            int index=ch-'a';
+            if(temp.arr[index]==null) temp.arr[index]=new Trienode();
+            temp=temp.arr[index];
+        }
+        int diff=val-temp.val;
+        temp.val=val;
+        if(diff==0) return;
+        temp=root;
+        for(char ch:key.toCharArray()){
+            int index=ch-'a';
+            temp=temp.arr[index];
+            temp.sum+=diff;
+        }
+    }
+    public int sum(String prefix) {
+        Trienode temp=root;
+        for(char ch:prefix.toCharArray()){
+            int index=ch-'a';
+            if(temp.arr[index]==null) return 0;
+            temp=temp.arr[index];
+        }
+        return temp.sum;
+    }
+}
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * MapSum obj = new MapSum();
+ * obj.insert(key,val);
+ * int param_2 = obj.sum(prefix);
+ */
