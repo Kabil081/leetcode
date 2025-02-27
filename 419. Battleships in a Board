@@ -1,0 +1,28 @@
+class Solution{
+    int m;
+    int n;
+    int [][]dir={{-1,0},{0,-1},{0,1},{1,0}};
+    public int countBattleships(char[][] board){
+        m=board.length;
+        n=board[0].length;
+        boolean visited[][]=new boolean[m][n];
+        int count=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]=='X' && !visited[i][j]){
+                    dfs(board,i,j,visited);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public void dfs(char board[][],int i,int j,boolean visited[][]){
+        visited[i][j]=true;
+        for(int d[]:dir){
+            int r=d[0]+i,c=d[1]+j;
+            if(r<0 || r>=m || c<0 || c>=n || board[r][c]=='.' || visited[r][c]) continue;
+            dfs(board,r,c,visited);
+        }
+    }
+}
