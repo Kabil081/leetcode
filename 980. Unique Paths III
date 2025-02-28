@@ -1,0 +1,38 @@
+class Solution {
+    int global=0;
+    public int uniquePathsIII(int[][] grid) {
+        int total=0;
+        int r=0,c=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==0){
+                    total++;
+                }
+                if(grid[i][j]==1){
+                    total++;
+                    r=i;
+                    c=j;
+                }
+            }
+        }
+        dfs(grid,r,c,0,total);
+        return global;
+    }
+    public void dfs(int[][]grid,int i,int j,int cur,int total){
+        if(i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j]==-1 || cur>total) return;
+        if(grid[i][j]==2 && cur==total){
+            global++;
+            return;
+        }
+        int c=grid[i][j];
+        grid[i][j]=-1;
+        cur++;
+        dfs(grid,i-1,j,cur,total);
+        dfs(grid,i,j-1,cur,total);
+        dfs(grid,i,j+1,cur,total);
+        dfs(grid,i+1,j,cur,total);
+        grid[i][j]=c;
+        cur--;
+        return;
+    }
+}
