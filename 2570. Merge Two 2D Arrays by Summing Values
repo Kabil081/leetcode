@@ -1,0 +1,51 @@
+class Solution {
+    public int[][] mergeArrays(int[][] nums1,int[][] nums2) {
+        int freq[]=new int[1001];
+        int size=0;
+        for(int arr[]:nums1){
+            freq[arr[0]]++;
+            if(freq[arr[0]]==1) size++;
+        }
+        for(int arr[]:nums2){
+            freq[arr[0]]++;
+            if(freq[arr[0]]==1) size++;
+        }
+        int res[][]=new int[size][2];
+        int pointer1=0,pointer2=0;
+        int len1=nums1.length,len2=nums2.length,i=0;
+        while(pointer1<len1 && pointer2<len2){
+            int num1=nums1[pointer1][0];
+            int num2=nums2[pointer2][0];
+            int val1=nums1[pointer1][1];
+            int val2=nums2[pointer2][1];
+            if(num1==num2){
+                res[i][0]=num1;
+                res[i][1]=val1+val2;
+                pointer1++;
+                pointer2++;
+            }else if(num1<num2){
+                res[i][0]=num1;
+                res[i][1]=val1;
+                pointer1++;
+            }else if(num1>num2){
+                res[i][0]=num2;
+                res[i][1]=val2;
+                pointer2++;
+            }
+            i++;
+        }
+        while(pointer1<len1 ){
+            res[i][0]=nums1[pointer1][0];
+            res[i][1]=nums1[pointer1][1];
+            i++;
+            pointer1++;
+        }
+        while(pointer2<len2){
+            res[i][0]=nums2[pointer2][0];
+            res[i][1]=nums2[pointer2][1];
+            i++;
+            pointer2++;
+        }
+        return res;
+    }
+}
