@@ -1,0 +1,15 @@
+class Solution{
+    public int countArrays(int[] original, int[][] bounds){
+        int n=original.length;
+        int max=bounds[0][1],min=bounds[0][0];
+        int diff=0;
+        for(int i=1;i<n;i++){
+            int x=bounds[i][0],y=bounds[i][1];
+            diff+=original[i]-original[i-1];
+            min=Math.max(min,x-diff);
+            max=Math.min(max,y-diff);
+        }
+        if(max<min) return 0;
+        return max-min+1;
+    }
+}
