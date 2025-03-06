@@ -1,0 +1,23 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid){
+        int m=grid.length;
+        int num=0,a=0;
+        boolean visited[]=new boolean[m*m+1];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<m;j++){
+                if(visited[grid[i][j]]){
+                    a=grid[i][j];
+                    continue;
+                }
+                num+=grid[i][j];
+                visited[grid[i][j]]=true;
+            }
+        }
+        int res[]=new int[2];
+        m*=m;
+        int sum=(m*(m+1))/2;
+        res[0]=a;
+        res[1]=sum-num;
+        return res;
+    }
+}
