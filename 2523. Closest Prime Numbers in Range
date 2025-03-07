@@ -1,0 +1,35 @@
+class Solution {
+    public int[] closestPrimes(int left, int right) {
+        boolean prime[]=new boolean[right+1];
+        Arrays.fill(prime,true);
+        prime[1]=false;
+        List<Integer> list=new ArrayList<>();
+        for(int i=2;i*i<=right;i++){
+            if(prime[i]){
+                for(int j=i*i;j<=right;j+=i){
+                    prime[j]=false;
+                }
+            }
+        }
+        int res[]=new int[2];
+        for(int i=left;i<=right;i++){
+            if(prime[i]){
+                list.add(i);
+            }
+        }
+        int min=100001;
+        Arrays.fill(res,-1);
+        for(int i=0;i<list.size()-1;i++){
+            int num1=list.get(i);
+            int num2=list.get(i+1);
+            int diff=num2-num1;
+            if(diff<min){
+                res[0]=num1;
+                res[1]=num2;
+                min=diff;
+                if(diff<=2) return res;
+            }
+        }
+        return res;
+    }
+}
