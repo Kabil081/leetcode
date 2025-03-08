@@ -1,0 +1,16 @@
+class Solution {
+    public int longestContinuousSubstring(String s) {
+        int max=1,cur=1,n=s.length();
+        char ch[]=s.toCharArray();
+        for(int i=1;i<n;i++){
+            if(ch[i]==ch[i-1]+1){
+                cur++;
+                if(cur==26) return cur;
+                if(max<cur) max=cur;
+            }else{
+                cur=1;
+            }
+        }
+        return max;
+    }
+}
