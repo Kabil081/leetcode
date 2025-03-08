@@ -1,0 +1,16 @@
+class Solution {
+    public long zeroFilledSubarray(int[] nums) {
+        long sum=0;
+        int left=0,right=0,n=nums.length;
+        while(right<n){
+            if(nums[right]==0){
+                sum+=right-left+1;
+                right++;
+            }else{
+                right++;
+                left=right;
+            }
+        }
+        return sum;
+    }
+}
