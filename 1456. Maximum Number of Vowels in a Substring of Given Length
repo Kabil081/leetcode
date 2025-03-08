@@ -1,0 +1,30 @@
+class Solution {
+    public int maxVowels(String s, int k){
+        int n=s.length(),vowels=0;
+        for(int i=0;i<k;i++){
+            int num=(int)s.charAt(i)-'a';
+            if(num==0 || num==4 || num==8 || num==14 || num==20){
+                vowels++;
+            }
+        }
+        if(vowels==k) return vowels;
+        int left=0,right=k,max=vowels;
+        while(right<n){
+            int num1=(int)s.charAt(left)-'a';
+            int num2=(int)s.charAt(right)-'a';
+            if(num1==0 || num1==4 || num1==8 || num1==14 || num1==20){
+                vowels--;
+            }
+            if(num2==0 || num2==4 || num2==8 || num2==14 || num2==20){
+                vowels++;
+            }
+            if(vowels>max){
+                max=vowels;
+                if(max==k) return max;
+            }
+            right++;
+            left++;
+        }
+        return max;
+    }
+}
