@@ -1,0 +1,36 @@
+class Solution {
+    public long countOfSubstrings(String word, int k) {
+        if(word.length()<(5+k)){
+            return 0;
+        }
+        return count(word,k)-count(word,k+1);
+    }
+    private long count(String word,int k){
+        long ans=0;
+        int cons=0,l=0;
+        int freq[]=new int[26];
+        int vowels=0;
+        for(int r=0;r<word.length();r++){
+            int num=word.charAt(r)-'a';
+            if(num==0 || num==4 || num==8 || num==14 || num==20){
+                if(freq[num]==0) vowels++;
+                freq[num]++;
+            }
+            else{
+                cons++;
+            }
+            while(vowels==5 && cons>=k){
+                ans+=word.length()-r;
+                int n=word.charAt(l++)-'a';
+                if(n==0 || n==4 || n==8 || n==14 || n==20){
+                    freq[n]--;
+                    if(freq[n]==0) vowels--;
+                }
+                else{
+                    cons--;
+                }
+            }
+        }
+        return ans;
+    }
+}
