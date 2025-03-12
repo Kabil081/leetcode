@@ -1,0 +1,32 @@
+class Solution {
+    public int maximumCount(int[] nums) {
+        return Math.max(positive(nums), negative(nums));
+    }
+
+    public int positive(int[] nums) {
+        int l = 0, r = nums.length - 1, ans = nums.length;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid]<=0) {
+                l = mid + 1;
+            } else {
+                ans = mid;
+                r = mid - 1;
+            }
+        }
+        return nums.length - ans;
+    }
+    public int negative(int[] nums){
+        int l = 0, r =nums.length-1, ans = -1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] <0){
+                ans = mid;
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return ans+1 ;
+    }
+}
