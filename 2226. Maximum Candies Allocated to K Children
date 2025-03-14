@@ -1,0 +1,31 @@
+class Solution {
+    public boolean canAssign(int mid,int nums[],long k){
+        long count=0;
+        for(int n:nums){
+            if(n>=mid){
+                count+=n/mid;
+            }
+        }
+        return count>=k;
+    }
+    public int maximumCandies(int[] candies, long k){
+        int maxElement=0;
+        for(int i:candies){
+            if(i>maxElement){
+                maxElement=i;
+            }
+        }
+        int max=0;
+        int low=1,high=maxElement;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(canAssign(mid,candies,k)){
+                max=mid;
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return max;
+    }
+}
