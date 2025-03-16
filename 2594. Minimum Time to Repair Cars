@@ -1,0 +1,26 @@
+class Solution{
+    public boolean canTaken(int[]ranks,int cars,long mid){
+        long count=0;
+        for(int n:ranks){
+            count+=Math.sqrt(mid/n);
+            if(count>=cars) return true;
+        }
+        return count>=cars;
+    }
+    public long repairCars(int[] ranks,int cars){
+        long max=0;
+        for(int i:ranks){
+            max=Math.max(max,i);
+        }
+        long left=1,right=max*cars*cars;
+        while(left<right){
+            long mid=left+(right-left)/2;
+            if(canTaken(ranks,cars,mid)){
+                right=mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+}
