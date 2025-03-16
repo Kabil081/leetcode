@@ -1,0 +1,31 @@
+class Solution{
+    public boolean canHold(int mid,int []weights,int days){
+        int count=0,cur=0;
+        for(int n:weights){
+            cur+=n;
+            if(cur>mid){
+                cur=n;
+                count++;
+            }
+            if(count>days) return false;
+        }
+        count++;
+        return count<=days;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+        int left=0,right=0;
+        for(int n:weights){
+            left=Math.max(left,n);
+            right+=n;
+        }
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(canHold(mid,weights,days)){
+                right=mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+}
