@@ -1,0 +1,27 @@
+class Solution {
+    public boolean canEat(int[]piles,int h,int mid){
+        int hours=0;
+        for(int n:piles){
+            hours+=(n/mid)+(n%mid==0?0:1);
+            if(hours > h) return false;
+        }
+        return true;
+    }
+    public int minEatingSpeed(int[] piles, int h){
+        int left=1,right=0;
+        for(int i:piles){
+            if(i>right) right=i;
+        }
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(canEat(piles,h,mid)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+}
