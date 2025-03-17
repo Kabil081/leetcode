@@ -1,0 +1,25 @@
+class Solution {
+    public boolean canDistribute(int quantities[],int mid,int n){
+        int count=0;
+        for(int i:quantities){
+            count+=(i/mid)+(i%mid==0?0:1);
+            if(count>n) return false;
+        }
+        return count<=n;
+    }
+    public int minimizedMaximum(int n, int[] quantities) {
+        int left=1,right=0;
+        for(int i:quantities){
+            right=Math.max(right,i);
+        }
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(canDistribute(quantities,mid,n)){
+                right=mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+}
