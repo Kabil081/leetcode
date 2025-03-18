@@ -1,0 +1,16 @@
+class Solution {
+    public int longestNiceSubarray(int[] nums){
+        int bitmask=0;
+        int left=0,right=0,max=1;
+        while(right < nums.length){
+            while((bitmask &nums[right])!=0){
+                bitmask^=nums[left];
+                left++;
+            }
+            bitmask|=nums[right];
+            max=Math.max(max,right-left+1);
+            right++;
+        }
+        return max;
+    }
+}
