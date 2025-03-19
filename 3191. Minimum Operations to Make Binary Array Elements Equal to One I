@@ -1,0 +1,16 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        int min=0,right=0;
+        while(right<nums.length-2){
+            if(nums[right]==0){
+                nums[right]^=1;
+                nums[right+1]^=1;;
+                nums[right+2]^=1;
+                min++;
+            }
+            right++;
+        }
+        if(nums[nums.length-1]==0 || nums[nums.length-2]==0) return -1;
+        return min;
+    }
+}
