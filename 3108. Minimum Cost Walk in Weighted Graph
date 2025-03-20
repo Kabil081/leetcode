@@ -1,0 +1,28 @@
+class Solution {
+    public int find(int parent[],int i){
+        return parent[i]==i?i:(parent[i]=find(parent,parent[i]));
+    }
+    public void union(int parent[],int i,int j){
+        parent[find(parent,j)]=find(parent,i);
+    }
+    public int[] minimumCost(int n, int[][] edges, int[][] query) {
+        int parent[]=new int[n],ans[]=new int[query.length];
+        int map[]=new int[n];
+        Arrays.fill(map,(1<<31)-1);
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        for(int edge[]:edges){
+            union(parent,edge[0],edge[1]);
+        }
+        for(int edge[]:edges){
+            int cur=find(parent,edge[0]),mask=(1<<31)-1;
+            map[cur]=map[cur]&edge[2];
+        }
+        for(int i=0;i<query.length;i++){
+            int res1=find(parent,query[i][0]),res2=find(parent,query[i][1]);
+            ans[i]=res1!=res2?-1:map[res1];
+        }
+        return ans;
+    }
+}
