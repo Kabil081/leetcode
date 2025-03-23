@@ -1,0 +1,43 @@
+class Edge{
+    long dest,weight;
+    Edge(long dest,long weight){
+        this.dest=dest;
+        this.weight=weight;
+    }
+}
+class Solution {
+    public int countPaths(int n, int[][] roads){
+        int mod=1000000007;
+        List<List<Edge>> graph=new ArrayList<>();
+        for(long i=0;i<n;i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int road[]:roads){
+            graph.get(road[0]).add(new Edge(road[1],road[2]));
+            graph.get(road[1]).add(new Edge(road[0],road[2]));
+        }
+        long dist[]=new long[n];
+        long ways[]=new long[n];
+        Arrays.fill(dist,Long.MAX_VALUE/2);
+        dist[0]=0;
+        ways[0]=1;
+        PriorityQueue<long[]> pq=new PriorityQueue<>(Comparator.comparingLong(a->a[0]));
+        pq.add(new long[]{0,0});
+        while(!pq.isEmpty()){
+            long current[]=pq.poll();
+            long d=current[0],u=current[1];
+            if(d>dist[(int)u]) continue;
+            for(Edge edge:graph.get((int)u)){
+                long V=edge.dest,weight=edge.weight;
+                if(d+weight < dist[(int)V]){
+                    dist[(int)V]=d+weight;
+                    ways[(int)V]=ways[(int)u] % mod;
+                    pq.add(new long[]{dist[(int)V],V});
+                }else if(d+weight ==dist[(int)V]){
+                    ways[(int)V]=ways[(int)V]+ways[(int)u] % mod;
+                }
+            }
+        }
+        return (int)(ways[n-1] % mod);
+    }
+}
