@@ -1,0 +1,11 @@
+class Solution{
+    public int countDays(int days,int[][] meetings){
+        Arrays.sort(meetings,(a,b)->a[0]-b[0]);
+        int sum=0,n=meetings.length,nextDay=1;
+        for(int i=0;i<n;i++){
+            if(meetings[i][0]>nextDay) sum+=meetings[i][0]-nextDay;
+            nextDay=Math.max(nextDay,meetings[i][1]+1);
+        }
+        return sum+(days-nextDay+1);
+    }
+}
