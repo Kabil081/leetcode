@@ -1,0 +1,38 @@
+class Solution {
+    public int[] findDiagonalOrder(int[][] mat){
+        int n=mat.length;
+        int m=mat[0].length;
+        boolean visited[][]=new boolean[n][m];
+        Deque<int[]> queue=new ArrayDeque<>();
+        queue.add(new int[]{0,0});
+        int dir[][]={{0,1},{1,0}};
+        int res[]=new int[n*m];
+        int index=0;
+        boolean reverse=true;
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            List<Integer> list=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                int cur[]=queue.pollFirst();
+                int r=cur[0],c=cur[1];
+                list.add(mat[r][c]);
+                if(c+1<m && !visited[r][c+1]){
+                    queue.add(new int[]{r,c+1});
+                    visited[r][c+1]=true;
+                }
+                if(r+1<n && !visited[r+1][c]){
+                    queue.add(new int[]{r+1,c});
+                    visited[r+1][c]=true;
+                }
+            }
+            if(reverse){
+                Collections.reverse(list);
+            }
+            for(int i:list){
+                res[index++]=i;
+            }
+            reverse=!reverse;
+        }
+        return res;
+    }
+}
