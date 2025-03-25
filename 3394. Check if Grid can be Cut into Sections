@@ -1,0 +1,26 @@
+class Solution{
+    public boolean checkValidCuts(int n,int[][] rectangles){
+        int size=rectangles.length,i=0;
+        int xAxis[][]=new int[size][2];
+        int yAxis[][]=new int[size][2];
+        for(int arr[]:rectangles){
+            xAxis[i][0]=arr[0];
+            xAxis[i][1]=arr[2];
+            yAxis[i][0]=arr[1];
+            yAxis[i++][1]=arr[3];
+        }
+        return check(xAxis) || check(yAxis);
+    }
+    public boolean check(int [][]intervals){
+        Arrays.sort(intervals,(a,b)->a[0]-b[0]);
+        int sections=0,maxEnd=intervals[0][1];
+        for(int interval[]:intervals){
+            if(maxEnd<=interval[0]){
+                sections++;
+            }
+            maxEnd=Math.max(maxEnd,interval[1]);
+            if(sections>=2) return true;
+        }
+        return sections>=2;
+    }
+}
