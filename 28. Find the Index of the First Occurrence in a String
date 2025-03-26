@@ -1,0 +1,10 @@
+class Solution {
+    public int strStr(String handle,String needle){
+        if(handle.length()<needle.length()) return -1;
+        if(handle.equals(needle)) return 0;
+        for(int i=0;i<=handle.length()-needle.length();i++){
+            if(handle.substring(i,needle.length()+i).equals(needle)) return i;
+        }
+        return -1;
+    }
+}
