@@ -1,0 +1,28 @@
+class Solution {
+    public int[] gardenNoAdj(int n, int[][] paths) {
+        Map<Integer,List<Integer>> graph=new HashMap<>();
+        for(int i=1;i<=n;i++){
+            graph.put(i,new ArrayList<>());
+        }
+        for(int arr[]:paths){
+            graph.get(arr[0]).add(arr[1]);
+            graph.get(arr[1]).add(arr[0]);
+        }
+        int res[]=new int[n];
+        res[0]=1;
+        for(int i=1;i<n;i++){
+            res[i]=dfs(i+1,graph,res);
+        }
+        return res;
+    }
+    public int dfs(int num,Map<Integer,List<Integer>> graph,int res[]){
+        boolean visited[]=new boolean[5];
+        for(int node:graph.get(num)){
+            visited[res[node-1]]=true;
+        }
+        for(int i=1;i<=4;i++){
+            if(!visited[i]) return i;
+        }
+        return 0;
+    }
+}
