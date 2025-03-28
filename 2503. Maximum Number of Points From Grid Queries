@@ -6,7 +6,7 @@ class Solution{
         for(int i=0;i<queriesLen;i++){
             sortedQueries[i][0]=queries[i];
             sortedQueries[i][1]=i;
-        }
+        } 
         boolean visited[][]=new boolean[m][n];
         Arrays.sort(sortedQueries,(a,b)->Integer.compare(a[0],b[0]));
         int res[]=new int[queriesLen];
