@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> list=new ArrayList<>();
+        int freq[]=new int[26];
+        for(int i=0;i<s.length();i++){
+            freq[s.charAt(i)-'a']=i;
+        }
+        int left=0,cur=0;
+        while(left<s.length()){
+            int num=freq[s.charAt(left)-'a'];
+            while(left<num){
+                left++;
+                if(freq[s.charAt(left)-'a']>num) num=freq[s.charAt(left)-'a'];
+            }
+            left++;
+            list.add(left-cur);
+            cur=left;
+        }
+        return list;
+    }
+}
