@@ -1,0 +1,27 @@
+class Solution {
+    public List<List<Integer>> getAncestors(int n,int[][] edges){
+        List<List<Integer>> res=new ArrayList<>();
+        List<List<Integer>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int edge[]:edges){
+            graph.get(edge[1]).add(edge[0]);
+        }
+        for(int i=0;i<n;i++){
+            Set<Integer> ancestors=new HashSet<>();
+            dfs(graph,i,ancestors);
+            List<Integer> sortedAncestors=new ArrayList<>(ancestors);
+            Collections.sort(sortedAncestors);
+            res.add(sortedAncestors);
+        }
+        return res;
+    }
+    public void dfs(List<List<Integer>> graph,int node,Set<Integer> ancestors){
+        for(int neighbor:graph.get(node)){
+            if(ancestors.add(neighbor)){
+                dfs(graph,neighbor,ancestors);
+            }
+        }
+    }
+}
