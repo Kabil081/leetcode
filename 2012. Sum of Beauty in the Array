@@ -1,0 +1,21 @@
+class Solution{
+    public int sumOfBeauties(int[] nums){
+        int n=nums.length,left=1,sum=0;
+        int right=n-2,minElement=nums[n-1],maxElement=nums[0];
+        int prefix_max[]=new int[n];
+        int suffix_min[]=new int[n];
+        prefix_max[0]=nums[0];
+        suffix_min[n-1]=nums[n-1];
+        while(left<n-1){
+            prefix_max[left]=maxElement;
+            suffix_min[right]=minElement;
+            maxElement=Math.max(maxElement,nums[left++]);
+            minElement=Math.min(minElement,nums[right--]);
+        }
+        for(int i=1;i<=n-2;i++){
+            if(prefix_max[i]<nums[i] && suffix_min[i]>nums[i]) sum+=2;
+            else if(nums[i-1]<nums[i] && nums[i]<nums[i+1]) sum+=1;
+        }
+        return sum;
+    }
+}
