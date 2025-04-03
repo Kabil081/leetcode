@@ -1,0 +1,21 @@
+class Solution {
+    public int minimumSum(int[] nums){
+        int n=nums.length,left=1,right=n-2,res=Integer.MAX_VALUE;
+        int prefix_min[]=new int[n];
+        int suffix_min[]=new int[n];
+        prefix_min[0]=nums[0];
+        suffix_min[n-1]=nums[n-1];
+        while(left<n-1){
+            prefix_min[left]=Math.min(nums[left],prefix_min[left-1]);
+            suffix_min[right]=Math.min(nums[right],suffix_min[right+1]);
+            left++;
+            right--;
+        }
+        for(int i=1;i<n-1;i++){
+            if(prefix_min[i]!=nums[i] && suffix_min[i]!=nums[i]){
+                res=Math.min(res,nums[i]+prefix_min[i]+suffix_min[i]);
+            }
+        }
+        return res==Integer.MAX_VALUE?-1:res;
+    }
+}
