@@ -1,0 +1,15 @@
+class Solution{
+    int totalSum=0;
+    public int subsetXORSum(int[] nums) {
+        backtracking(nums,0,0);
+        return totalSum;
+    }
+    public void backtracking(int []nums,int cur,int index){
+        if(index==nums.length){
+            totalSum+=cur;
+            return;
+        }
+        backtracking(nums,cur^nums[index],index+1);
+        backtracking(nums,cur,index+1);
+    }
+}
