@@ -1,0 +1,11 @@
+class Solution {
+    public int countElements(int[] nums) {
+        int n=nums.length;
+        Arrays.sort(nums);
+        int min=nums[0],max=nums[n-1],i=1,countMin=1,countMax=1;
+        while(i<n && nums[i++]==min) countMin++;
+        i=n-2;
+        while(i>=0 && nums[i--]==max) countMax++;
+        return n-countMin-countMax>0?n-countMin-countMax:0;
+    }
+}
