@@ -1,0 +1,25 @@
+class Solution{
+    int size;
+    List<String> res=new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        size=n*2;
+        backtrack(0,0,new StringBuilder());
+        return res;
+    }
+    public void backtrack(int open,int close,StringBuilder cur){
+        if(cur.length()==size){
+            res.add(cur.toString());
+            return;
+        }
+        if(open<size/2){
+            cur.append('(');
+            backtrack(open+1,close,cur);
+            cur.deleteCharAt(cur.length()-1);
+        }
+        if(close<open){
+            cur.append(')');
+            backtrack(open,close+1,cur);
+            cur.deleteCharAt(cur.length()-1);
+        }
+    }
+}
