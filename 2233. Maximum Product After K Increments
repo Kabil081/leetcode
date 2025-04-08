@@ -1,0 +1,16 @@
+class Solution {
+    public int maximumProduct(int[] nums, int k) {
+        int mod=1000000007;
+        PriorityQueue<Integer> minHeap=new PriorityQueue<>();
+        for(int i:nums) minHeap.offer(i);
+        while(k-->0){
+            int num=minHeap.remove();
+            minHeap.offer(num+1);
+        }
+        long product=1;
+        while(!minHeap.isEmpty()){
+            product=(minHeap.poll()*product) % mod; 
+        }
+        return (int)product;
+    }
+}
