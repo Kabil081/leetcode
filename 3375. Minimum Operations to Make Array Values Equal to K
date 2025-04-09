@@ -1,0 +1,15 @@
+class Solution{
+    public int minOperations(int[] nums,int k){
+        BitSet seen=new BitSet(101);
+        int Operations=0;
+        for(int i:nums){
+            if(i>k && !seen.get(i)){
+                Operations++;
+                seen.set(i);
+            }else if(i<k){
+                return -1;
+            }
+        }
+        return Operations;
+    }
+}
