@@ -1,0 +1,21 @@
+class Solution{
+    public int countSymmetricIntegers(int low, int high){
+        int res=0;
+        for(int i=low;i<=high;i++){
+            if(isSymmetric(i)){
+                res++;
+            }
+        }
+        return res;
+    }
+    public boolean isSymmetric(int num){
+        if(num<10 || (num>=100 && num<1000)) return false;
+        String s=String.valueOf(num);
+        int ans=0,cur=0,len=s.length()/2;
+        for(int i=0;i<len;i++){
+            ans+=s.charAt(i)-'0';
+            cur+=s.charAt(len+i)-'0';
+        }
+        return cur==ans;
+    }
+}
