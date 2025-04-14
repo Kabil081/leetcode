@@ -1,14 +1,23 @@
-int minimumDeletions(char* s) 
-{
-    int j=0,l=strlen(s),del=0,count=0;
-    for(int i=0;i<l;i++){
-        if(s[i]=='b'){
-            count++;
+class Solution {
+    public int minimumDeletions(String str) {
+        int n=str.length(),left=1,right,min=Integer.MAX_VALUE,a=0,b=0;
+        right=n-2;
+        char s[]=str.toCharArray();
+        int prefix[]=new int[n];
+        int suffix[]=new int[n];
+        if(s[0]=='b') a++;
+        if(s[n-1]=='a') b++;
+        while(left<n){
+            prefix[left]=a;
+            suffix[right]=b;
+            if(s[left]=='b') a++;
+            if(s[right]=='a') b++;
+            left++;
+            right--;
         }
-        else if(count>0){
-            del++;
-            count--;
+        for(int i=0;i<n;i++){
+            min=Math.min(min,prefix[i]+suffix[i]);
         }
+        return min;
     }
-    return del;    
 }
