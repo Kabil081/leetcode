@@ -1,0 +1,22 @@
+class Solution {
+    public int numSub(String s) {
+        int MOD=1000000007;
+        char ch[]=s.toCharArray();
+        long res=0;
+        int left=0,right=0,n=s.length();
+        while(right<n){
+            while(left<n && ch[left]=='0'){
+                left++;
+            }
+            right=left;
+            long num=0;
+            while(right<n && ch[right]=='1'){
+                num++;
+                right++;
+            }
+            left=right;
+            res+=(num*(num+1))/2 % MOD;
+        }
+        return (int)res%MOD;
+    }
+}
