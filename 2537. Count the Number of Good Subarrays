@@ -1,0 +1,23 @@
+class Solution{
+    public long countGood(int[] nums, int k){
+        long count=0,currentK=0;
+        Map<Integer,Integer> map=new HashMap<>();
+        int left=0,right=0;
+        while(right<nums.length){
+            int num=map.getOrDefault(nums[right],0);
+            map.put(nums[right],map.getOrDefault(nums[right],0)+1);
+            int n=num+1;
+            currentK+=(long)(n*(n-1))/2 - (long)(num*(num-1))/2;
+            while(currentK>=k){
+                count+=nums.length-right;
+                num=map.get(nums[left]);
+                n=num-1;
+                map.put(nums[left],n);
+                currentK-=(long)(num*(num-1))/2 - (long)(n*(n-1))/2;
+                left++;
+            }
+            right++;
+        }
+        return count;
+    }
+}
