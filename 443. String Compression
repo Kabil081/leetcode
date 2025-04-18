@@ -1,0 +1,37 @@
+class Solution{
+    public int compress(char[] chars){
+        if(chars.length==1) return 1;
+        int res=0,count=0,i=0;
+        char c=chars[0];
+        for(char ch:chars){
+            if(ch==c){
+                count++;
+            }else{
+                res++;
+                if(count==1){
+                    chars[i++]=c;
+                    c=ch;
+                    count=1;
+                    continue;
+                }
+                chars[i++]=c;
+                String sb=String.valueOf(count);
+                for(char ca:sb.toCharArray()){
+                    chars[i++]=ca;
+                    res++;
+                }
+                count=1;
+                c=ch;
+            }
+        }
+        res++;
+        chars[i++]=c;
+        if(count==1) return res;
+        String sb=String.valueOf(count);
+        for(char ca:sb.toCharArray()){
+            chars[i++]=ca;
+            res++;
+        }
+        return res;
+    }
+}
