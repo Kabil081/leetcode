@@ -1,0 +1,39 @@
+import java.util.Arrays;
+
+class Solution {
+    public long countFairPairs(int[] nums, int lower, int upper){
+        Arrays.sort(nums);
+        long pairCount = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] + nums[i + 1] > upper) break;
+            if (nums[i] + nums[nums.length - 1] < lower) continue;
+            int indexOfMinAllowedValue = findLowerBound(nums, i + 1, nums.length, lower - nums[i]);
+            int indexOfMaxAllowedValue = findUpperBound(nums, i + 1, nums.length, upper - nums[i]);
+            pairCount += indexOfMaxAllowedValue - indexOfMinAllowedValue;
+        }
+        return pairCount;
+    }
+    private int findLowerBound(int[] nums, int start, int end, int target) {
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] >= target) {
+                end = mid;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+
+    private int findUpperBound(int[] nums, int start, int end, int target) {
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] > target) {
+                end = mid;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+}
