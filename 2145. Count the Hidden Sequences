@@ -1,0 +1,13 @@
+class Solution{
+    public int numberOfArrays(int[] differences, int lower, int upper){
+        long prefix_sum=0,min_prefix=0,max_prefix=0;
+        for(int i:differences){
+            prefix_sum+=i;
+            min_prefix=Math.min(min_prefix,prefix_sum);
+            max_prefix=Math.max(max_prefix,prefix_sum);
+        }
+        long min_start=lower-min_prefix;
+        long max_start=upper-max_prefix;
+        return Math.max(0,(int)(max_start-min_start+1));
+    }
+}
