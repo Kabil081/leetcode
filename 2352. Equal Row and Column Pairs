@@ -1,0 +1,22 @@
+class Solution{
+    public int equalPairs(int[][] grid){
+        int res=0,n=grid.length;
+        Map<String,Integer>map=new HashMap<>();
+        char cur[]=new char[n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                cur[j]=(char)(grid[i][j]+'0');
+            }
+            String str=new String(cur);
+            map.put(str,map.getOrDefault(str,0)+1);
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                cur[j]=(char)(grid[j][i]+'0');
+            }
+            String str=new String(cur);
+            res+=map.getOrDefault(str,0);
+        }
+        return res;
+    }
+}
