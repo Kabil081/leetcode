@@ -1,0 +1,31 @@
+import java.util.*;
+public class Solution{
+    public static boolean isvalid(int arr[],int dist,int k){
+        int last=arr[0],countCows=1;
+        for(int i=1;i<arr.length;i++){
+            if(arr[i]-last>=dist){
+                countCows++;
+                if(countCows==k) return true;
+                last=arr[i];
+            }
+        }
+        return false;
+    }
+    public static int aggressiveCows(int []stalls, int k){
+        Arrays.sort(stalls);
+        return bseacrh(stalls,k,1,stalls[stalls.length-1]-stalls[0]);
+    }
+    public static int bseacrh(int nums[],int k,int left,int right){
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(isvalid(nums,mid,k)){
+                ans=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return ans;
+    }
+}
