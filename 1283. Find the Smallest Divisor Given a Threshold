@@ -1,0 +1,27 @@
+class Solution{
+    public long Divisor(int nums[],long num){
+        long res=0;
+        for(int i:nums){
+            res+=(i+num-1)/num; 
+        }
+        return (int)res;
+    }
+    public int smallestDivisor(int[] nums, int threshold){
+        long max=0;
+        for(int i:nums) max+=i;
+        return bsearch(nums,threshold,1,max);
+    }
+    public int bsearch(int[]nums,int threshold,long left,long right){
+        long ans=0;
+        while(left<=right){
+            long mid=left+(right-left)/2;
+            if(Divisor(nums,mid)<=threshold){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return (int)ans;
+    }
+}
