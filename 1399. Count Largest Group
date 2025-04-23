@@ -1,0 +1,25 @@
+class Solution {
+    public int countLargestGroup(int n){
+        int freq[]=new int[n+1];
+        int curMax=0,res=0;
+        for(int i=1;i<=n;i++){
+            int curSum=sum(i);
+            freq[curSum]++;
+            if(freq[curSum]>curMax){
+                curMax=freq[curSum];
+                res=1;
+            }else if(freq[curSum]==curMax){
+                res++;
+            }
+        }
+        return res;
+    }
+    public int sum(int num){
+        int res=0;
+        while(num>0){
+            res+=num%10;
+            num/=10;
+        }
+        return res;
+    }
+}
