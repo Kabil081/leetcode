@@ -1,0 +1,39 @@
+/*************************************
+
+class Point {
+	int x;
+	int y;
+
+	Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+**************************************/
+import java.util.*;
+public class Solution{
+	public static int shortestPathBinaryMatrix(int[][] matrix, Point src, Point dest){
+		if (matrix[src.x][src.y] == 0 || matrix[dest.x][dest.y] == 0) return -1;
+		if(src.x==dest.x && src.y==dest.y) return 0;
+		Queue<int[]> queue=new LinkedList<>();
+		queue.offer(new int[]{src.x,src.y,0});
+		int m=matrix.length,n=matrix[0].length;
+		boolean visited[][]=new boolean[m][n];
+		int dir[][]={{-1,0},{0,-1},{1,0},{0,1}};
+		visited[src.x][src.y]=true;
+		while(!queue.isEmpty()){
+			int cur[]=queue.poll();
+			int x=cur[0],y=cur[1],dist=cur[2];
+			if(x==dest.x && y==dest.y) return dist;
+			for(int d[]:dir){
+				int x1=d[0]+x;
+				int y1=d[1]+y;
+				if(x1<0 || x1>=m || y1<0 || y1>=n || visited[x1][y1] || matrix[x1][y1]==0) continue;
+				visited[x1][y1]=true;
+				queue.offer(new int[]{x1,y1,dist+1});
+			}
+		}
+		return -1;
+	}
+}
