@@ -1,0 +1,59 @@
+class Solution{
+    public void merge(int []nums,int left,int mid,int right,int profit[]){
+        int leftArray[]=new int[mid-left+1];
+        int rightArray[]=new int[right-mid];
+        int profitLeft[]=new int[mid-left+1];
+        int profitRight[]=new int[right-mid];
+        int ind1=0,ind2=0,ptr=0;
+        for(int i=left;i<=mid;i++){
+            leftArray[ind1]=nums[i];
+            profitLeft[ind1++]=profit[i];
+        }
+        for(int i=mid+1;i<=right;i++){
+            rightArray[ind2]=nums[i];
+            profitRight[ind2++]=profit[i];
+        }
+        ind1=0;
+        ind2=0;
+        ptr=left;
+        while(ind1<leftArray.length && ind2<rightArray.length){
+            if(leftArray[ind1]<rightArray[ind2]){
+                nums[ptr]=leftArray[ind1];
+                profit[ptr]=profitLeft[ind1++];
+            }else{
+                nums[ptr]=rightArray[ind2];
+                profit[ptr]=profitRight[ind2++];
+            }
+            ptr++;
+        }
+        while(ind1<leftArray.length){
+            nums[ptr]=leftArray[ind1];
+            profit[ptr++]=profitLeft[ind1++];
+        }
+        while(ind2<rightArray.length){
+            nums[ptr]=rightArray[ind2];
+            profit[ptr++]=profitRight[ind2++];
+        }
+    }
+    public void mergesort(int nums[],int left,int right,int []profit){
+        if(left<right){
+            int mid=left+(right-left)/2;
+            mergesort(nums,left,mid,profit);
+            mergesort(nums,mid+1,right,profit);
+            merge(nums,left,mid,right,profit);
+        }
+    }
+    public int maxProfitAssignment(int[] difficulty, int[] profit,int[] worker){
+        mergesort(difficulty,0,difficulty.length-1,profit);
+        Arrays.sort(worker);
+        int total=0,max=0;
+        int ptr=0,ind=0;
+        for(int w:worker){
+            while(ptr<difficulty.length && difficulty[ptr]<=w){
+                max=Math.max(max,profit[ptr++]);
+            }
+            total+=max;
+        }
+        return total;
+    }
+}
