@@ -1,0 +1,13 @@
+class Solution{
+    public long countSubarrays(int[] nums, int minK, int maxK) {
+        int start=-1,minIdx=-1,maxIdx=-1;
+        long res=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]<minK || nums[i]>maxK) start=i;
+            if(nums[i]==minK) minIdx=i;
+            if(nums[i]==maxK) maxIdx=i; 
+            res+=Math.max(0,Math.min(minIdx,maxIdx)-start);
+        }
+        return res;
+    }
+}
