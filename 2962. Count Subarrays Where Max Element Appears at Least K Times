@@ -1,0 +1,23 @@
+class Solution {
+    public long countSubarrays(int[] nums, int k){
+        int n=nums.length;
+        int left=0,right=0;
+        long res=0;
+        int maxCount=0;
+        int max=0;
+        for(int i:nums){
+            if(i>max) max=i;
+        }
+        while(right<n){
+            if(nums[right]==max) maxCount++;
+            while(left<=right && maxCount>=k){
+                if(nums[left]==max) maxCount--;
+                left++;
+            }
+            res+=(right-left+1);
+            right++;
+        }
+        long total=((long)n*(n+1))/2;
+        return total-res;
+    }
+}
