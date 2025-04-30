@@ -1,0 +1,17 @@
+class Solution{
+    public boolean num(int n){
+        int count=0;
+        while(n!=0){
+            n/=10;
+            count++;
+        }
+        return count%2==0;
+    }
+    public int findNumbers(int[] nums){
+        int count=0;
+        for(int i:nums){
+            if(num(i)) count++;
+        }
+        return count;
+    }
+}
