@@ -1,0 +1,29 @@
+class Solution {
+    public int minTimeToReach(int[][] moveTime){
+        int n=moveTime.length;
+        int m=moveTime[0].length;
+        int time[][]=new int[n][m];
+        PriorityQueue<int[]>pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
+        pq.add(new int[]{0,0,0});
+        int dir[][]={{0,1},{1,0},{0,-1},{-1,0}};
+        boolean visited[][]=new boolean[n][m];
+        while(!pq.isEmpty()){
+            int cur[]=pq.poll();
+            int x=cur[1];
+            int y=cur[2];
+            int amount=cur[0];
+            if(x==n-1 && y==m-1) return amount;
+            for(int d[]:dir){
+                int nx=d[0]+x;
+                int ny=d[1]+y;
+                if(nx<0 || nx>=moveTime.length || ny<0 || ny>=moveTime[0].length || visited[nx][ny]){
+                    continue;
+                }
+                visited[nx][ny]=true;
+                int max=Math.max(amount+1,moveTime[nx][ny]+1);
+                pq.add(new int[]{max,nx,ny});
+            }
+        }
+        return 0;
+    }
+}
