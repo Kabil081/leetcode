@@ -1,0 +1,21 @@
+class Solution {
+    public long minSum(int[] nums1, int[] nums2) {
+        long sum1=0;
+        long sum2=0;
+        int zero1=0;
+        int zero2=0;
+        for(int i:nums1){
+            sum1+=i;
+            if(i==0) zero1++;
+        }
+        for(int i:nums2){
+            sum2+=i;
+            if(i==0) zero2++;
+        }
+        long max1=sum1+zero1;
+        long max2=sum2+zero2;
+        if(max1<max2 && zero1==0) return -1;
+        if(max2<max1 && zero2==0) return -1;
+        return Math.max(max1,max2);
+    }
+}
