@@ -1,0 +1,27 @@
+class Solution{
+    int MOD=1_000_000_007;
+    public int[] Next(String s,int freq[]){
+        int res[]=new int[26];
+        for(int i=0;i<26;i++){
+            if(i==25){
+                res[0]+=freq[i] % MOD;
+                res[1]+=freq[i] % MOD;
+            }else{
+                res[i+1]+=freq[i] % MOD;
+            }
+        }
+        return res;
+    }
+    public int lengthAfterTransformations(String s, int t){
+        int freq[]=new int[26];
+        for(char c:s.toCharArray()) freq[c-'a']++;
+        for(int i=0;i<t;i++){
+            freq=Next(s,freq);
+        }
+        long res=0;
+        for(int i=0;i<26;i++){
+            res=(res+freq[i]) % MOD;
+        }
+        return (int)res % MOD;
+    }
+}
