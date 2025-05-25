@@ -1,0 +1,36 @@
+class Solution{
+    public boolean isPalindrome(String word){
+        return word.charAt(1)==word.charAt(0);
+    }
+    public int longestPalindrome(String[] words){
+        Map<String,Integer> map=new HashMap<>();
+        for(String s:words){
+            map.put(s,map.getOrDefault(s,0)+1);
+        }
+        int length=0;
+        boolean NotYet=true;
+        for(String word:map.keySet()){
+            int count=map.get(word);
+            String sb=new StringBuilder(word).reverse().toString();
+            if(isPalindrome(word)){
+                    if(count % 2 ==1 && NotYet){
+                        length+=count*2;
+                        NotYet=false;
+                    }else if(count %2==0){
+                        length+=count*2;
+                    }else{
+                        count--;
+                        length+=count*2;
+                    }
+                    map.put(word,map.get(word)-count);
+            }
+            else if(map.containsKey(sb)){
+                int min=Math.min(map.get(sb),count);
+                length+=min*4;
+                map.put(sb,map.get(sb)-min);
+                map.put(word,map.get(word)-min);
+            }
+        }
+        return length;
+    }
+}
