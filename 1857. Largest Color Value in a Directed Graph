@@ -1,0 +1,41 @@
+class Solution{
+    public int largestPathValue(String color, int[][] edges) {
+        int n=color.length();
+        int indegree[]=new int[n];
+        List<List<Integer>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(i,new ArrayList<>());
+        }
+        for(int arr[]:edges){
+            indegree[arr[1]]++;
+            graph.get(arr[0]).add(arr[1]);
+        }
+        Deque<Integer> queue=new ArrayDeque<>();
+        int count[][]=new int[n][26];
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                queue.addLast(i);
+            }
+        }
+        int countNodes=0;
+        int max=0;
+        while(!queue.isEmpty()){
+            int node=queue.removeFirst();
+            countNodes++;
+            int cur_color=color.charAt(node)-'a';
+            count[node][cur_color]++;
+            max=Math.max(max,count[node][cur_color]);
+            for(int neighbour:graph.get(node)){
+                indegree[neighbour]--;
+                int in_color=color.charAt(neighbour)-'a';
+                for(int i=0;i<26;i++){
+                    count[neighbour][i]=Math.max(count[neighbour][i],count[node][i]);
+                }
+                if(indegree[neighbour]==0){
+                    queue.addLast(neighbour);
+                }
+            }
+        }
+        return countNodes==n?max:-1;
+    }
+}
