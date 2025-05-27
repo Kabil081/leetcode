@@ -1,0 +1,26 @@
+class Solution {
+    public int maxIceCream(int[] costs, int coins){
+        Arrays.sort(costs);
+        int n=costs.length;
+        long prefix[]=new long[n];
+        prefix[0]=costs[0];
+        for(int i=1;i<n;i++){
+            prefix[i]=prefix[i-1]+costs[i];
+        }
+        int num=bsearch(prefix,0,n-1,coins);
+        return num==-1?0:num+1;
+    }
+    public int bsearch(long arr[],int left,int right,int coins){
+        int res=-1;
+        while(left<=right){
+            int mid=(right+left)/2;
+            if(arr[mid]<=coins){
+                res=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return res;
+    }
+}
