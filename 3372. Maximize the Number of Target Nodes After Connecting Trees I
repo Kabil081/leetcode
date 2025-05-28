@@ -1,0 +1,40 @@
+class Solution {
+    public int[] maxTargetNodes(int[][] edges1, int[][] edges2, int k) {
+        List<List<Integer>> tree1=new ArrayList<>();
+        List<List<Integer>> tree2=new ArrayList<>();
+        int n=edges1.length;
+        int m=edges2.length;
+        for(int i=0;i<=n;i++){
+            tree1.add(new ArrayList<>());
+        }
+        for(int i=0;i<=m;i++){
+            tree2.add(new ArrayList<>());
+        }
+        for(int edge[]:edges1){
+            tree1.get(edge[0]).add(edge[1]);
+            tree1.get(edge[1]).add(edge[0]);
+        } 
+        for(int edge[]:edges2){
+            tree2.get(edge[0]).add(edge[1]);
+            tree2.get(edge[1]).add(edge[0]);
+        }
+        int arr1[]=new int[n+1];
+        int max=0;
+        for(int i=0;i<=n;i++) arr1[i]=solve(tree1,n,k,new boolean[n+1],i);
+        for(int i=0;i<=m;i++) max=Math.max(max,solve(tree2,m,k-1,new boolean[m+1],i));
+        for(int i=0;i<=n;i++){
+            arr1[i]+=max;
+        }
+        return arr1;
+    }
+    public int solve(List<List<Integer>> tree,int n,int k,boolean visited[],int node){
+        if(visited[node]) return 0;
+        if(k<0) return 0;
+        visited[node]=true;
+        int val=1;
+        for(int edge:tree.get(node)){
+            val+=solve(tree,n,k-1,visited,edge);
+        }
+        return val;
+    }
+}
