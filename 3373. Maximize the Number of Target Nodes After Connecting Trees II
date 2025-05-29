@@ -1,0 +1,61 @@
+class Solution{
+    int count_zero=0;
+    int count_one=0;
+    public int[] maxTargetNodes(int[][] edges1, int[][] edges2){
+        int n=edges1.length+1;
+        int m=edges2.length+1;
+        List<Integer>[] tree1=new ArrayList[n];
+        List<Integer>[] tree2=new ArrayList[m];
+        for(int i=0;i<n;i++) tree1[i]=new ArrayList<>();
+        for(int i=0;i<m;i++) tree2[i]=new ArrayList<>();
+        for(int edge[]:edges1){
+            tree1[edge[0]].add(edge[1]);
+            tree1[edge[1]].add(edge[0]);
+        }
+        for(int edge[]:edges2){
+            tree2[edge[0]].add(edge[1]);
+            tree2[edge[1]].add(edge[0]);
+        }
+        int res[]=new int[n];
+        solve(tree2,0,new boolean[m],0);
+        int max=Math.max(count_zero,count_one);
+        count_zero=0;
+        count_one=0;
+        helper(tree1,0,new boolean[n],0,res);
+        for(int i=0;i<n;i++){
+            if(res[i]==0) res[i]=count_zero+max;
+            else res[i]=count_one+max;
+        }
+        return res;
+    }
+    public void solve(List<Integer>[] tree,int node,boolean visited[],int k){
+        if(visited[node]) return;
+        visited[node]=true;
+        if(k==0){
+            count_zero++;
+            k++;
+        }else{ 
+            count_one++;
+            k--;
+        }
+        for(int neighbour:tree[node]){
+            solve(tree,neighbour,visited,k);
+        }
+    }
+    public void helper(List<Integer>[]tree,int node,boolean visited[],int k,int []res){
+        if(visited[node]) return;
+        visited[node]=true;
+        if(k==0){
+            res[node]=0;
+            count_zero++;
+            k++;
+        }else{ 
+            res[node]=1;
+            count_one++;
+            k--;
+        }
+        for(int neighbour:tree[node]){
+            helper(tree,neighbour,visited,k,res);
+        }
+    }
+}
