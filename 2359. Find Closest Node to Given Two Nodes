@@ -1,0 +1,41 @@
+class Solution {
+    public int closestMeetingNode(int[] edges, int node1, int node2) {
+        Deque<int[]> pq=new ArrayDeque<>();
+        int n=edges.length;
+        int dist1[]=new int[n];
+        int dist2[]=new int[n];
+        Arrays.fill(dist1,Integer.MAX_VALUE);
+        Arrays.fill(dist2,Integer.MAX_VALUE);
+        dist2[node2]=0;
+        dist1[node1]=0;
+        pq.addLast(new int[]{node1,1,1});
+        pq.addLast(new int[]{node2,1,2});
+        while(!pq.isEmpty()){
+            int cur[]=pq.removeFirst();
+            int node=cur[0],d=cur[1],flag=cur[2];
+            int neighbour=edges[node];
+            if(neighbour==-1) continue;
+            if(flag==1){
+                if(dist1[neighbour]>d){ 
+                    dist1[neighbour]=d;
+                    pq.addLast(new int[]{neighbour,d+1,flag});
+                }
+            }else{
+                if(dist2[neighbour]>d){
+                    dist2[neighbour]=d;
+                    pq.addLast(new int[]{neighbour,d+1,flag});
+                }
+            }
+        }
+        int min=Integer.MAX_VALUE;
+        int val=-1;
+        for(int i=0;i<n;i++){
+                int minimum=Math.max(dist1[i],dist2[i]);
+                if(min>minimum){
+                    min=minimum;
+                    val=i;
+                }
+        }
+        return val;
+    }
+}
