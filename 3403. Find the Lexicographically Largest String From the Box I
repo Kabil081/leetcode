@@ -1,0 +1,22 @@
+class Solution{
+    public boolean check(String s,String s2){
+        return s.compareTo(s2)>0;
+    }
+    public String answerString(String word, int numFriends){
+        if(numFriends==1) return word;
+        int required=word.length()-numFriends+1;
+        String res="";
+        for(int i=0;i<word.length();i++){
+            String temp;
+            if(i+required<=word.length()){
+                temp=word.substring(i,i+required);
+            }else{
+                temp=word.substring(i);
+            }
+            if(check(temp,res)){
+                res=temp;
+            }
+        }
+        return res;
+    }
+}
