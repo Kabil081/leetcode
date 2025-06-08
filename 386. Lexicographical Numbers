@@ -1,0 +1,18 @@
+class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer>list=new ArrayList<>();
+        for(int i=1;i<10;i++){
+            generate(n,i,list);
+        }
+        return list;
+    }
+    public void generate(int n,int cur,List<Integer>list){
+        if(cur>n) return;
+        list.add(cur);
+        for(int next=0;next<10;next++){
+            int temp=cur*10+next;
+            if(temp<=n) generate(n,temp,list);
+            else break;
+        }
+    }
+}
