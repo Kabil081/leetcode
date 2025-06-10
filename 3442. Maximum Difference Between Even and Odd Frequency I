@@ -1,0 +1,16 @@
+class Solution {
+    public int maxDifference(String s) {
+        int freq[]=new int[26];
+        for(char ch:s.toCharArray()){
+            freq[ch-'a']++;
+        }
+        int num1=100,num2=0;
+        for(int i=0;i<26;i++){
+            if(freq[i]==0) continue;
+            if(freq[i]%2==0 && freq[i]<num1) num1=freq[i];
+            else if(freq[i]%2==1 && freq[i]>num2) num2=freq[i];
+        }
+        if(num1==100 || num2==0) return -1;
+        return num2-num1;
+    }
+}
