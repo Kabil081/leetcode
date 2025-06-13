@@ -1,0 +1,29 @@
+class Solution{
+    public boolean helper(int[]nums,int p,int max){
+        int count=0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]-nums[i-1]<=max){
+                count++;
+                i++;
+            }
+        }
+        return count>=p;
+    }
+    public int minimizeMax(int[] nums, int p){
+        Arrays.sort(nums);
+        return bsearch(nums,0,nums[nums.length-1]-nums[0],p);
+    }
+    public int bsearch(int[]nums,int left,int right,int p){
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(helper(nums,p,mid)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+}
