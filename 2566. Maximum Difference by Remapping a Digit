@@ -1,0 +1,42 @@
+class Solution{
+    public int minMaxDifference(int num){
+        String str=String.valueOf(num);
+        StringBuilder s1=new StringBuilder();
+        StringBuilder s2=new StringBuilder();
+        int min=-1;
+        int max=-1;
+        for(char ch:str.toCharArray()){
+            if(min==-1){
+                if(ch!='9'){
+                    min=ch;
+                    s1.append(9);
+                }else{
+                    s1.append(ch);
+                }
+            }else{
+                if(min==ch){
+                    s1.append(9);
+                }else{
+                    s1.append(ch);
+                }
+            }
+            if(max==-1){
+                if(ch!='0'){
+                    max=ch;
+                    s2.append(0);
+                }else{
+                    s2.append(ch);
+                }
+            }else{
+                if(max==ch){
+                    s2.append(0);
+                }else{
+                    s2.append(ch);
+                }
+            }
+        }
+        int num1=Integer.parseInt(s1.toString());
+        int num2=Integer.parseInt(s2.toString());
+        return num1-num2;
+    }
+}
