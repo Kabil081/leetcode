@@ -1,0 +1,15 @@
+class Solution{
+    public int distributeCandies(int[] candyType){
+        int count=0;
+        int n=candyType.length/2;
+        int freq[]=new int[200001];
+        for(int i:candyType){
+            if(freq[i+100000]==0) {
+                count++;
+                freq[i+100000]++;
+                if(count>n) return n;
+            }
+        }
+        return count;
+    }
+}
