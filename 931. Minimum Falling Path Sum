@@ -1,0 +1,21 @@
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        int dir[][]={{1,-1},{1,0},{1,1}};
+        int n=matrix.length;
+        for(int i=n-2;i>=0;i--){
+            for(int j=0;j<n;j++){
+                int nextMin=Integer.MAX_VALUE;
+                for(int d[]:dir){
+                    int x=d[0]+i;
+                    int y=d[1]+j;
+                    if(x<0 || y<0 || x>=n || y>=n) continue;
+                    nextMin=Math.min(nextMin,matrix[x][y]);
+                }
+                matrix[i][j]+=nextMin;
+            }
+        }
+        int min=Integer.MAX_VALUE;
+        for(int i:matrix[0]) min=Math.min(min,i);
+        return min;
+    }
+}
