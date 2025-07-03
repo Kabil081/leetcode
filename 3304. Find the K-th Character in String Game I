@@ -1,0 +1,15 @@
+class Solution{
+    public char kthCharacter(int k){
+        StringBuilder word=new StringBuilder("a");
+        int ind=0;
+        while(word.length()<k){
+            int n=word.length();
+            for(int i=0;i<n;i++){
+                char ch=word.charAt(i);
+                if(ch=='z') word.append("a");ac
+                else word.append((char)(ch+1));
+            }
+        }
+        return word.charAt(k-1);
+    }
+}
