@@ -1,0 +1,23 @@
+class Solution{
+    public char kthCharacter(long k, int[] operations) {
+        long len=1;
+        int count=0,n=operations.length;
+        int ind=0;
+        for(int i:operations) {
+            len*=2;
+            ind++;
+            if(len>k) break;
+        }
+        for(int i=ind-1;i>=0;i--){
+            len/=2;
+            if(k>len){
+                k=k-len;
+                if(operations[i]==1){ 
+                    count++;
+                }
+            }
+        }
+        count%=26;
+        return (char)('a'+count);
+    }
+}
