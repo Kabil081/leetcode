@@ -1,0 +1,15 @@
+class Solution {
+    public int findLucky(int[] arr){
+        int freq[]=new int[501];
+        int res=-1;
+        for(int i:arr){
+            freq[i]++;
+        }
+        for(int i:arr){
+            if(freq[i]==i && i>res){
+                res=i;
+            }
+        }
+        return res;
+    }
+}
