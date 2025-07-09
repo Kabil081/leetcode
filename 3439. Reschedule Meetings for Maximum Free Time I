@@ -1,0 +1,15 @@
+class Solution{
+    public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime){
+        int n=endTime.length;
+        int arr[]=new int[n+2];
+        int end=0,ind=0;
+        for(int i=0;i<n;i++){
+            arr[ind++]=(startTime[i]-end);
+            end=endTime[i];
+        }
+        arr[ind++]=(eventTime-endTime[endTime.length-1]);
+…            left++;
+        }
+        return max;
+    }
+}
