@@ -1,0 +1,28 @@
+class Solution{
+    public int maxFreeTime(int eventTime, int[] startTime, int[] endTime) {
+        int n=startTime.length,end=0,max=0;
+        int gaps[]=new int[n+1];
+        int suffix[]=new int[n+1];
+        for(int i=0;i<n;i++){
+            gaps[i]=startTime[i]-end;
+            end=endTime[i];
+        }
+        gaps[n]=eventTime-end;
+        for(int i=n-1;i>=0;i--){
+            suffix[i]=Math.max(suffix[i+1],gaps[i+1]);
+        }
+        int largestLeft=0;
+        for(int i=1;i<=n;i++){
+            int cur=endTime[i-1]-startTime[i-1];
+            boolean canRight=suffix[i]>=cur;
+            boolean canLeft=largestLeft>=cur;
+            if(canRight || canLeft){
+                int merged=gaps[i-1]+gaps[i]+cur;
+                max=Math.max(max,merged);
+            }
+            max=Math.max(max,gaps[i-1]+gaps[i]);
+            largestLeft=Math.max(largestLeft,gaps[i-1]);
+        }
+        return max;
+    }
+}
