@@ -1,0 +1,36 @@
+class Solution{
+    public int findShortestCycle(int n, int[][] edges){
+        List<List<Integer>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(i,new ArrayList<>());
+        }
+        for(int edge[]:edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        int cycle=Integer.MAX_VALUE;
+        for(int start=0;start<n;start++){
+            int dist[]=new int[n];
+            int parent[]=new int[n];
+            Arrays.fill(dist,-1);
+            Arrays.fill(parent,-1);
+            Deque<Integer> queue=new ArrayDeque<>();
+            queue.addFirst(start);
+            dist[start]=0;
+            while(!queue.isEmpty()){
+                int u=queue.poll();
+                for(int v:graph.get(u)){
+                    if(dist[v]==-1){
+                        dist[v]=dist[u]+1;
+                        parent[v]=u;
+                        queue.addLast(v);
+                    }else if(v!=parent[u]){
+                        int len=dist[u]+dist[v]+1;
+                        cycle=Math.min(cycle,len);
+                    }
+                }
+            }
+        }
+        return cycle==Integer.MAX_VALUE?-1:cycle;
+    }
+}
