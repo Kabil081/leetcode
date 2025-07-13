@@ -1,0 +1,33 @@
+class Solution{
+    int parent[];
+    public int minTime(int n, int[][] edges,int k){
+        if(edges.length==0) return 0;
+        Arrays.sort(edges,(a,b)->b[2]-a[2]);
+        parent=new int[n];
+        int connected_components=n;
+        if(n==k) return edges[0][2];
+        for(int i=0;i<n;i++) parent[i]=i;
+        for(int i=0;i<edges.length;i++){
+            int x=edges[i][0];
+            int y=edges[i][1];
+            if(find(x)==find(y)) continue;
+            union(x,y);
+            connected_components--;
+            if(connected_components<k){
+                return edges[i][2];
+            }
+        }
+        return 0;
+    }
+    public int find(int i){
+        if(parent[i]==i) return i;
+        return find(parent[i]);
+    }
+    public void union(int x,int y){
+        int xparent=find(x);
+        int yparent=find(y);
+        if(xparent!=yparent){
+            parent[xparent]=yparent;
+        }
+    }
+}
