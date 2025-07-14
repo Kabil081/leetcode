@@ -1,0 +1,47 @@
+class Solution{
+    int parent[];
+    public void initialize(){
+        for(int i=0;i<parent.length;i++) parent[i]=i;
+    }
+    public int minCost(int n, int[][] edges, int k) {
+        if(edges.length==0) return 0;
+        parent=new int[n];
+        Arrays.sort(edges,(a,b)->a[2]-b[2]);
+        int left=0;
+        int right=edges[edges.length-1][2];
+        return bsearch(edges,left,right,k,n);
+    }
+    public int bsearch(int edges[][],int left,int right,int k,int n){
+        int ans=0;
+        while(left<=right){
+            initialize();
+            int mid=left+(right-left)/2;
+            if(isValid(edges,mid,k,n)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+    public int find(int i){
+        if(parent[i]==i) return i;
+        return parent[i]=find(parent[i]);
+    }
+    public void union(int x,int y){
+        int xp=find(x);
+        int yp=find(y);
+        if(xp!=yp) parent[xp]=yp;
+    }
+    public boolean isValid(int edges[][],int cur,int k,int n){
+        int connected_components=n;
+        for(int i=0;i<edges.length && edges[i][2]<=cur;i++){
+            int edge[]=edges[i];
+            if(find(edge[0])==find(edge[1])) continue;
+            union(edge[0],edge[1]);
+            connected_components--;
+        }
+        return connected_components<=k;
+    }
+}
