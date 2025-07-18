@@ -1,0 +1,12 @@
+class Solution{
+    public long taskSchedulerII(int[] tasks, int space) {
+        HashMap<Integer,Long> map=new HashMap<>();
+        long days=0L;
+        for(int task:tasks){
+            days=Math.max(days,map.getOrDefault(task,0L));
+            days++;
+            map.put(task,days+space);
+        }
+        return days;
+    }
+}
