@@ -1,0 +1,19 @@
+class Solution{
+    public String makeFancyString(String s){
+        StringBuilder sb=new StringBuilder();
+        char cur=' ';
+        int count=1;
+        for(char ch:s.toCharArray()){
+            if(cur==' '){
+                cur=ch;
+            }
+            else if(ch==cur) count++;
+            else{ 
+                count=1;
+                cur=ch;
+            }
+            if(count<=2) sb.append(ch);
+        }
+        return sb.toString();
+    }
+}
