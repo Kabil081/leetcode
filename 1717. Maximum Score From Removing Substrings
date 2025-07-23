@@ -1,0 +1,29 @@
+class Solution{
+    public int maximumGain(String s, int x, int y) {
+        Deque<Character> stack=new ArrayDeque<>();
+        int count=0,add=(x>y)?x:y;
+        int secondValue=(x<y)?x:y;
+        String remove=(x>y)?"ab":"ba";
+        for(char ch:s.toCharArray()){
+            if(!stack.isEmpty() && stack.peekLast()==remove.charAt(0) && ch==remove.charAt(1)){
+                count+=add;
+                stack.removeLast();
+            }else{
+                stack.addLast(ch);
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        while(!stack.isEmpty()){
+            sb.append(stack.pollFirst());
+        }
+        for(char ch:sb.toString().toCharArray()){
+            if(!stack.isEmpty() && stack.peekLast()==remove.charAt(1) && ch==remove.charAt(0)){
+                count+=secondValue;
+                stack.pollLast();
+            }else{ 
+                stack.addLast(ch);
+            }
+        }
+        return count;
+    }
+}
