@@ -1,0 +1,22 @@
+class Solution{
+    public int characterReplacement(String s, int k){
+        int freq[]=new int[26];
+        int left=0,right=0,res=0;
+        char arr[]=s.toCharArray();
+        int maxFreq=0;
+        while(right<s.length()){
+            char ch=arr[right];
+            freq[ch-'A']++;
+            if(freq[ch-'A']>maxFreq){
+                maxFreq=freq[ch-'A'];
+            }
+            while(left<=right && (right-left+1 - maxFreq)>k){
+                freq[arr[left]-'A']--;
+                left++;
+            }
+            res=Math.max(res,right-left+1); 
+            right++;
+        }
+        return res;
+    }
+}
