@@ -1,0 +1,14 @@
+class Solution {
+    public int findJudge(int n, int[][] trust){
+        int edge[]=new int[n+1];
+        boolean[] notjudge=new boolean[n+1];
+        for(int arr[]:trust){
+            edge[arr[1]]++;
+            notjudge[arr[0]]=true;
+        }
+        for(int i=1;i<=n;i++){
+            if(!notjudge[i] && edge[i]==n-1) return i;
+        }
+        return -1;
+    }
+}
