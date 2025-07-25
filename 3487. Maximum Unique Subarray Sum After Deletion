@@ -1,0 +1,15 @@
+class Solution{
+    public int maxSum(int[] nums){
+        int freq[]=new int[101];
+        int res=-1;
+        int max=Integer.MIN_VALUE;
+        for(int i:nums){
+            if(i>0 && freq[i]==0){
+                res+=i;
+                freq[i]++;
+            }
+            max=Math.max(max,i);
+        }
+        return res>=0?res+1:max;
+    }
+}
