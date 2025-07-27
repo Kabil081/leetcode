@@ -1,0 +1,13 @@
+class Solution {
+    public long maximumMedianSum(int[] nums) {
+        long res=0;
+        int left=0,right=nums.length-1;
+        Arrays.sort(nums);
+        while(left<right){
+            res+=nums[right-1];
+            right-=2;
+            left++;
+        }
+        return res;
+    }
+}
