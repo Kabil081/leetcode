@@ -1,14 +1,17 @@
-class Solution(object):
-    def generate(self, numRows):
-        """
-        :type numRows: int
-        :rtype: List[List[int]]
-        """
-        result=[]
-        for i in range(numRows):
-            row=[1]*(i+1)
-            for j in range(1,i):
-                row[j]=result[i-1][j-1]+result[i-1][j]
-            result.append(row)
-        return result
-        
+class Solution{
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res=new ArrayList<>();
+        res.add(Arrays.asList(1));
+        for(int i=1;i<numRows;i++){
+            List<Integer> cur=new ArrayList<>();
+            List<Integer> prev=res.get(i-1);
+            cur.add(1);
+            for(int j=1;j<i;j++){
+                cur.add(prev.get(j-1)+prev.get(j));
+            }
+            cur.add(1);
+            res.add(new ArrayList<>(cur));
+        }
+        return res;
+    }
+}
