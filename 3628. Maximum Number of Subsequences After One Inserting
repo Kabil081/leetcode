@@ -1,0 +1,25 @@
+class Solution{
+    public long numOfSubsequences(String s){
+        int n=s.length();
+        int lcount[]=new int[n];
+        int tcount[]=new int[n];
+        if(s.charAt(0)=='L') lcount[0]=1;
+        if(s.charAt(n-1)=='T') tcount[n-1]=1;
+        for(int i=1;i<n;i++){
+            lcount[i]=lcount[i-1]+(s.charAt(i)=='L'?1:0);
+            tcount[n-i-1]=tcount[n-i]+(s.charAt(n-i-1)=='T'?1:0);
+        }
+        long ans=0,best=0,anst=0,ansl=0;
+        for(int i=0;i<n;i++){
+            long prefix=(long)lcount[i];
+            long suffix=(long)tcount[i];
+            if(s.charAt(i)=='C'){
+                ans+=prefix*suffix;
+                anst+=prefix*(suffix+1);
+                ansl+=(prefix+1)*suffix;
+            }
+            best=Math.max(best,prefix*suffix);
+        }
+        return Math.max(ans+best,Math.max(anst,ansl));
+    }
+}
