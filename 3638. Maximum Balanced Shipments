@@ -1,0 +1,40 @@
+class Solution{
+    public boolean isValid(int order[],int t,int n,int k){
+        boolean mark[]=new boolean[n];
+        for(int i=0;i<=t;i++){
+            mark[order[i]]=true;
+        }
+        int left=0,right=0;
+        long len=0,good=0;
+        for(int i=0;i<n;i++){
+            if(mark[i]){
+                len=0;
+            }else{ 
+                len++;
+                good+=len;
+            }
+        }
+        long total=(long)n*(n+1)/2;
+        total-=good;
+        return total>=k;
+    }
+    public int minTime(String s, int[] order, int k) {
+        int n=s.length();
+        return bsearch(n,order,k);
+    }
+    public int bsearch(int n,int order[],int k){
+        int left=0,right=n-1;
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(isValid(order,mid,n,k)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+}
+
