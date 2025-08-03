@@ -1,0 +1,24 @@
+class Solution{
+    public boolean isTrionic(int[] nums){
+        int count=0;
+        int left=1;
+        while(left<nums.length && nums[left]>nums[left-1]){
+            left++;
+            if(count==0) count++;
+        }
+        while(left<nums.length && nums[left]<nums[left-1]){
+            left++;
+            if(count==1) count++;
+        }
+        while(left<nums.length && nums[left]>nums[left-1]){
+            if(count==2){ 
+                count++;
+            }
+            left++;
+        }
+        while(left<nums.length && nums[left]<=nums[left-1]){
+            return false;
+        }
+        return count==3;
+    }
+}
