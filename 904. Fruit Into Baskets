@@ -1,47 +1,48 @@
-struct node{
-    int data;
-    int size;
-};
-int totalFruit(int*nums, int size){
-    if(size<=2){
-        return size;
-    }
-    int l=0,r=2,max=2;
-    struct node one,two;
-    if(nums[0]==nums[1]){
-        one.data=nums[0];
-        one.size=2;
-        two.size=0;
-    }
-    else{
-        one.data=nums[0];
-        one.size=1;
-        two.data=nums[1];
-        two.size=1;
-    }
-    while(r<size){
-        if(nums[r]==one.data){
-            one.size++;
-        }
-        else if(nums[r]==two.data || two.size==0){
-            two.size++;
-            two.data=nums[r];
-        }
-        else{
-            while(one.size>0 && two.size>0){
-                if(nums[l]==one.data){
-                    one.size--;
-                }
-                else{
-                    two.size--;
-                }
-                l++;
+class Solution {
+    public int totalFruit(int[] fruits) {
+        if(fruits.length==1) return 1;
+        int fruit1=-1;
+        int fruit2=-1;
+        int count1=0;
+        int count2=0;
+        int max=0;
+        int left=0,right=0;
+        while(right<fruits.length && (fruit1==-1 || fruit2==-1)){
+            if(fruit1==-1){
+                fruit1=fruits[right];
+                count1++;
+            }else if(fruit1==fruits[right]){
+                count1++;
+            }else if(fruit2==-1){
+                fruit2=fruits[right];
+                count2++;
             }
-            if(one.size==0){one.data=nums[r];one.size=1;}
-            else{two.data=nums[r];two.size=1;}
+            max=right-left+1;
+            right++;
         }
-        max=max>r-l+1?max:r-l+1;
-        r++;
+        while(right<fruits.length){
+            if(fruits[right]==fruit1) count1++;
+            else if(fruits[right]==fruit2) count2++;
+            else {
+                while(left<=right && (count1>0 && count2>0)){
+                    if(fruits[left]==fruit1) {
+                        count1--;
+                    }else if(fruits[left]==fruit2){ 
+                        count2--;
+                    }
+                    left++;
+                }
+                if(count1==0){
+                    fruit1=fruits[right];
+                    count1++;
+                }else if(count2==0){ 
+                    fruit2=fruits[right];
+                    count2++;
+                }
+            }
+            max=Math.max(right-left+1,max);
+            right++;
+        }
+        return max;
     }
-    return max;
 }
