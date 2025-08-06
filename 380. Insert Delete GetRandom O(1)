@@ -1,0 +1,40 @@
+import java.util.*;
+class RandomizedSet{
+    Map<Integer,Integer> map;
+    List<Integer> list;
+    Random rand=new Random();
+    public RandomizedSet(){
+        map=new HashMap<>();
+        list=new ArrayList<>();
+    }
+    public boolean insert(int val){
+        if(map.containsKey(val)) return false;
+        int len=list.size();
+        map.put(val,len);
+        list.add(val);
+        return true;   
+    }
+    public boolean remove(int val){
+        if(!map.containsKey(val)) return false;
+        int ind=map.get(val);
+        int last=list.size()-1;
+        int last_val=list.get(last);
+        map.put(last_val,ind);
+        map.remove(val);
+        list.set(ind,last_val);
+        list.remove(last);
+        return true;
+    }
+    public int getRandom(){
+        int ind=rand.nextInt(list.size());
+        return list.get(ind);
+    }
+}
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
