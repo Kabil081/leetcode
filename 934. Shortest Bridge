@@ -1,0 +1,47 @@
+class Solution{
+    boolean visited[][];
+    Deque<int[]> queue=new ArrayDeque<>();
+    int dir[][]={{-1,0},{0,-1},{0,1},{1,0}};
+    public int shortestBridge(int[][] grid){
+        int n=grid.length;
+        visited=new boolean[n][n];
+        find_island(grid,n);
+        int steps=0;
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            for(int i=0;i<size;i++){
+                int arr[]=queue.pollFirst();
+                for(int d[]:dir){
+                    int nx=d[0]+arr[0];
+                    int ny=d[1]+arr[1];
+                    if(nx>=n || ny>=n || nx<0 || ny<0 || visited[nx][ny] || grid[nx][ny]==-1) continue;
+                    visited[nx][ny]=true;
+                    if(grid[nx][ny]==1) return steps;
+                    queue.addLast(new int[]{nx,ny});
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+    public void find_island(int grid[][],int n){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    dfs(grid,i,j,n);
+                    return;
+                }
+            }
+        }
+    }
+    public void dfs(int grid[][],int i,int j,int n){
+        if( i>=n || j>=n || i<0 || j<0 || visited[i][j] || grid[i][j]==0) return;
+        visited[i][j]=true;
+        grid[i][j]=-1;
+        queue.addLast(new int[]{i,j});
+        dfs(grid,i+1,j,n);
+        dfs(grid,i-1,j,n);
+        dfs(grid,i,j+1,n);
+        dfs(grid,i,j-1,n);
+    }
+}
