@@ -8,7 +8,7 @@ class Solution{
             sum+=i;
             if(set.contains(sum-target)){
                 ans++;
-                set=new HashSet<>();
+                set.clear();
             }
             set.add(sum);
         }
