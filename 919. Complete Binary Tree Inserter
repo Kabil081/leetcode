@@ -1,0 +1,25 @@
+class CBTInserter{
+    TreeNode root;
+    Deque<TreeNode> queue=new ArrayDeque<>();
+    public boolean isFull(TreeNode node){
+        return node.left!=null && node.right!=null;
+    }
+    public CBTInserter(TreeNode tree){
+        this.root=tree;
+        queue.addLast(this.root);
+    }
+    public int insert(int val){
+        while(isFull(queue.peekFirst())){
+            TreeNode parent=queue.removeFirst();
+            queue.addLast(parent.left);
+            queue.addLast(parent.right);
+        }
+        TreeNode node=queue.peekFirst();
+        if(node.left!=null) node.right=new TreeNode(val);
+        else node.left=new TreeNode(val);
+        return node.val;
+    }
+    public TreeNode get_root(){
+        return this.root;
+    }
+}
