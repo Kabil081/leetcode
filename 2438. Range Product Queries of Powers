@@ -1,0 +1,30 @@
+class Solution{
+    public StringBuilder findPowers(int n){
+        StringBuilder sb=new StringBuilder();
+        while(n>0){
+            sb.append(n%2);
+            n/=2;
+        }
+        return sb;
+    }
+    public int[] productQueries(int n, int[][] queries){
+        int mod=1_000_000_007;
+        List<Integer> powers=new ArrayList<>();
+        StringBuilder sb=findPowers(n);
+        for(int i=0;i<sb.length();i++){
+            if(sb.charAt(i)=='1'){
+                powers.add((int)Math.pow(2,i));
+            }
+        }
+        int ans[]=new int[queries.length];
+        for(int i=0;i<queries.length;i++){
+            int start=queries[i][0],end=queries[i][1];
+            long cur=1;
+            for(int j=start;j<=end;j++){
+                cur=(cur*powers.get(j)) % mod;
+            }
+            ans[i]=(int)cur;
+        }
+        return ans;
+    }
+}
