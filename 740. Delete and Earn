@@ -1,0 +1,12 @@
+class Solution{
+    public int deleteAndEarn(int[] nums){
+        int max=0;
+        for(int i:nums) max=Math.max(max,i);
+        int arr[]=new int[max+1];
+        int dp[]=new int[max+1];
+        for(int i:nums) arr[i]++;
+        dp[1]=arr[1];
+        for(int i=2;i<=max;i++) dp[i]=Math.max(dp[i-1],dp[i-2]+i*arr[i]);
+        return dp[max];
+    }
+}
