@@ -1,0 +1,30 @@
+class Solution{
+    public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter){
+        int dir[][]={{-1,0},{0,-1},{1,0},{0,1}};
+        int matrix[][]=new int[rows*cols][2];
+        boolean visited[][]=new boolean[rows][cols];
+        int ind=0;
+        matrix=new int[rows*cols][2];
+        visited=new boolean[rows][cols];
+        Deque<int[]> queue=new ArrayDeque<>();
+        queue.addLast(new int[]{rCenter,cCenter});
+        matrix[ind][0]=rCenter;
+        matrix[ind][1]=cCenter;
+        visited[rCenter][cCenter]=true;
+        ind++;
+        while(!queue.isEmpty()){
+            int arr[]=queue.removeFirst();
+            for(int d[]:dir){
+                int nx=arr[0]+d[0];
+                int ny=arr[1]+d[1];
+                if(nx<0 || ny<0 || nx>=rows || ny>=cols || visited[nx][ny]) continue;
+                matrix[ind][0]=nx;
+                matrix[ind][1]=ny;
+                queue.addLast(new int[]{nx,ny});
+                ind++;
+                visited[nx][ny]=true;
+            }
+        }
+        return matrix;
+    }
+}
