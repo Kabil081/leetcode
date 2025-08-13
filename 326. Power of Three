@@ -1,0 +1,7 @@
+class Solution{
+    public boolean isPowerOfThree(int n){
+        if(n<1) return false;
+        int mod=1162261467;
+        return mod%n==0;
+    }
+}
