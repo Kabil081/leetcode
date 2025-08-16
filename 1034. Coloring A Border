@@ -1,0 +1,38 @@
+class Solution{
+    public int[][] colorBorder(int[][] grid, int row, int col, int color){
+        int m=grid.length;
+        int n=grid[0].length;
+        boolean visited[][]=new boolean[m][n];
+        int ans[][]=new int[m][n];
+        int dir[][]={{-1,0},{0,-1},{0,1},{1,0}};
+        Deque<int[]> queue=new ArrayDeque<>();
+        int curColor=grid[row][col];
+        queue.addLast(new int[]{row,col});
+        visited[row][col]=true;
+        while(!queue.isEmpty()){
+            int arr[]=queue.pollFirst();
+            int val=0;
+            for(int d[]:dir){
+                int x=d[0]+arr[0];
+                int y=d[1]+arr[1];
+                if(x<0 || y<0 || x>=m || y>=n || grid[x][y]!=curColor){ 
+                    val++;
+                }else if(visited[x][y]){ 
+                    continue;
+                }else{
+                    visited[x][y]=true;
+                    queue.addLast(new int[]{x,y});
+                }
+            }
+            if(val>0) ans[arr[0]][arr[1]]=color;
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(ans[i][j]==0){
+                    ans[i][j]=grid[i][j];
+                }
+            }
+        }
+        return ans;
+    }
+}
