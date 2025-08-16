@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> partitionString(String s){
+        Map<String,Integer> map=new HashMap<>();
+        List<String> ans=new ArrayList<>();
+        StringBuilder sb=new StringBuilder();
+        int ind=0;
+        while(ind<s.length()){
+            sb.append(s.charAt(ind));
+            if(!map.containsKey(sb.toString())){
+                map.put(sb.toString(),1);
+                ans.add(sb.toString());
+                sb=new StringBuilder();
+            }
+            ind++;
+        }
+        return ans;
+    }
+}
