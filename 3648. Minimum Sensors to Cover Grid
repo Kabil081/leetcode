@@ -1,0 +1,10 @@
+class Solution{
+    public int minSensors(int n, int m, int k){
+        int side=(2*k+1);
+        int side1=n/side;
+        int side2=m/side;
+        if(n%side>0) side1++;
+        if(m%side>0) side2++;
+        return side1*side2;
+    }
+}
