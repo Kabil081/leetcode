@@ -1,0 +1,32 @@
+class Solution {
+    public int minCost(int n, int[][] edges) {
+        List<List<int[]>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(i,new ArrayList<>());
+        }
+        for(int edge[]:edges){
+            graph.get(edge[0]).add(new int[]{edge[1],edge[2]});
+            graph.get(edge[1]).add(new int[]{edge[0],edge[2]*2});
+        }
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        pq.add(new int[]{0,0});
+        int dist[]=new int[n];
+        Arrays.fill(dist,-1);
+        while(!pq.isEmpty()){
+            int arr[]=pq.poll();
+            if(arr[0]==n-1) return arr[1];
+            for(int edge[]:graph.get(arr[0])){
+                int node=edge[0];
+                int val=edge[1];
+                if(dist[node]==-1){
+                    pq.add(new int[]{node,arr[1]+val});
+                    dist[node]=arr[1]+val;
+                }else if(arr[1]+val<dist[node]){
+                    dist[node]=arr[1]+val;
+                    pq.add(new int[]{node,dist[node]});
+                }
+            }
+        }
+        return dist[n-1];
+    }
+}
