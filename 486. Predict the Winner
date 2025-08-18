@@ -1,0 +1,14 @@
+class Solution{
+    public boolean predictTheWinner(int[] nums){
+        return dfs(nums,0,nums.length-1,0,0,0);
+    }
+    public boolean dfs(int nums[],int start,int end,int player,int sum_1,int sum_2){
+        if(start>end){
+            return sum_1>=sum_2;
+        }
+        if(player==0){
+            return dfs(nums,start+1,end,1,sum_1+nums[start],sum_2) || dfs(nums,start,end-1,1,sum_1+nums[end],sum_2);
+        }
+        return dfs(nums,start+1,end,0,sum_1,sum_2+nums[start]) && dfs(nums,start,end-1,0,sum_1,sum_2+nums[end]);
+    }
+}
