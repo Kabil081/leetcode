@@ -1,0 +1,25 @@
+class Solution{
+    public long maxProfit(int[] prices, int[] strategy, int k){
+        int n=prices.length;
+        long prefix_1[]=new long[n+1];
+        long prefix_2[]=new long[n+1];
+        prefix_1[0]=0;
+        prefix_2[0]=0;
+        for(int i=0;i<n;i++){
+            prefix_1[i+1]= prefix_1[i] + (long)prices[i]*strategy[i];
+            prefix_2[i+1]= prefix_2[i] + prices[i];
+        }
+        int l=0,r=k;
+        long ans=Query(prefix_1,0,n);
+        while(r<=n){
+            long cur=Query(prefix_1,0,l)+Query(prefix_1,r,n)+Query(prefix_2,l+k/2,r);
+            ans=Math.max(ans,cur);
+            l++;
+            r++;
+        }
+        return ans;
+    }
+    public long Query(long prefix[],int l,int r){
+        return prefix[r]-prefix[l];
+    }
+}
