@@ -1,0 +1,29 @@
+class Solution{
+    public int minCost(int max, int[][] edges, int[] fees){
+        List<List<int[]>> graph=new ArrayList<>();
+        int n=fees.length;
+        for(int i=0;i<n;i++) graph.add(i,new ArrayList<>());
+        for(int edge[]:edges){
+            graph.get(edge[0]).add(new int[]{edge[1],edge[2]});
+            graph.get(edge[1]).add(new int[]{edge[0],edge[2]});
+        }
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[2]-b[2]);
+        int dist[]=new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[0]=0;
+        pq.add(new int[]{0,0,fees[0]});
+        while(!pq.isEmpty()){
+            int arr[]=pq.poll();
+            if(arr[0]==n-1) return arr[2];
+            for(int edge[]:graph.get(arr[0])){
+                int node=edge[0];
+                int time=edge[1];
+                if(arr[1]+time<=max && arr[1]+time<dist[node]){
+                    dist[node]=arr[1]+time;
+                    pq.add(new int[]{node,time+arr[1],arr[2]+fees[node]});
+                }
+            }
+        }
+        return -1;
+    }
+}
