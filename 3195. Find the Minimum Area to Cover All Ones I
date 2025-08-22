@@ -1,0 +1,19 @@
+class Solution{
+    public int minimumArea(int[][] grid){
+        int m=grid.length;
+        int n=grid[0].length;
+        int minHeight=m,maxHeight=-1;
+        int minWidth=n,maxWidth=-1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    minHeight=Math.min(i,minHeight);
+                    maxHeight=Math.max(i,maxHeight);
+                    minWidth=Math.min(j,minWidth);
+                    maxWidth=Math.max(j,maxWidth);
+                }
+            }
+        }
+        return (maxHeight-minHeight+1)*(maxWidth-minWidth+1);
+    }
+}
