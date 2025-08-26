@@ -1,0 +1,16 @@
+class Solution{
+    public int areaOfMaxDiagonal(int[][] dimensions){
+        double max=0;
+        int ans=0;
+        for(int arr[]:dimensions){
+            double cur=Math.sqrt(arr[0]*arr[0] + arr[1]*arr[1]);
+            if(max<cur){
+                ans=arr[0]*arr[1];
+                max=cur;
+            }else if(max==cur){
+                ans=Math.max(ans,arr[0]*arr[1]);
+            }
+        }
+        return ans;
+    }
+}
