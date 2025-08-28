@@ -1,0 +1,39 @@
+class Solution{
+    public int[][] diagonalSort(int[][] mat){
+        int m=mat.length;
+        int n=mat[0].length;
+        for(int row=m-1;row>=0;row--){
+            int i=row,j=0;
+            PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->a-b);
+            while(i<m && j<n){
+                pq.add(mat[i][j]);
+                i++;
+                j++;
+            };
+            i=row;
+            j=0;
+            while(i<m && j<n){
+                mat[i][j]=pq.poll();
+                i++;
+                j++;
+            }
+        }
+        for(int col=1;col<n;col++){
+            int i=0,j=col;
+            PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->a-b);
+            while(i<m && j<n){
+                pq.add(mat[i][j]);
+                i++;
+                j++;
+            }
+            i=0;
+            j=col;
+            while(i<m && j<n){
+                mat[i][j]=pq.poll();
+                i++;
+                j++;
+            }
+        }
+        return mat;
+    }
+}
