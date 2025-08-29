@@ -1,0 +1,9 @@
+class Solution{
+    int freq[]=new int[30001];
+    public boolean findTarget(TreeNode root, int k){
+        if(root==null) return false;
+        if(freq[root.val+10000]==1) return true;
+        freq[(k-root.val)+10000]++;
+        return findTarget(root.left,k) || findTarget(root.right,k);
+    }
+}
