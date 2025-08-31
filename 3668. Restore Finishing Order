@@ -1,0 +1,15 @@
+class Solution {
+    public int[] recoverOrder(int[] order, int[] friends) {
+        int n=order.length;
+        int freq[]=new int[n+1];
+        for(int i:friends) freq[i]++;
+        int res[]=new int[friends.length];
+        int ind=0;
+        for(int i:order){
+            if(freq[i]==1){
+                res[ind++]=i;
+            }
+        }
+        return res;
+    }
+}
