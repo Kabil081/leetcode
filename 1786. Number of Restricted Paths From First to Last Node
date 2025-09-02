@@ -1,0 +1,44 @@
+class Solution{
+    int memo[];
+    int MOD=1_000_000_007;
+    public int countRestrictedPaths(int n, int[][] edges){
+        List<List<int[]>> graph=new ArrayList<>();
+        for(int i=0;i<=n;i++) graph.add(i,new ArrayList<>());
+        memo=new int[n+1];
+        Arrays.fill(memo,-1);
+        int dist[]=new int[n+1];
+        for(int arr[]:edges){
+            graph.get(arr[0]).add(new int[]{arr[1],arr[2]});
+            graph.get(arr[1]).add(new int[]{arr[0],arr[2]});
+        }
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[1]-b[1]);
+        pq.add(new int[]{n,0});
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[n]=0;
+        while(!pq.isEmpty()){
+            int arr[]=pq.poll();
+            int node=arr[0];
+            int weight=arr[1];
+            if(weight>dist[node]) continue;
+            for(int edge[]:graph.get(node)){
+                int new_dist=weight+edge[1];
+                if(dist[edge[0]]<=new_dist) continue;
+                dist[edge[0]]=new_dist;
+                pq.add(new int[]{edge[0],new_dist});
+            }
+        }
+        return dfs(1,n,graph,dist);
+    }
+    public int dfs(int node,int target,List<List<int[]>> graph,int dist[]){
+        if(node==target) return 1;
+        if(memo[node]!=-1) return memo[node];
+        int total_paths=0;
+        for(int edge[]:graph.get(node)){
+            int v=edge[0];
+            if(dist[node]>dist[v]){
+                total_paths=(total_paths+dfs(v,target,graph,dist))%MOD;
+            } 
+        }
+        return memo[node]=total_paths;
+    }
+}
