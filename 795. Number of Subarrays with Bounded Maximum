@@ -1,0 +1,14 @@
+class Solution{
+    public int numSubarrayBoundedMax(int[] nums, int l, int r){
+        return findMax(r,nums)-findMax(l-1,nums);
+    }
+    public int findMax(int limit,int nums[]){
+        int cur=0;
+        int ans=0;
+        for(int i:nums){
+            cur=i<=limit?cur+1:0;
+            ans+=cur;
+        }
+        return ans;
+    }
+}
