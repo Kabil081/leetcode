@@ -1,0 +1,29 @@
+class MyQueue{
+    int arr[];
+    int ind;
+    int pointer;
+    public MyQueue(){
+        arr=new int[100];
+        this.ind=-1;
+        this.pointer=0;
+    }
+    public void push(int x){
+        this.ind++;
+        arr[this.ind]=x;
+    }
+    public int pop(){
+        if(this.ind==-1) return 0;
+        int num=arr[pointer];
+        this.pointer++;
+        return num;
+    }
+    public int peek(){
+        if(this.pointer==-1) return 0;
+        int num=arr[pointer];
+        return num;
+    }
+    public boolean empty(){
+        if(this.pointer==this.ind+1) return true;
+        return false; 
+    }
+}
