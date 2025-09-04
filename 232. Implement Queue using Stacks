@@ -1,29 +1,22 @@
 class MyQueue{
-    int arr[];
-    int ind;
-    int pointer;
+    Stack<Integer> st1;
+    Stack<Integer> st2;
     public MyQueue(){
-        arr=new int[100];
-        this.ind=-1;
-        this.pointer=0;
+        st2=new Stack<>();
+        st1=new Stack<>();
     }
     public void push(int x){
-        this.ind++;
-        arr[this.ind]=x;
+        while(!st1.isEmpty()) st2.push(st1.pop());
+        st1.push(x);
+        while(!st2.isEmpty()) st1.push(st2.pop());
     }
     public int pop(){
-        if(this.ind==-1) return 0;
-        int num=arr[pointer];
-        this.pointer++;
-        return num;
+        return st1.pop();
     }
     public int peek(){
-        if(this.pointer==-1) return 0;
-        int num=arr[pointer];
-        return num;
+        return st1.peek();
     }
     public boolean empty(){
-        if(this.pointer==this.ind+1) return true;
-        return false; 
+        return st1.isEmpty();
     }
 }
