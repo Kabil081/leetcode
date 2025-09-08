@@ -1,0 +1,23 @@
+class Solution{
+    int dp[][];
+    int n;
+    public int maxProfit(int[] prices, int fee){
+        n=prices.length;
+        int curBuy=0,curNotBuy=0,buy=0,sell=0;
+        for(int ind=n-1;ind>=0;ind--){
+            curBuy=Math.max(-prices[ind]+sell,buy);
+            curNotBuy=Math.max(-fee+prices[ind]+buy,sell);
+            buy=curBuy;
+            sell=curNotBuy;
+        }
+        return buy;
+    }
+    public int find(int prices[],int fee,int ind,int buy){
+        if(ind==n) return 0;
+        if(dp[ind][buy]!=0) return dp[ind][buy];
+        if(buy==1){
+            return dp[ind][1]=Math.max((-prices[ind]+find(prices,fee,ind+1,0)),(find(prices,fee,ind+1,1)));
+        }
+        return dp[ind][0]=Math.max((-fee+prices[ind]+find(prices,fee,ind+1,1)),(find(prices,fee,ind+1,0)));
+    }
+}
