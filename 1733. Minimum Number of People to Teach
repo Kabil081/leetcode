@@ -1,0 +1,33 @@
+class Solution {
+    public int minimumTeachings(int n, int[][] languages, int[][] friendships) {
+        Set<Integer>[] userLangs=new HashSet[languages.length+1];
+        for(int i=0;i<languages.length;i++){
+            userLangs[i+1]=new HashSet<>();
+            for(int lang:languages[i]){
+                userLangs[i+1].add(lang);
+            }
+        }
+        Set<Integer> toTeach=new HashSet<>();
+        int m=friendships.length;
+        for(int i=0;i<m;i++){
+            int u=friendships[i][0],v=friendships[i][1];
+            boolean canCommunicate=false;
+            for(int lang:userLangs[u]){
+                if(userLangs[v].contains(lang)) canCommunicate=true;
+            }
+            if(!canCommunicate){
+                toTeach.add(u);
+                toTeach.add(v);
+            }
+        }
+        int ans=501;
+        for(int lang=1;lang<=n;lang++){
+            int cur=0;
+            for(int user:toTeach){
+                if(!userLangs[user].contains(lang)) cur++;
+            }
+            ans=Math.min(ans,cur);
+        }
+        return ans;
+    }
+}
