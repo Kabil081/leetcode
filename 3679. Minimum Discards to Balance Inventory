@@ -1,0 +1,25 @@
+class Solution{
+    public int minArrivalsToDiscard(int[] arrivals, int w, int m){
+        int freq[]=new int[100001];
+        int start=1;
+        int discard=0;
+        Queue<Integer> queue=new LinkedList<>();
+        for(int i=1;i<=arrivals.length;i++){
+            int num=arrivals[i-1];
+            int cal=Math.max(1,i-w+1);
+            while(cal>start){
+                if(arrivals[start-1]!=-1) freq[queue.poll()]--;
+                start++;
+            }
+            freq[num]++;
+            if(freq[num]>m){
+                arrivals[i-1]=-1;
+                freq[num]--;
+                discard++;
+            }else{
+                queue.add(num);
+            }
+        }
+        return discard;
+    }
+}
