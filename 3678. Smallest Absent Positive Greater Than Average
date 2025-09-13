@@ -1,0 +1,16 @@
+class Solution {
+    public int smallestAbsent(int[] nums) {
+        int sum=0;
+        int freq[]=new int[2000];
+        for(int i:nums){ 
+            sum+=i;
+            freq[i+100]++;
+        }
+        sum/=nums.length;
+        for(int i=sum+1;i<1000;i++){
+            if(i<=0) continue;
+            if(freq[i+100]==0) return i;
+        }
+        return -1;
+    }
+}
