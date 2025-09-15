@@ -1,0 +1,16 @@
+class Solution{
+    public int canBeTypedWords(String text, String brokenLetters) {
+        String words[]=text.split(" ");
+        int ans=words.length;
+        char arr[]=brokenLetters.toCharArray();
+        for(String str:words){
+            for(char ch:arr){
+                if(str.contains(ch+"")){
+                    ans--;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}
