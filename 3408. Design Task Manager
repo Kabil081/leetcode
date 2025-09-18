@@ -1,0 +1,49 @@
+class TaskManager{
+    class Tasks{
+        int userId;
+        int taskId;
+        int Priority;
+        Tasks(int userId,int taskId,int Priority){
+            this.userId=userId;
+            this.taskId=taskId;
+            this.Priority=Priority;
+        }
+    }
+    PriorityQueue<Tasks> pq=new PriorityQueue<>((a,b)->{
+        if(a.Priority!=b.Priority) return b.Priority-a.Priority;
+        return b.taskId-a.taskId;
+    });
+    Map<Integer,Tasks> task=new HashMap<>();
+    public TaskManager(List<List<Integer>> tasks){
+        for(List<Integer> list:tasks){
+            add(list.get(0),list.get(1),list.get(2));
+        }
+    }
+    public void add(int userId, int taskId, int priority){
+        Tasks Task=new Tasks(userId,taskId,priority);
+        pq.offer(Task);
+        task.put(taskId,Task);
+    }
+    public void edit(int taskId, int newPriority){
+        Tasks Task=task.get(taskId);
+        Tasks newTask=new Tasks(Task.userId,taskId,newPriority);
+        task.put(taskId,newTask);
+        pq.offer(newTask);
+    }
+    public void rmv(int taskId){
+        task.remove(taskId);
+    }
+    public int execTop(){
+        while(!pq.isEmpty()){
+            Tasks Task=pq.poll();
+            if(task.containsKey(Task.taskId)){
+                Tasks current=task.get(Task.taskId);
+                if(current.Priority==Task.Priority){
+                    task.remove(current.taskId);
+                    return current.userId;
+                }
+            }
+        }
+        return -1;
+    }
+}
