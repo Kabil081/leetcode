@@ -1,0 +1,50 @@
+class Spreadsheet{
+    int arr[][];
+    public Spreadsheet(int rows){
+        arr=new int[26][rows+1];
+    }
+    public void setCell(String cell,int value){
+        int r=cell.charAt(0)-'A';
+        int ind=1;
+        int c=0;
+        while(ind<cell.length()){ 
+            c=c*10+cell.charAt(ind)-'0';
+            ind++;
+        }
+        arr[r][c]=value;
+    }
+    public void resetCell(String cell){
+        int r=cell.charAt(0)-'A';
+        int ind=1;
+        int c=0;
+        while(ind<cell.length()){ 
+            c=c*10+cell.charAt(ind)-'0';
+            ind++;
+        }
+        arr[r][c]=0;
+    }
+    public int getValue(String formula){
+        String indexes[]=formula.substring(1).split("\\+");
+        int ans=0;
+        for(int i=0;i<indexes.length;i++){
+            String str=indexes[i];
+            int cur=0;
+            if(Character.isDigit(str.charAt(0))){
+                for(int j=0;j<str.length();j++){
+                    cur=cur*10+str.charAt(j)-'0';
+                }
+            }else{
+                int r=str.charAt(0)-'A';
+                int ind=1;
+                int c=0;
+                while(ind<str.length()){ 
+                    c=c*10+str.charAt(ind)-'0';
+                    ind++;
+                }
+                cur=arr[r][c];
+            }
+            ans+=cur;
+        }
+        return ans;
+    }
+}
