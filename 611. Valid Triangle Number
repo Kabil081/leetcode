@@ -1,0 +1,20 @@
+class Solution{
+    public int triangleNumber(int[] nums){
+        int count=0;
+        Arrays.sort(nums);
+        int i=0,n=nums.length;
+        while(i<n && nums[i]==0) i++;
+        for(;i<n-1;i++){
+            int num=nums[i];
+            int j=i+1,k=n-1;
+            while(k>j+1 && num+nums[j]<=nums[k]) k--;
+            if(j==k) continue;
+            while(j<n-1){
+                while(k<n && nums[j]+num>nums[k]) k++;
+                count+=k-j-1;
+                j++;
+            }
+        }
+        return count;
+    }
+}
