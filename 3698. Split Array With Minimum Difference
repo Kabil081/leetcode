@@ -1,0 +1,35 @@
+class Solution{
+    public long splitArray(int[] nums){
+        int n=nums.length;
+        long total_sum=0L;
+        for(int i=0;i<n;i++){
+            total_sum+=nums[i];
+        }
+        int l=0,r=n-1;
+        for(int i=1;i<n;i++){
+            if(nums[i]>nums[i-1]){
+                l=i;
+            }else{
+                break;
+            }
+        }
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]>nums[i+1]){
+                r=i;
+            }else{
+                break;
+            }
+        }
+        long minDiff=100000000000L;
+        long left_sum=0;
+        for(int i=0;i<n;i++){
+            left_sum+=nums[i];
+            if(i<=l && i+1>=r){
+                long right_sum=total_sum-left_sum;
+                long diff=Math.abs(right_sum-left_sum);
+                minDiff=Math.min(diff,minDiff);
+            }
+        }
+        return minDiff==100000000000L?-1:minDiff;
+    }
+}
