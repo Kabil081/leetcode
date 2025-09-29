@@ -1,0 +1,39 @@
+class Solution{
+    public int distinctPoints(String s, int k){
+        int n=s.length();
+        int prefix_x[]=new int[n];
+        int prefix_y[]=new int[n];
+        int ind=0;
+        for(char ch:s.toCharArray()){
+            switch(ch){
+                case 'U':
+                    prefix_y[ind] += 1;
+                    break;
+                case 'D':
+                    prefix_y[ind] -= 1;
+                    break;
+                case 'L':
+                    prefix_x[ind] -= 1;
+                    break;
+                case 'R':
+                    prefix_x[ind] += 1;
+                    break;
+            }
+            if(ind>0){
+                prefix_x[ind]+=prefix_x[ind-1];
+                prefix_y[ind]+=prefix_y[ind-1];
+            }
+            ind++;
+        }
+        int l=0,r=k-1;
+        Set<String> set=new HashSet<>();
+        while(r<n){
+            int x=(prefix_x[n-1]-prefix_x[r])+(l>0?prefix_x[l-1]:0);
+            int y=(prefix_y[n-1]-prefix_y[r])+(l>0?prefix_y[l-1]:0);
+            set.add(x+","+y);
+            l++;
+            r++;
+        }
+        return set.size();
+    }       
+}
