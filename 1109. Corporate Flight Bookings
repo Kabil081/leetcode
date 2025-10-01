@@ -1,0 +1,14 @@
+class Solution {
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int diff[]=new int[n];
+        for(int arr[]:bookings){
+            int start=arr[0]-1;
+            diff[start]+=arr[2];
+            if(arr[1]<n) diff[arr[1]]-=arr[2];
+        }
+        for(int i=1;i<n;i++){
+            diff[i]+=diff[i-1];
+        }
+        return diff;
+    }
+}
