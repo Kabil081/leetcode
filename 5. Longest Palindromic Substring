@@ -1,0 +1,30 @@
+class Solution{
+    boolean dp[][];
+    public String longestPalindrome(String s){
+        int max_len=1;
+        int start=0;
+        int n=s.length();
+        for(int i=0;i<n;i++){
+            int arr[]=expand_center(i,i,s);
+            int arr_2[]=expand_center(i,i+1,s);
+            if(arr[1]-arr[0]+1>max_len){
+                max_len=arr[1]-arr[0]+1;
+                start=arr[0];
+            }
+            if(arr_2[1]-arr_2[0]+1>max_len){
+                max_len=arr_2[1]-arr_2[0]+1;
+                start=arr_2[0];
+            }
+        }
+        return s.substring(start,start+max_len);
+    }
+    public int[] expand_center(int l,int r,String s){
+        while(l>=0 && r<s.length() && s.charAt(l)==s.charAt(r)){
+            l--;
+            r++;
+        }
+        l++;
+        r--;
+        return new int[]{l,r};
+    }
+}
