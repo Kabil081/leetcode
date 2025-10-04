@@ -1,18 +1,13 @@
-int maxArea(int* arr, int heightSize) {
-    int l=0,r=heightSize-1,max=0;
-    while(l<r){
-        int min=0,area=0;
-        if(arr[l]<arr[r]){
-            min=arr[l];
-            area=min*(r-l);
-            l++;
+class Solution {
+    public int maxArea(int[] height) {
+        int ans=0;
+        int l=0,r=height.length-1;
+        while(l<r && r>0){
+            int cur=Math.min(height[l],height[r]);
+            ans=Math.max(ans,cur*(r-l));
+            if(height[l]<height[r]) l++;
+            else r--;
         }
-        else{
-            min=arr[r];
-            area=min*(r-l);
-            r--;
-        }
-        max=(max>area)?max:area;
+        return ans;
     }
-    return max;
 }
