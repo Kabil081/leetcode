@@ -1,0 +1,16 @@
+class Solution{
+    public int maximumEnergy(int[] energy, int k){
+        int n=energy.length;
+        int dp[]=new int[n];
+        int max=-1001;
+        for(int i=0;i<k;i++){
+            dp[i]=energy[i];
+            if(i+k>=n) max=Math.max(max,dp[i]);
+        }
+        for(int i=k;i<n;i++){
+            dp[i]=Math.max(dp[i-k]+energy[i],energy[i]);
+            if(i+k>=n) max=Math.max(max,dp[i]);
+        }
+        return max;
+    }
+}
