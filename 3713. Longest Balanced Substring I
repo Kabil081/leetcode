@@ -1,0 +1,24 @@
+class Solution{
+    public int longestBalanced(String s) {
+        int n=s.length();
+        int max=1;
+        for(int i=0;i<n;i++){
+            int freq[]=new int[26];
+            freq[s.charAt(i)-'a']++;
+            for(int j=i+1;j<n;j++){
+                freq[s.charAt(j)-'a']++;
+                int last=freq[s.charAt(j)-'a'];
+                if(isBalanced(freq,last)) max=Math.max(j-i+1,max);
+            }
+        }
+        return max;
+    }
+    public boolean isBalanced(int freq[],int last){
+        for(int i=0;i<26;i++){
+            if(freq[i]>0){
+                if(last!=freq[i]) return false;
+            }
+        }
+        return true;
+    }
+}
