@@ -1,0 +1,22 @@
+class Solution{
+    public List<String> removeAnagrams(String[] words){
+        List<String> list=new ArrayList<>();
+        list.add(words[0]);
+        int size=0;
+        for(int i=1;i<words.length;i++){
+            if(isTrue(words[i],list.get(size))) continue;
+            size++;
+            list.add(words[i]);
+        }
+        return list;
+    }
+    public boolean isTrue(String str,String str2){
+        int freq[]=new int[26];
+        int freq2[]=new int[26];
+        for(char ch:str.toCharArray()) freq[ch-'a']++;
+        for(char ch:str2.toCharArray()){
+            freq2[ch-'a']++;
+        }
+        return Arrays.equals(freq,freq2);
+    }
+}
