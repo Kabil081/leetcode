@@ -1,0 +1,17 @@
+class Solution {
+    public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
+        int l=0,r=k-1;
+        while(r<nums.size()-k){
+            if(valid(nums,l,r) && valid(nums,l+k,r+k)) return true;
+            l++;
+            r++;
+        }
+        return false;
+    }
+    public boolean valid(List<Integer> list,int l,int r){
+        for(int i=l+1;i<=r;i++){
+            if(list.get(i)<=list.get(i-1)) return false;
+        }
+        return true;
+    }
+}
