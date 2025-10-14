@@ -1,0 +1,52 @@
+class ExamTracker{
+    List<Integer> times;
+    List<Long> prefix;
+    public ExamTracker(){
+        times=new ArrayList<>();
+        prefix=new ArrayList<>();
+        times.add(0);
+        prefix.add(0L);
+    }
+    public void record(int time, int score){
+        times.add(time);
+        long p=0;
+        if(prefix.size()>0) p=prefix.get(prefix.size()-1);
+        prefix.add((long)score+p);
+    }
+    public long totalScore(int startTime, int endTime){
+        int l=lowerbound(startTime);
+        int r=upperbound(endTime);
+        if(l>r || l==times.size()) return 0;
+        long rightSum=prefix.get(r);
+        long leftSum=(l>0)?prefix.get(l-1):0;
+        return rightSum-leftSum;
+    }
+    public int lowerbound(int time){
+        int ans=-1;
+        int l=0,r=times.size()-1;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(times.get(mid)>=time){
+                ans=mid;
+                r=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
+    public int upperbound(int time){
+        int ans=-1;
+        int l=0,r=times.size()-1;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(times.get(mid)<=time){
+                ans=mid;
+                l=mid+1;
+            }else{
+                r=mid-1;
+            }
+        }
+        return ans;
+    }
+}
