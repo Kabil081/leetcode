@@ -1,0 +1,17 @@
+class Solution {
+    public int missingMultiple(int[] nums, int k) {
+        int freq[]=new int[100000];
+        int max=0;
+        for(int i:nums){
+            freq[i]++;
+            max=Math.max(max,i);
+        }
+        boolean t=true;
+        int num=k;
+        while(t){
+            if(freq[num]==0) return num;
+            num+=k;
+        }
+        return 0;
+    }
+}
