@@ -1,0 +1,33 @@
+class Solution{
+    public String lexGreaterPermutation(String s, String target){
+        StringBuilder res=new StringBuilder();
+        int n=s.length();
+        char chars[]=s.toCharArray();
+        int freq[]=new int[26];
+        for(char ch:chars) freq[ch-'a']++;
+        if(build(res,freq,target,0,false)){
+            return res.toString();
+        }
+        return "";
+    }
+    public boolean build(StringBuilder res,int freq[],String target,int idx,boolean greater){
+        int n=target.length();
+        if(idx==n) return greater;
+
+        for(char c=0;c<26;c++){
+            if(freq[c]==0) continue;
+            char ch=(char)('a'+c);
+
+            boolean next=greater || (ch>target.charAt(idx));
+            
+            if(!greater && ch<target.charAt(idx)) continue;
+
+            freq[c]--;
+            res.append(ch);
+            if(build(res,freq,target,idx+1,next)) return true;
+            freq[c]++;
+            res.deleteCharAt(res.length()-1);
+        }
+        return false;
+    }
+}
