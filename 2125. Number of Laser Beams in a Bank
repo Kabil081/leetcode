@@ -1,0 +1,17 @@
+class Solution{
+    public int numberOfBeams(String[] bank){
+        int ans=0;
+        int last=0;
+        for(String str:bank){
+            int cur=0;
+            for(char ch:str.toCharArray()){
+                if(ch=='1'){
+                    ans+=last;
+                    cur++;
+                }
+            }
+            if(cur>0) last=cur;
+        }
+        return ans;
+    }
+}
