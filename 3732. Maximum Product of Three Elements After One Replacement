@@ -1,0 +1,13 @@
+class Solution{
+    public long maxProduct(int[] nums){
+        Arrays.sort(nums);
+        int n=nums.length;
+        int max_one=nums[n-1];
+        int max_two=nums[n-2];
+        int min_one=nums[0];
+        int min_two=nums[1];
+        long max=Math.max((long)max_one*max_two,Math.abs((long)min_one*min_two));
+        max=Math.max(max,Math.abs((long)min_one*max_one));
+        return max*100000;
+    }
+}
