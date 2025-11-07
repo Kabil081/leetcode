@@ -1,0 +1,56 @@
+class Solution{
+    int[] parent;
+    int[] size;
+    public int[] processQueries(int c, int[][] connections, int[][] queries){
+        parent=new int[c+1];
+        size=new int[c+1];
+        for(int i=1;i<=c;i++){
+            parent[i]=i;
+            size[i]=1;
+        }
+        Set<Integer> unique=new HashSet<>();
+        for(int conn[]:connections){
+            component(conn[0],conn[1]);
+        }
+        for(int i=1;i<=c;i++){
+            int par=getparent(i);
+            unique.add(par);
+        }
+        Map<Integer,TreeSet<Integer>> map=new HashMap<>();
+        for(int val:unique) map.put(val,new TreeSet<>());
+        for(int i=1;i<=c;i++){
+            map.get(parent[i]).add(i);
+        }
+        List<Integer> res=new ArrayList<>();
+        for(int query[]:queries){
+            TreeSet<Integer> set=map.get(parent[query[1]]);
+            if(query[0]==1){
+                if(set.contains(query[1])){
+                    res.add(query[1]);
+                }else{
+                    if(set.isEmpty()) res.add(-1);
+                    else res.add(set.first());
+                }
+            }else{
+                set.remove(query[1]);
+            }
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+    public int getparent(int a){
+        if(parent[a]!=a) return parent[a]=getparent(parent[a]);
+        return parent[a];
+    }
+    public void component(int a,int b){
+        a=getparent(a);
+        b=getparent(b);
+        if(a==b) return;
+        if(size[a]<size[b]){
+            int t=a;
+            a=b;
+            b=t;
+        }
+        parent[b]=a;
+        size[a]+=size[b];
+    }
+}
