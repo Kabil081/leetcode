@@ -1,0 +1,20 @@
+class Solution {
+    public int maxOperations(String s) {
+        boolean contains_zero=false;
+        int ones=0;
+        int count=0;
+        for(char ch:s.toCharArray()){
+            if(ch=='1'){
+                if(contains_zero){
+                    count+=ones;
+                    contains_zero=false;
+                }
+                ones++;
+            }else{
+                contains_zero=true;
+            }
+        }
+        if(s.charAt(s.length()-1)=='0') count+=ones;
+        return count;
+    }
+}
