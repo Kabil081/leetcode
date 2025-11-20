@@ -1,0 +1,42 @@
+class Solution{
+    public long[] countStableSubarrays(int[] nums,int[][] queries){
+        int n=nums.length;
+        long prefix[]=new long[n];
+        int cur=1;
+        prefix[0]=1;
+        for(int i=1;i<n;i++){
+            if(nums[i]>=nums[i-1]){
+                cur++;
+            }else{
+                cur=1;
+            }
+            prefix[i]=prefix[i-1]+cur;
+        }
+        int next[]=new int[n];
+        int index=n-1;
+        next[n-1]=n-1;
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<=nums[i+1]) next[i]=index;
+            else{
+                next[i]=i;
+                index=i;
+            }
+        }
+        long ans[]=new long[queries.length];
+        int i=-1;
+        for(int q[]:queries){
+            i++;
+            int next_index=Math.min(next[q[0]],q[1]);
+            long sum=(next_index-q[0]+1);
+            sum=(sum*(sum+1))/2;
+            if(next_index==q[1]){
+                ans[i]=sum;
+                continue;
+            }
+            long r_sum=prefix[q[1]];
+            long l_sum=prefix[next_index];
+            ans[i]=sum+r_sum-l_sum;
+        }
+        return ans;
+    }
+}
