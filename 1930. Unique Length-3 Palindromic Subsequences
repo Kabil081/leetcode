@@ -1,0 +1,18 @@
+class Solution{
+    public int countPalindromicSubsequence(String s){
+        int n=s.length();
+        int total=0;
+        for(char ch='a';ch<='z';ch++){
+            int first=s.indexOf(ch);
+            int second=s.lastIndexOf(ch);
+            if(second-first<=1) continue;
+            boolean contains[]=new boolean[26];
+            for(int index=first+1;index<second;index++){
+                if(contains[s.charAt(index)-'a']) continue;
+                contains[s.charAt(index)-'a']=true;
+                total++;
+            }
+        }
+        return total;
+    }
+}
