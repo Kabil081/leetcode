@@ -1,0 +1,20 @@
+class Solution {
+    public int numberOfArithmeticSlices(int[] nums) {
+        if(nums.length<=2) return 0;
+        int ans=0;
+        int prev_diff=Integer.MIN_VALUE;
+        int cur_diff=0;
+        int cur_len=0;
+        for(int i=1;i<nums.length;i++){
+            cur_diff=nums[i]-nums[i-1];
+            if(cur_diff==prev_diff){
+                cur_len++;
+                ans+=cur_len;
+            }else{
+                prev_diff=cur_diff;
+                cur_len=0;
+            }
+        }
+        return ans;
+    }
+}
