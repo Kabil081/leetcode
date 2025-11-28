@@ -1,0 +1,13 @@
+class Solution{
+    public long sumAndMultiply(int n){
+        long num=0;
+        long sum=0;
+        String s=String.valueOf(n);
+        for(char ch:s.toCharArray()){
+            if(ch=='0') continue;
+            num=(num*10)+(ch-'0');
+            sum+=ch-'0';
+        }
+        return num*sum;
+    }
+}
