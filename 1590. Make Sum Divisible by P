@@ -1,0 +1,22 @@
+class Solution{
+    public int minSubarray(int[] nums, int p){
+        int n=nums.length;
+        int rem=0;
+        for(int val:nums){
+            rem=(rem+val)%p;
+        }
+        if(rem==0) return 0;
+        int curr_rem=0,ans=n;
+        Map<Integer,Integer> last_seen=new HashMap<>();
+        last_seen.put(0,-1);
+        for(int i=0;i<n;i++){
+            curr_rem=(curr_rem+nums[i])%p;
+            int target_rem=(curr_rem-rem+p)%p;
+            if(last_seen.containsKey(target_rem)){
+                ans=Math.min(ans,i-last_seen.get(target_rem));
+            }
+            last_seen.put(curr_rem,i);
+        }
+        return ans==n?-1:ans;
+    }
+}
