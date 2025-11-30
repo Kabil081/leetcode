@@ -1,0 +1,13 @@
+class Solution {
+    public int countElements(int[] nums, int k) {
+        Arrays.sort(nums);
+        int n=nums.length;
+        if(k==0) return n;
+        int t=nums[n-k];
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]<t) count++;
+        }
+        return count;
+    }
+}
