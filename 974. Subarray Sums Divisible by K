@@ -1,0 +1,15 @@
+class Solution{
+    public int subarraysDivByK(int[] nums, int k){
+        Map<Integer,Integer> seen=new HashMap<>();
+        seen.put(0,1);
+        int count=0;
+        int prefix=0;
+        for(int i:nums){
+            prefix+=i;
+            int curr_rem=((prefix%k)+k)%k;
+            if(seen.containsKey(curr_rem)) count+=seen.get(curr_rem);
+            seen.put(curr_rem,seen.getOrDefault(curr_rem,0)+1);
+        }
+        return count;
+    }
+}
