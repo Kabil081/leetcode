@@ -1,0 +1,27 @@
+class Solution{
+    public long maxRunTime(int n, int[] batteries) {
+        long sum=0;
+        for(int i:batteries) sum+=i;
+        return bsearch(0,sum,n,batteries);
+    }
+    public long bsearch(long left,long right,int n,int batteries[]){
+        long ans=-1;
+        while(left<=right){
+            long mid=left+(right-left)/2;
+            if(isValid(n,mid,batteries)){
+                ans=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return ans;
+    }
+    public boolean isValid(int n,long minute,int batteries[]){
+        long sum=0;
+        for(int i:batteries){
+            sum+=Math.min(i,minute);
+        }
+        return sum>=n*minute;
+    }
+}
