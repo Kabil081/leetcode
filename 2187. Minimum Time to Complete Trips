@@ -1,0 +1,28 @@
+class Solution {
+    public long minimumTime(int[] time, int totalTrips){
+        long sum=0;
+        for(int val:time) sum+=val;
+        return bsearch(0,sum*totalTrips,time,totalTrips);
+    }
+    public long bsearch(long left,long right,int time[],int trips){
+        long ans=-1;
+        while(left<=right){
+            long mid=left+(right-left)/2;
+            if(isValid(mid,time,trips)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+    public boolean isValid(long min_time,int time[],int trips){
+        long sum=0;
+        for(int val:time){
+            sum+=min_time/val;
+            if(sum>=trips) return true;
+        }
+        return sum>=trips;
+    }
+}
