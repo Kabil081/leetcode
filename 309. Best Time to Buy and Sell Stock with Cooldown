@@ -1,0 +1,27 @@
+class Solution{
+    int dp[][];
+    public int maxProfit(int[] prices){    
+        dp=new int[prices.length][3];
+        for(int rows[]:dp) Arrays.fill(rows,Integer.MIN_VALUE);
+        return recurse(prices,0,0);
+    }
+    public int recurse(int prices[],int ind,int op){
+        if(ind>=prices.length) return 0;
+        if(dp[ind][op]!=Integer.MIN_VALUE) return dp[ind][op];
+        int res=0;
+        if(op==0){
+            int buy=-prices[ind]+recurse(prices,ind+1,1);
+            int notbuy=recurse(prices,ind+1,0);
+            res=Math.max(buy,notbuy);
+        }else if(op==1){
+            int sell=prices[ind]+recurse(prices,ind+1,2);
+            int notsell=recurse(prices,ind+1,1);
+            res=Math.max(notsell,sell);
+        }else{
+            int sell=recurse(prices,ind+1,2);
+            int cooldown=recurse(prices,ind+1,0);
+            res=Math.max(sell,cooldown);
+        }
+        return dp[ind][op]=res;
+    }
+}
