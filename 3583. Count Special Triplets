@@ -1,0 +1,23 @@
+class Solution {
+    public int specialTriplets(int[] nums) {
+        Map<Integer,Integer> total_freq=new HashMap<>();
+        Map<Integer,Integer> prefix_freq=new HashMap<>();
+        for(int i:nums){
+            total_freq.put(i,total_freq.getOrDefault(i,0)+1);
+        }
+        long ans=0;
+        int mod=1000000007;
+        for(int i:nums){
+            int target=i*2;
+            if(total_freq.containsKey(target) && prefix_freq.containsKey(target)){
+                long total=total_freq.get(target);
+                long prefix=prefix_freq.get(target);
+                long suffix=total-prefix;
+                if(target==i) suffix--;
+                ans=(ans+((prefix*suffix)%mod)%mod);
+            }
+            prefix_freq.put(i,prefix_freq.getOrDefault(i,0)+1);
+        }
+        return (int)(ans%mod);
+    }
+}
