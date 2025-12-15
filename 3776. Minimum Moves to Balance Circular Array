@@ -1,0 +1,42 @@
+class Solution{
+    public long minMoves(int[] balance){
+        long sum=0;
+        long ans=0;
+        int neg_ind=-1;
+        int n=balance.length;
+        int neg_val=0;
+        for(int i=0;i<n;i++){ 
+            sum+=balance[i];
+            if(balance[i]<0){
+                neg_ind=i;
+                neg_val=balance[i];
+            }
+        }
+        if(sum<0) return -1;
+        if(neg_ind==-1) return 0;
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[1]-b[1]);
+        int ind=0;
+        while(ind!=neg_ind){
+            int min_left=Math.min(neg_ind-ind,(n-neg_ind)+ind);
+            pq.add(new int[]{balance[ind],min_left});
+            ind++;
+        }
+        ind++;
+        while(ind<n){
+            int min_right=Math.min(ind-neg_ind,neg_ind+(n-ind));
+            pq.add(new int[]{balance[ind],min_right});
+            ind++;
+        }
+        neg_val=Math.abs(neg_val);
+        while(!pq.isEmpty()){
+            int arr[]=pq.poll();
+            int val=arr[0];
+            ind=arr[1];
+            long take=Math.min(neg_val,val);
+            ans+=take*ind;
+            neg_val-=take;
+            if(neg_val==0) return ans;
+        }
+        return ans;
+    }
+}
