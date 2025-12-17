@@ -1,0 +1,29 @@
+class Solution{
+    long dp[][][];
+    public long maximumProfit(int[] prices, int k){
+        dp=new long[prices.length][3][k+1];
+        return recurse(prices,0,0,k);
+    }
+    public long recurse(int []prices,int ind,int state,int k){
+        if(k==0) return 0;
+        if(ind==prices.length-1){
+            if(state==1) return dp[ind][state][k]=prices[ind];
+            else if(state==0) return dp[ind][state][k]=0;
+            return dp[ind][state][k]=-prices[ind];
+        }
+        if(dp[ind][state][k]!=0) return dp[ind][state][k];
+        if(state==0){
+            long buy=-prices[ind]+recurse(prices,ind+1,1,k);
+            long sell=prices[ind]+recurse(prices,ind+1,2,k);
+            long skip=recurse(prices,ind+1,0,k);
+            return dp[ind][state][k]=Math.max(buy,Math.max(skip,sell));
+        }else if(state==1){
+            long not_sell=recurse(prices,ind+1,1,k);
+            long sell=prices[ind]+recurse(prices,ind+1,0,k-1);
+            return dp[ind][state][k]=Math.max(not_sell,sell);
+        }
+        long buy=-prices[ind]+recurse(prices,ind+1,0,k-1);
+        long not_buy=recurse(prices,ind+1,2,k);
+        return dp[ind][state][k]=Math.max(buy,not_buy);
+    }
+}
