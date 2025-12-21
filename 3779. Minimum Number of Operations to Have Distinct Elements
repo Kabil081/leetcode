@@ -1,0 +1,20 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        int distinct=0;
+        int freq[]=new int[100001];
+        for(int num:nums){
+            freq[num]++;
+            if(freq[num]==2) distinct++;
+        }
+        if(distinct==0) return 0;
+        int n=nums.length/3;
+        for(int i=0;i<n;i++){
+            for(int j=i*3;j<(i*3)+3;j++){
+                freq[nums[j]]--;
+                if(freq[nums[j]]==1) distinct--;
+            }
+            if(distinct==0) return i+1;
+        }
+        return n+(nums.length%3>0?1:0);
+    }
+}
