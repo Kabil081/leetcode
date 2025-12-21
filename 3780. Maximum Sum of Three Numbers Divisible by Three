@@ -1,0 +1,28 @@
+class Solution{
+    public void add(List<Integer> v,int x){
+        v.add(x);
+        if(v.size()>3) v.remove(0);
+    }
+    public int maximumSum(int[] nums){
+        List<List<Integer>> map=new ArrayList<>();
+        Arrays.sort(nums);
+        for(int i=0;i<3;i++) map.add(new ArrayList<>());
+        for(int num:nums){
+            add(map.get(num%3),num);
+        }
+        List<Integer> zeros=map.get(0);
+        List<Integer> ones=map.get(1);
+        List<Integer> twos=map.get(2);
+        int max=0;
+        int zero_size=zeros.size(),one_size=ones.size(),two_size=twos.size();
+        if(zero_size>0 && one_size>0 && two_size>0){
+            max+=zeros.get(zero_size-1); 
+            max+=ones.get(one_size-1); 
+            max+=twos.get(two_size-1);
+        }
+        if(zero_size>=3) max=Math.max(max,zeros.get(zero_size-1)+zeros.get(zero_size-2)+zeros.get(zero_size-3));
+        if(one_size>=3) max=Math.max(max,ones.get(one_size-1)+ones.get(one_size-2)+ones.get(one_size-3));
+        if(two_size>=3) max=Math.max(max,twos.get(two_size-1)+twos.get(two_size-2)+twos.get(two_size-3));
+        return max;
+    }
+}
