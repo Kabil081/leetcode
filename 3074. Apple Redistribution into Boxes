@@ -1,0 +1,28 @@
+class Solution{
+    public int minimumBoxes(int[] apple, int[] capacity){
+        Arrays.sort(capacity);
+        Arrays.sort(apple);
+        int n=capacity.length;
+        int prefix[]=new int[n];
+        prefix[0]=capacity[n-1];
+        int sum=0;
+        for(int app:apple) sum+=app;
+        for(int i=1;i<n;i++){
+            prefix[i]=prefix[i-1]+capacity[n-i-1];
+        }
+        return bsearch(sum,0,n-1,prefix)+1;
+    }
+    public int bsearch(int sum,int left,int right,int prefix[]){
+        int ans=0;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(prefix[mid]>=sum){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+}
