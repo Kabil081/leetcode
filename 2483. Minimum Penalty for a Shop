@@ -1,0 +1,25 @@
+class Solution{
+    public int bestClosingTime(String customers){
+        int y_count=0;
+        int total=customers.length();
+        for(char ch:customers.toCharArray()){
+            if(ch=='Y') y_count++;
+        }
+        if(y_count==total || y_count==0) return y_count;
+        int cur_y=0,ind=-1;
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<total;i++){
+            int till_n=i-cur_y;
+            int up_y=y_count-cur_y;
+            if(till_n+up_y<min){
+                min=till_n+up_y;
+                ind=i;
+            }
+            if(customers.charAt(i)=='Y') cur_y++;
+        }
+        if(total-y_count<min){
+            ind=total;
+        }
+        return ind;
+    }
+}
