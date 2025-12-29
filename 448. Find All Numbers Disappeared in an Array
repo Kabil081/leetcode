@@ -1,0 +1,13 @@
+class Solution{
+    public List<Integer> findDisappearedNumbers(int[] nums){
+        List<Integer> list=new ArrayList<>();
+        boolean is_exist[]=new boolean[nums.length+1];
+        for(int num:nums){
+            is_exist[num]=true;
+        }
+        for(int i=1;i<=nums.length;i++){
+            if(!is_exist[i]) list.add(i);
+        }
+        return list;
+    }
+}
