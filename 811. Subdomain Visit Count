@@ -1,0 +1,27 @@
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String,Integer> visits=new HashMap<>();
+        for(String str:cpdomains){
+            String domain[]=str.split(" ");
+            int val=Integer.parseInt(domain[0]);
+            String subdomains[]=domain[1].split("\\.");
+            int len=subdomains.length;
+            StringBuilder cur=new StringBuilder();
+            cur.append(subdomains[len-1]);
+            visits.put(cur.toString(),visits.getOrDefault(cur.toString(),0)+val);
+            for(int i=len-2;i>=0;i--){
+                cur.insert(0,".");
+                cur.insert(0,subdomains[i]);
+                visits.put(cur.toString(),visits.getOrDefault(cur.toString(),0)+val);
+            }
+        }
+        List<String> res=new ArrayList<>();
+        for(Map.Entry<String,Integer> entry:visits.entrySet()){
+            StringBuilder sb=new StringBuilder();
+            sb.append(entry.getValue());
+            sb.append(" "+entry.getKey());
+            res.add(sb.toString());
+        }
+        return res;
+    }
+}
