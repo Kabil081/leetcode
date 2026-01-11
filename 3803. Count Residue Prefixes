@@ -1,0 +1,16 @@
+class Solution {
+    public int residuePrefixes(String s){
+        int freq[]=new int[26];
+        int distinct=0;
+        int ans=0;
+        for(int i=1;i<=s.length();i++){
+            int ind=s.charAt(i-1)-'a';
+            if(freq[ind]==0){
+                distinct++;
+            }
+            freq[ind]++;
+            if(i%3==distinct) ans++;
+        }
+        return ans;
+    }
+}
