@@ -1,0 +1,15 @@
+class Solution{
+    public int centeredSubarrays(int[] nums){
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            Map<Integer,Integer> map=new HashMap<>();
+            int sum=0;
+            for(int j=i;j<nums.length;j++){
+                map.put(nums[j],1);
+                sum+=nums[j];
+                if(map.containsKey(sum)) count++;
+            }
+        }
+        return count;
+    }
+}
