@@ -1,0 +1,25 @@
+class Solution{
+    public long countPairs(String[] words){
+        Map<String,Integer> map=new HashMap<>();
+        long count=0;
+        for(String str:words){
+            int inc=str.charAt(0)-'a';
+            inc=26-inc;
+            StringBuilder sb=new StringBuilder();
+            for(char ch:str.toCharArray()){
+                int ind=ch-'a';
+                ind+=inc;
+                ind%=26;
+                sb.append((char)(ind+'a'));
+            }
+            String s=sb.toString();
+            if(map.containsKey(s)){
+                count+=map.get(s);
+                map.put(s,map.get(s)+1);
+            }else{
+                map.put(s,1);
+            }
+        }
+        return count;
+    }
+}
