@@ -1,0 +1,22 @@
+class Solution{
+    public int maximizeSquareHoleArea(int n,int m,int[] h,int[] v){
+        int max_h=max(h);
+        int max_v=max(v);
+        int side=Math.min(max_h,max_v)+1;
+        return side*side;
+    }
+    public int max(int bars[]){
+        if(bars.length==0) return 0;
+        Arrays.sort(bars);
+        int max_len=1,cur_len=1;
+        for(int i=1;i<bars.length;i++){
+            if(bars[i]==bars[i-1]+1){
+                cur_len++;
+                max_len=Math.max(max_len,cur_len);
+            }else{
+                cur_len=1;
+            }
+        }
+        return max_len;
+    }
+}
