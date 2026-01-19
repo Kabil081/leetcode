@@ -1,0 +1,44 @@
+class Solution{
+    public int maxSideLength(int[][] mat, int threshold){
+        int m=mat.length;
+        int n=mat[0].length;
+        int suffix[][]=new int[m][n];
+        for(int i=0;i<m;i++){
+            suffix[i][0]=mat[i][0];
+            for(int j=1;j<n;j++){
+                suffix[i][j]=suffix[i][j-1]+mat[i][j];
+            }
+        }
+        return bsearch(0,Math.min(m,n),suffix,threshold);
+    }
+    public int bsearch(int left,int right,int mat[][],int thres){
+        int ans=0;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(is_valid(mat,mid,thres)){
+                ans=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return ans;
+    }
+    public boolean is_valid(int mat[][],int size,int thres){
+        int m=mat.length;
+        int n=mat[0].length;
+        for(int i=0;i<=m-size;i++){
+            for(int j=0;j<=n-size;j++){
+                if(sqaure_sum(mat,size,i,j,thres)) return true;
+            }
+        }
+        return false;
+    }
+    public boolean sqaure_sum(int mat[][],int size,int row,int col,int thres){
+        int sum=0;
+        for(int i=0;i<size;i++){
+            sum=sum+(mat[row+i][col+size-1]-(col==0?0:mat[row+i][col-1]));
+        }
+        return sum<=thres;
+    }
+}
