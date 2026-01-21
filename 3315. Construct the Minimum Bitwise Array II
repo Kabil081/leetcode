@@ -1,0 +1,15 @@
+class Solution {
+    public int[] minBitwiseArray(List<Integer> nums) {
+        int len=nums.size();
+        int answer[]=new int[len];
+        for(int i=0;i<len;i++){
+            int k=nums.get(i),ans=-1,n=1;
+            while((k&n)!=0){
+                ans=k-n;
+                n<<=1;
+            }
+            answer[i]=ans;
+        }
+        return answer;
+    }
+}
