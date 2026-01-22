@@ -1,0 +1,77 @@
+class Solution{
+    public int maxCapacity(int[] costs, int[] capacity,int budget){
+        int n=costs.length;
+        mergesort(costs,capacity,0,n-1);
+        int max=0;
+        int prefMax[]=new int[n];
+        prefMax[0]=capacity[0];
+        for(int i=1;i<n;i++) prefMax[i]=Math.max(prefMax[i-1],capacity[i]);
+        for(int i=0;i<n;i++){
+            int cost=costs[i];
+            int cap=capacity[i];
+            if(cost<budget) max=Math.max(max,cap);
+            int ind=bsearch(costs,0,i-1,budget-cost);
+            if(ind!=-1) max=Math.max(max,cap+prefMax[ind]);
+        }
+        return max;
+    }
+    public int bsearch(int costs[],int left,int right,int budget){
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(costs[mid]<budget){
+                ans=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return ans;
+    }
+    public void merge(int nums[],int nums2[],int l,int m,int r){
+        int n1=m-l+1;
+        int n2=r-m;
+        int left[]=new int[n1];
+        int right[]=new int[n2];
+        for(int i=0;i<n1;i++) left[i]=nums[l+i];
+        for(int j=0;j<n2;j++) right[j]=nums[m+1+j];
+        int left2[]=new int[n1];
+        int right2[]=new int[n2];
+        for(int i=0;i<n1;i++) left2[i]=nums2[l+i];
+        for(int j=0;j<n2;j++) right2[j]=nums2[m+1+j];
+        int k=l;
+        int i=0,j=0;
+        while(i<n1 && j<n2){
+            if(left[i]<right[j]){
+                nums[k]=left[i];
+                nums2[k]=left2[i];
+                i++;
+            }else{
+                nums[k]=right[j];
+                nums2[k]=right2[j];
+                j++;
+            }
+            k++;
+        }
+        while(i<n1){
+            nums[k]=left[i];
+            nums2[k]=left2[i];
+            i++;
+            k++;
+        }    
+        while(j<n2){
+            nums[k]=right[j];
+            nums2[k]=right2[j];
+            j++;
+            k++;
+        }
+    } 
+    public void mergesort(int nums[],int nums2[],int left,int right){
+        if(left<right){
+            int mid=left+(right-left)/2;
+            mergesort(nums,nums2,left,mid);
+            mergesort(nums,nums2,mid+1,right);
+            merge(nums,nums2,left,mid,right);
+        }
+    }
+}
