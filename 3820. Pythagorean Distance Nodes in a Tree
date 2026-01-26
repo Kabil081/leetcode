@@ -1,0 +1,46 @@
+class Solution{
+    public int specialNodes(int n, int[][] edges, int x, int y, int z){
+        List<List<Integer>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(i,new ArrayList<>());
+        }
+        for(int edge[]:edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        int dx[]=bfs(x,graph,n);
+        int dy[]=bfs(y,graph,n);
+        int dz[]=bfs(z,graph,n);
+        int ans=0;
+        for(int i=0;i<n;i++){
+            if(square(dx[i])+square(dy[i])==square(dz[i])
+              || square(dy[i])+square(dz[i])==square(dx[i])
+              || square(dz[i])+square(dx[i])==square(dy[i])
+                ) ans++;
+        }
+        return ans;
+    }
+    public int square(int num){
+        return num*num;
+    }
+    public int[] bfs(int node,List<List<Integer>> graph,int n){
+        int arr[]=new int[n];
+        boolean visited[]=new boolean[n];
+        Arrays.fill(arr,-1);
+        Deque<int[]> queue=new ArrayDeque<>();
+        queue.addLast(new int[]{node,0});
+        visited[node]=true;
+        while(!queue.isEmpty()){
+            int cur[]=queue.removeFirst();
+            int cur_node=cur[0];
+            int dis=cur[1];
+            arr[cur_node]=dis;
+            for(int neighbour:graph.get(cur_node)){
+                if(visited[neighbour]) continue;
+                queue.addLast(new int[]{neighbour,dis+1});
+                visited[neighbour]=true;
+            }
+        }
+        return arr;
+    }
+}
