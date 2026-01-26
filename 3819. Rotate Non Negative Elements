@@ -1,0 +1,23 @@
+class Solution{
+    public int[] rotateElements(int[] nums, int k){
+        if(k==0) return nums;
+        List<Integer> elements=new ArrayList<>();
+        List<Integer> index=new ArrayList<>();
+        int n=nums.length;
+        for(int i=0;i<n;i++){
+            if(nums[i]>=0){
+                elements.add(nums[i]);
+                index.add(i);
+            }
+        }
+        int size=elements.size();
+        if(size==0) return nums;
+        k=k%size;
+        for(int i=0;i<size;i++){
+            int num=elements.get(i);
+            int ind=(i-k+size)%size;
+            nums[index.get(ind)]=num;
+        }
+        return nums;
+    }
+}
