@@ -1,0 +1,33 @@
+class RideSharingSystem{
+    Queue<Integer> rider;
+    Set<Integer> riders;
+    Queue<Integer> driver;
+    Set<Integer> cancel;
+    public RideSharingSystem(){
+        rider=new ArrayDeque<>();
+        driver=new LinkedList<>();
+        cancel=new HashSet<>();
+        riders=new HashSet<>();
+    }
+    
+    public void addRider(int riderId){
+        rider.add(riderId);
+        riders.add(riderId);
+    }
+    
+    public void addDriver(int driverId) {
+        driver.add(driverId);
+    }
+
+    public int[] matchDriverWithRider() {
+        while(!rider.isEmpty() && cancel.contains(rider.peek())){
+            rider.poll();
+        }
+        if(rider.isEmpty() || driver.isEmpty()) return new int[]{-1,-1};
+        return new int[]{driver.poll(),rider.poll()};
+    }
+    
+    public void cancelRider(int riderId){
+        if(riders.contains(riderId)) cancel.add(riderId);
+    }
+}
