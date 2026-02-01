@@ -1,0 +1,31 @@
+class Solution {
+    public int minimumK(int[] nums) {
+        int max=0;
+        for(int num:nums){
+            max=Math.max(max,num);
+        }
+        return bsearch(1,Math.max(max,nums.length),nums);
+    }
+    public int bsearch(int left,int right,int nums[]){
+        int ans=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(is_valid(mid,nums)){
+                ans=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+    public boolean is_valid(int k,int nums[]){
+        long cur=0;
+        long n=(long)k*k;
+        if(k==0) return false;
+        for(int num:nums){
+            cur+=(num+k-1)/k;
+        }
+        return cur<=n;
+    }
+}
