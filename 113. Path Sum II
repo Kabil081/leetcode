@@ -1,0 +1,26 @@
+class Solution {
+    List<List<Integer>> list=new ArrayList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        helper(root,targetSum,0,new ArrayList<>());
+        return list;
+    }
+    public void helper(TreeNode root,int sum,int cur_sum,List<Integer> cur){
+        if(root==null) return;
+        cur_sum+=root.val;
+        cur.add(root.val);
+        if(root.left==null && root.right==null){
+            if(cur_sum==sum){
+                list.add(new ArrayList<>(cur));
+            }
+            return;
+        }
+        if(root.left!=null){
+            helper(root.left,sum,cur_sum,cur);
+            cur.remove(cur.size()-1);
+        }
+        if(root.right!=null){
+            helper(root.right,sum,cur_sum,cur);
+            cur.remove(cur.size()-1);
+        }
+    }
+}
