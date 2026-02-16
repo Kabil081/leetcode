@@ -1,0 +1,18 @@
+class Solution{
+    public int firstUniqueFreq(int[] nums){
+        int freqCount[]=new int[100001];
+        int freq[]=new int[100001];
+        Set<Integer> set=new HashSet<>();
+        for(int num:nums){
+            freq[num]++;
+            set.add(num);
+        }
+        for(int num:set){
+            freqCount[freq[num]]++;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(freqCount[freq[nums[i]]]==1) return nums[i];
+        }
+        return -1;
+    }
+}
