@@ -1,0 +1,15 @@
+class MyCalendar{
+    TreeSet<int[]> treeset;
+    public MyCalendar(){
+        treeset=new TreeSet<>((a,b)->a[0]-b[0]);
+    }
+    public boolean book(int start,int end){
+        int cur[]=new int[]{start,end};
+        int floor[]=treeset.floor(cur);
+        int ceil[]=treeset.ceiling(cur);
+        if(ceil!=null && ceil[0]<end) return false;
+        if(floor!=null && floor[1]>start) return false;
+        treeset.add(cur);
+        return true;
+    }
+}
