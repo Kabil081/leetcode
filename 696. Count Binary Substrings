@@ -1,0 +1,18 @@
+class Solution{
+    public int countBinarySubstrings(String s){
+        int prev=100001;
+        int cur=1;
+        int ans=0;
+        for(int i=1;i<s.length();i++){
+            if(s.charAt(i)!=s.charAt(i-1)){
+                prev=cur;
+                cur=1;
+                ans++;
+            }else{
+                cur++;
+                if(prev!=100001 && prev>=cur) ans++;
+            }
+        }
+        return ans;
+    }
+}
