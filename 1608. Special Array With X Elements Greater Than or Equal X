@@ -1,0 +1,19 @@
+class Solution{
+    public int specialArray(int[] nums){
+        int x=nums.length;
+        int count[]=new int[x+1];
+        for(int num:nums){
+            if(num>=x){
+                count[x]++;
+            }else{
+                count[num]++;
+            }
+        }
+        int cur=0;
+        for(int i=x;i>0;i--){
+            cur+=count[i];
+            if(cur==i) return i;
+        }
+        return -1;
+    }
+}
