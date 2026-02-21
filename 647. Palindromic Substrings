@@ -1,0 +1,21 @@
+class Solution{
+    public int countSubstrings(String s){
+        int n=s.length();
+        int dp[][]=new int[n][n];
+        for(int arr[]:dp){
+            Arrays.fill(arr,-1);
+        }
+        int count=0;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                count+=recurse(dp,i,j,s);
+            }
+        }
+        return count;
+    }
+    public int recurse(int dp[][],int i,int j,String s){
+        if(i>=j) return 1;
+        if(dp[i][j]!=-1) return dp[i][j];
+        return dp[i][j]=s.charAt(i)==s.charAt(j)?recurse(dp,i+1,j-1,s):0;
+    }
+}
