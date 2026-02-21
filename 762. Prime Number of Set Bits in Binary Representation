@@ -1,0 +1,21 @@
+class Solution{
+    Set<Integer> set=Set.of(2,3,5,7,11,13,17,19);
+    public int countPrimeSetBits(int left, int right){
+        int ans=0;
+        for(int i=left;i<=right;i++){
+            if(isPrime(count_set_bits(i))) ans++;
+        }
+        return ans;
+    }
+    public boolean isPrime(int n){
+        return set.contains(n);
+    }
+    public int count_set_bits(int n){
+        int count=0;
+        while(n!=0){
+            n=n&(n-1);
+            count++;
+        }
+        return count;
+    }
+}
