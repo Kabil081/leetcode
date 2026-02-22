@@ -1,0 +1,25 @@
+class Solution{
+    Map<String,Integer> memo=new HashMap<>();
+    public int countSequences(int[] nums, long k){
+        return dfs(nums,1,1,0,k);
+    }
+    public int dfs(int nums[],long n,long d,int ind,long k){
+        if(ind==nums.length){
+            return (k*n==d)?1:0;
+        }
+        long g=gcd(n,d);
+        n/=g;
+        d/=g;
+        String key=ind+"#"+n+"#"+d;
+        if(memo.containsKey(key)) return memo.get(key);
+        int count=0; 
+        count+=dfs(nums,n*nums[ind],d,ind+1,k);
+        count+=dfs(nums,n,d*nums[ind],ind+1,k);
+        count+=dfs(nums,n,d,ind+1,k);
+        memo.put(key,count);
+        return count;
+    }
+    public long gcd(long a,long b){
+        return (b==0)?a:gcd(b,a%b);
+    }
+}
