@@ -1,0 +1,33 @@
+class Solution{
+    int max=0;
+    public int maxCompatibilitySum(int[][] students, int[][] mentors){
+        int m=students.length;
+        int compat[][]=new int[m][m];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<m;j++){
+                compat[i][j]=compute(students[i],mentors[j]);
+            }
+        }
+        permute(0,new boolean[m],0,compat);
+        return max;
+    }
+    public void permute(int ind,boolean visited[],int score,int compat[][]){
+        if(ind==visited.length){
+            max=Math.max(max,score);
+            return;
+        }
+        for(int j=0;j<visited.length;j++){
+            if(visited[j]) continue;
+            visited[j]=true;
+            permute(ind+1,visited,score+compat[ind][j],compat);
+            visited[j]=false;
+        }
+    }
+    public int compute(int students[],int mentors[]){
+        int score=0;
+        for(int i=0;i<students.length;i++){
+            score+=students[i]==mentors[i]?1:0;
+        }
+        return score;
+    }
+}
