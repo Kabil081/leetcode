@@ -1,0 +1,18 @@
+class Solution{
+    public int[] sortByBits(int[] arr){
+        TreeMap<Integer,List<Integer>> tree_map=new TreeMap<>();
+        int n=arr.length;
+        int res[]=new int[n];
+        int ind=0;
+        Arrays.sort(arr);
+        for(int num:arr){
+            int bit_count=Integer.bitCount(num);
+            tree_map.computeIfAbsent(bit_count, k -> new ArrayList<>()).add(num);   
+        }
+        for(Map.Entry<Integer,List<Integer>> entry:tree_map.entrySet()){
+            List<Integer> values=entry.getValue();
+            for(int num:values) res[ind++]=num;
+        }
+        return res;
+    }
+}
