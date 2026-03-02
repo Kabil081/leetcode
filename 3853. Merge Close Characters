@@ -1,0 +1,22 @@
+class Solution {
+    public String mergeCharacters(String s, int k) {
+        StringBuilder sb=new StringBuilder(s);
+        boolean flag=true;
+        while(flag){
+            System.out.println(sb.toString());
+            if(!is_valid(sb,k)) flag=false;
+        }
+        return sb.toString();
+    }
+    public boolean is_valid(StringBuilder sb,int k){
+        for(int i=0;i<sb.length();i++){
+                for(int j=i+1;j<sb.length();j++){
+                    if(j-i<=k && sb.charAt(i)==sb.charAt(j)){
+                        sb.deleteCharAt(j);
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+}
