@@ -1,0 +1,15 @@
+class Solution {
+    int sum=0;
+    public int minCost(int n) {
+        is_valid(n);
+        return sum;
+    }
+    public void is_valid(int n){
+        if(n==1) return;
+        int even=n/2;
+        int odd=n-even; 
+        sum+=even*odd;
+        is_valid(even);
+        is_valid(odd);
+    }
+}
