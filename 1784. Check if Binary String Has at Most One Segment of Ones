@@ -1,0 +1,10 @@
+class Solution {
+    public boolean checkOnesSegment(String s) {
+        boolean is_valid=false;
+        for(int i=1;i<s.length();i++){
+            if(s.charAt(i)=='0') is_valid=true;
+            else if(s.charAt(i)=='1' && is_valid) return false; 
+        }
+        return true;
+    }
+}
