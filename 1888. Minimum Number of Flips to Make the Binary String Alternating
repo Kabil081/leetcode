@@ -1,0 +1,24 @@
+class Solution{
+    public int minFlips(String s){
+        int min_flips=0;
+        int n=s.length();
+        int mis_match=0;
+        String alternate="01";
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)!=alternate.charAt(i&1)){
+                mis_match++;
+            }   
+        }
+        min_flips=Math.min(mis_match,n-mis_match);
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)!=alternate.charAt(i&1)){
+                --mis_match;
+            }
+            if(s.charAt(i)!=alternate.charAt((i+n)&1)){
+                ++mis_match;
+            }
+            min_flips=Math.min(min_flips,Math.min(mis_match,n-mis_match));
+        }
+        return min_flips;
+    }
+}
