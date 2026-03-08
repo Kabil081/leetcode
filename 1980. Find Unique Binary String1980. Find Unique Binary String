@@ -1,0 +1,26 @@
+class Solution {
+    String res="";
+    public String findDifferentBinaryString(String[] nums) {
+        Set<String> set=new HashSet<>();
+        for(String str:nums){
+            set.add(str);
+        }
+        dfs(set,new StringBuilder(),nums[0].length());
+        return res;
+    }
+    public boolean dfs(Set<String> set,StringBuilder sb,int n){
+        if(sb.length()==n){
+            if(!set.contains(sb.toString())){
+                res=sb.toString();
+                return true;
+            }
+            return false;
+        }
+        for(char i='0';i<='1';i++){
+            sb.append(i);
+            if(dfs(set,sb,n)) return true;
+            sb.deleteCharAt(sb.length()-1);
+        }
+        return false;
+    }
+}
