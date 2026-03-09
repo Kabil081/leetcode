@@ -1,0 +1,18 @@
+class Solution{
+    public long minCost(String s, int e, int f){
+        return dfs(s,e,f,0,s.length()-1);
+    }
+    public long dfs(String s,int end,int flat,int l,int r){
+        if(l>r) return 0;
+        int ones=0;
+        int n=r-l+1;
+        for(int i=l;i<=r;i++) if(s.charAt(i)=='1') ones++;
+        long cost=0;
+        if(ones==0) cost=flat;
+        else cost=(long)n*end*ones;
+        if(n%2==1) return cost;
+        int mid=l+(r-l)/2;
+        long split=dfs(s,end,flat,l,mid)+dfs(s,end,flat,mid+1,r);
+        return Math.min(cost,split);
+    }
+}
