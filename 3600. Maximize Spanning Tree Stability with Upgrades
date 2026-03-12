@@ -1,0 +1,63 @@
+class Solution{
+    int components;
+    int parent[];
+    int size[];
+    public int findParent(int x){
+        return parent[x]==x?x:(parent[x]=findParent(parent[x]));
+    }
+    public boolean union(int x,int y){
+        int px=findParent(x);
+        int py=findParent(y);
+        if(px==py) return false;
+        if(size[py]>size[px]){
+            parent[px]=py;
+            size[py]+=size[px];
+        }else{
+            parent[py]=px;
+            size[px]+=size[py];
+        }
+        components--;
+        return true;
+    }
+    public int maxStability(int n, int[][] edges, int k){
+        components=n;
+        parent=new int[n];
+        size=new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            size[i]=1;
+        }
+        List<int[]> must=new ArrayList<>();
+        List<int[]> flex=new ArrayList<>();
+        for(int e[]:edges){
+            if(e[3]==1) must.add(e);
+            else flex.add(e);
+        }
+        int min=Integer.MAX_VALUE;
+        for(int e[]:must){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+            if(!union(u,v)) return -1;
+            min=Math.min(min,w); 
+        }
+        flex.sort((a,b)->b[2]-a[2]);
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int e[]:flex){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+            if(union(u,v)){
+                pq.add(w);
+            }
+        }
+        while(k>0 && !pq.isEmpty()){
+            int cur=pq.poll();
+            min=Math.min(min,cur*2);
+            k--;
+        }
+        if(components!=1) return -1;
+        if(!pq.isEmpty()) min=Math.min(min,pq.peek());
+        return min;
+    }
+}
