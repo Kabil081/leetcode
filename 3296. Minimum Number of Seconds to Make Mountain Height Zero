@@ -1,0 +1,45 @@
+class Solution{
+    public long minNumberOfSeconds(int h, int[] workerTimes){
+        long max=0;
+        for(int num:workerTimes){
+            max=Math.max(max,(long)num*((long)h*(h+1)/2));
+        }
+        return bsearch(1,max,workerTimes,h);
+    }
+    public long bsearch(long start,long end,int time[],int h){
+        long ans=-1;
+        while(start<=end){
+            long mid=start+(end-start)/2;
+            if(is_valid(mid,time,h)){
+                ans=mid;
+                end=mid-1;
+            }else{
+                start=mid+1;
+            }
+        }
+        return ans;
+    }
+    public boolean is_valid(long limit,int time[],int h){
+        int cur_h=0;
+        for(int num:time){
+            cur_h+=find_height(num,h,limit);
+        }
+        return cur_h>=h;
+    }
+    public int find_height(int num,int h,long limit){
+        int ans=0;
+        int start=1,end=h;
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            long cur_h=((long)mid*(mid+1))/2;
+            long cur=(long)num*cur_h;
+            if(cur<=limit){
+                ans=mid;
+                start=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return ans;
+    }
+}
