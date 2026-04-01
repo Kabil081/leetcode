@@ -1,0 +1,38 @@
+class Solution{
+    public List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions){
+        int n=positions.length;
+        Integer order[]=new Integer[n];
+        for(int i=0;i<n;i++) order[i]=i;
+        boolean alive[]=new boolean[n];
+        Arrays.fill(alive,true);
+        Arrays.sort(order,(a,b)->positions[a]-positions[b]);
+        Deque<Integer> st=new ArrayDeque<>();
+        for(int idx:order){
+            if(directions.charAt(idx)=='R') st.addLast(idx);
+            else{
+                while(!st.isEmpty()){
+                    int top=st.getLast();
+                    if(healths[top]>healths[idx]){
+                        alive[idx]=false;
+                        healths[top]--;
+                        break;
+                    }else if(healths[idx]>healths[top]){
+                        alive[top]=false;
+                        healths[idx]--;
+                        st.removeLast();
+                    }else{
+                        alive[top]=false;
+                        alive[idx]=false;
+                        st.removeLast();
+                        break;
+                    }
+                }
+            }
+        }
+        List<Integer> res=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(alive[i]) res.add(healths[i]);
+        }
+        return res;
+    }
+}
