@@ -1,0 +1,25 @@
+class Solution{
+    public String decodeCiphertext(String encodedText,int rows){
+        int cols=encodedText.length()/rows;
+        char arr[][]=new char[rows][cols];
+        int ind=0;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                arr[i][j]=encodedText.charAt(ind++);
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        int i=0,j=0;
+        while(j<cols){
+            int j1=j;
+            int i1=i;
+            while(i1<rows && j1<cols){
+                sb.append(arr[i1][j1]);
+                j1++;
+                i1++;
+            }
+            j++;
+        }
+        return sb.toString().stripTrailing();
+    }
+}
