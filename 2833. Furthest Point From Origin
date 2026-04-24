@@ -1,0 +1,13 @@
+class Solution{
+    public int furthestDistanceFromOrigin(String moves){
+        int l=0;
+        int r=0;
+        int space=0;
+        for(char ch:moves.toCharArray()){
+            if(ch=='L') l++;
+            else if(ch=='R') r++;
+            else space++;
+        }
+        return (space+Math.max(l,r))-Math.min(l,r); 
+    }
+}
