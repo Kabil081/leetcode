@@ -1,0 +1,17 @@
+class Solution {
+    public int compareBitonicSums(int[] nums) {
+        long sum=0;
+        for(int i:nums) sum+=i;
+        long left_sum=nums[0];
+        for(int i=1;i<nums.length-1;i++){
+            if(nums[i]>nums[i-1] && nums[i]>nums[i+1]){
+                long right_sum=sum-(left_sum+nums[i]);
+                if(left_sum>right_sum) return 0;
+                else if(left_sum<right_sum) return 1;
+                else return -1;
+            }
+            left_sum+=nums[i];
+        }
+        return -1;
+    }
+}
