@@ -1,0 +1,23 @@
+class Solution {
+    boolean visited[];
+    int n;
+    public boolean canReach(int[] arr, int start) {
+        n=arr.length;
+        visited=new boolean[n];
+        return dp(arr,start);
+    }
+    public boolean dp(int arr[],int ind){
+        if(arr[ind]==0) return true;
+        int forward=ind+arr[ind];
+        int backward=ind-arr[ind];
+        if(forward<n && !visited[forward]){
+            visited[forward]=true;
+            if(dp(arr,forward)) return true;
+        } 
+        if(backward>=0 && !visited[backward]){
+            visited[backward]=true;
+            if(dp(arr,backward)) return true;
+        }
+        return false;
+    }
+}
