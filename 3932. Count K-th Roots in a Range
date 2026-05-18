@@ -1,0 +1,14 @@
+class Solution {
+    public int countKthRoots(int l, int r, int k) {
+        if(k==1) return r-l+1;
+        List<Integer> list=new ArrayList<>();
+        int ind=0;
+        int count=0;
+        while(r>=Math.pow(ind,k)){
+            int val=(int)Math.pow(ind,k);
+            if(val>=l && val<=r) count++;
+            ind++;
+        }
+        return count;
+    }
+}
