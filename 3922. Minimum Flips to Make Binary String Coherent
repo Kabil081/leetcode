@@ -1,0 +1,16 @@
+class Solution{
+    public int minFlips(String s){
+        int zeros=0,ones=0;
+        for(char ch:s.toCharArray()){
+            if(ch=='1'){
+                ones++;
+            }else{
+                zeros++;
+            }
+        }
+        int min=Math.min(zeros,ones-1);
+        if(s.charAt(0)=='1' && s.charAt(s.length()-1)=='1') min=Math.min(min,ones-2);
+        if(s.charAt(0)!='1' && s.charAt(s.length()-1)!='1') min=Math.min(min,ones+2);
+        return min>=0?min:0;
+    }
+}
