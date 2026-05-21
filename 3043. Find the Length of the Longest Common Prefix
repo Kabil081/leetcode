@@ -1,0 +1,28 @@
+class Solution {
+    public int longestCommonPrefix(int[] arr1, int[] arr2) {
+        Set<Integer> set=new HashSet<>();
+        for(int num:arr1){
+            possible(set,num);
+        }
+        int max=0;
+        for(int num:arr2){
+            max=Math.max(max,prefix(set,num));
+        }
+        return max;
+    }
+    public void possible(Set<Integer>set,int num){
+        while(num>0){
+            set.add(num);
+            num/=10;
+        }
+    }
+    public int prefix(Set<Integer> set,int num){
+        int l=String.valueOf(num).length();
+        while(num>0){
+            if(set.contains(num)) return l;
+            num/=10;
+            l--;
+        }
+        return 0;
+    }
+}
