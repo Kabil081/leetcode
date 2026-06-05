@@ -1,0 +1,20 @@
+class Solution{
+    public int totalWaviness(int num1, int num2){
+        int ans=0;
+        for(int i=num1;i<=num2;i++){
+            ans+=helper(i);
+        }
+        return ans;
+    }
+    public int helper(int num){
+        int count=0;
+        String s=String.valueOf(num);
+        for(int i=1;i<s.length()-1;i++){
+            int prev=s.charAt(i-1)-'0';
+            int cur=s.charAt(i)-'0';
+            int next=s.charAt(i+1)-'0';
+            if((cur>prev && cur>next) || (cur<prev && cur<next)) count++;
+        }
+        return count;
+    }
+}
