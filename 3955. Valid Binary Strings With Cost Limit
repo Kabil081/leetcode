@@ -1,0 +1,23 @@
+class Solution {
+    List<String> res=new ArrayList<>();
+    public List<String> generateValidStrings(int n, int k) {
+        helper(n,k,new StringBuilder(),0);
+        return res;
+    }
+    public void helper(int n,int k,StringBuilder sb,int cost){
+        if(sb.length()==n){
+            res.add(sb.toString());
+            return;
+        }
+        helper(n,k,sb.append(0),cost);
+        sb.deleteCharAt(sb.length()-1);
+        int len=sb.length();
+        if(len==0){
+            helper(n,k,sb.append(1),cost+len);
+            sb.deleteCharAt(sb.length()-1);
+        }else if(sb.charAt(len-1)=='0' && cost+len<=k){
+            helper(n,k,sb.append(1),cost+len);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+}
