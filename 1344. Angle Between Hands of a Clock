@@ -1,0 +1,13 @@
+class Solution{
+    public double angleClock(int hour, int minutes){
+        double min=minutes/5;
+        min*=30;
+        int rem=minutes%5;
+        min+=rem*6;
+        hour%=12;
+        double h=hour*30;
+        h+=minutes/2;
+        if(minutes%2==1) h+=0.5;
+        return Math.min(Math.abs(h-min),360-Math.abs(h-min));
+    }
+}
