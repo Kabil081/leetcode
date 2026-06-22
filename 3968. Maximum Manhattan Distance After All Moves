@@ -1,0 +1,21 @@
+class Solution{
+    public int maxDistance(String moves){
+        int left=0,right=0,up=0,down=0,underscore=0;
+        for(char ch:moves.toCharArray()){
+            if(ch=='L'){
+                left++;
+            }else if(ch=='R'){
+                right++;
+            }else if(ch=='U'){
+                up++;
+            }else if(ch=='D'){
+                down++;
+            }else{
+                underscore++;
+            }
+        }
+        int h=Math.abs(left-right);
+        int v=Math.abs(up-down);
+        return h+v+underscore;
+    }
+}
