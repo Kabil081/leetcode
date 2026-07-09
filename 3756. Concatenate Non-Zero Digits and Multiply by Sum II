@@ -1,0 +1,45 @@
+class Solution{
+    public int[] sumAndMultiply(String s,int[][] queries){
+        int n=s.length();
+        int power[]=new int[n];
+        long pow10[]=new long[n+1];
+        long prefix_num[]=new long[n];
+        long prefix_sum[]=new long[n];
+        int mod=1000000007;
+        if(s.charAt(0)!='0'){
+            prefix_num[0]=(long)(s.charAt(0)-'0');
+            prefix_sum[0]=(long)(s.charAt(0)-'0');
+            power[0]=0;
+        }
+        for(int i=1;i<n;i++){
+            int val=s.charAt(i)-'0';
+            if(val>0){
+                prefix_num[i]=(long)(((prefix_num[i-1]*10)+val)%mod+mod)%mod;
+                prefix_sum[i]=((prefix_sum[i-1]+val)%mod+mod)%mod;
+                power[i]=power[i-1]+1;
+            }else{
+                power[i]=power[i-1];
+                prefix_num[i]=prefix_num[i-1];
+                prefix_sum[i]=prefix_sum[i-1];
+            }
+        }
+        pow10[0]=1;
+        for(int i=1;i<=n;i++){
+            pow10[i]=((pow10[i-1]*10L)%mod+mod)%mod;
+        }
+        int ans[]=new int[queries.length];
+        for(int i=0;i<queries.length;i++){
+            int start=queries[i][0];
+            int end=queries[i][1];
+            if(start==0){
+                ans[i]=(int)((prefix_sum[end]*prefix_num[end])%mod+mod)%mod;
+            }else{
+                long mul=pow10[power[end]-power[start-1]];
+                long val=(prefix_num[end]-(prefix_num[start-1]*mul)%mod+mod)%mod;
+                long sum=prefix_sum[end]-prefix_sum[start-1];
+                ans[i]=(int)((val*sum)%mod+mod)%mod;
+            }
+        }
+        return ans;
+    }
+}
