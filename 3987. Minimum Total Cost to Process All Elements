@@ -1,0 +1,10 @@
+class Solution{
+    public int minimumCost(int[] nums, int k){
+        long cost=0,mod=1000000007;
+        for(int ele:nums){
+            cost+=ele;
+        }
+        long x=(cost+k-1)/k % mod;
+        return (int)((x-1)*x/2% mod);
+    }
+}
