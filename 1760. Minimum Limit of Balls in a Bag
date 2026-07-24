@@ -1,0 +1,28 @@
+class Solution {
+    public int minimumSize(int[] nums, int maxOperations) {
+        int max=0;
+        for(int num:nums){
+            max=Math.max(max,num);
+        }
+        return bsearch(nums,maxOperations,max);
+    }
+    public int bsearch(int nums[],int maxOp,int right){
+        int left=1;
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(is_valid(mid,nums,maxOp)){
+                right=mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return right;
+    }
+    public boolean is_valid(int ans,int nums[],int op){
+        for(int num:nums){
+                op-=(num-1)/ans;
+                if(op<0) return false;
+        }
+        return true;
+    }
+}
