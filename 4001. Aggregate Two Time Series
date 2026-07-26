@@ -1,0 +1,34 @@
+class Solution{
+    public List<List<Integer>> aggregateTimeSeries(int[][] series1, int[][] series2) {
+        List<List<Integer>> ans=new ArrayList<>();
+        int left=0,right=0;
+        int n=series1.length;
+        int m=series2.length;
+        while(left<n && right<m){
+            int left_time=series1[left][0];
+            int left_val=series1[left][1];
+            int right_time=series2[right][0];
+            int right_val=series2[right][1];
+            int cur_time=left_time;
+            if(left_time>right_time){
+                cur_time=right_time;
+                right++;
+            }else if(left_time<right_time){
+                left++;
+            }else{
+                left++;
+                right++;
+            }
+            ans.add(Arrays.asList(cur_time,left_val+right_val));
+        }
+        while(left<n){
+            ans.add(Arrays.asList(series1[left][0],series1[left][1]));
+            left++;
+        }
+        while(right<m){
+            ans.add(Arrays.asList(series2[right][0],series2[right][1]));
+            right++;
+        }
+        return ans;
+    }
+}
