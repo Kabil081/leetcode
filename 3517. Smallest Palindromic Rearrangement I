@@ -1,0 +1,29 @@
+class Solution{
+    public String smallestPalindrome(String s){
+        int freq[]=new int[26];
+        for(char ch:s.toCharArray()){
+            freq[ch-'a']++;
+        }
+        int mid=-1;
+        for(int i=0;i<26;i++){
+            if(freq[i]%2==1){
+                mid=i;
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        if(mid!=-1){
+            char ch=(char)(mid+'a');
+            sb.append(ch);
+            freq[mid]--;
+        }
+        for(int i=25;i>=0;i--){
+            if(freq[i]>1){
+                char ch=(char)(i+'a');
+                String str=String.valueOf(ch).repeat(freq[i]/2);
+                sb.insert(0,str);
+                sb.append(str);
+            }
+        }
+        return sb.toString();
+    }
+}
