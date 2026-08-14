@@ -1,0 +1,20 @@
+class Solution{
+    public double minPrice(int[] prices, int[] discounts){
+        Arrays.sort(prices);
+        Arrays.sort(discounts);
+        int n=prices.length;
+        int m=discounts.length;
+        int l=n-1,r=m-1;
+        double ans=0;
+        while(l>=0 && r>=0){
+            ans+=(long)prices[l]*(100-discounts[r])/100.0;
+            l--;
+            r--;
+        }
+        while(l>=0){
+            ans+=prices[l];
+            l--;
+        }
+        return ans;
+    }
+}
