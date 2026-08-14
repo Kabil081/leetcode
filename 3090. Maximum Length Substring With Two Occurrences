@@ -1,0 +1,16 @@
+class Solution {
+    public int maximumLengthSubstring(String s) {
+        int ans=2;
+        int l=0;
+        int freq[]=new int[26];
+        for(int i=0;i<s.length();i++){
+            freq[s.charAt(i)-'a']++;
+            while(freq[s.charAt(i)-'a']>2){
+                freq[s.charAt(l)-'a']--;
+                l++;
+            }
+            ans=Math.max(ans,i-l+1);
+        }
+        return ans;
+    }
+}
